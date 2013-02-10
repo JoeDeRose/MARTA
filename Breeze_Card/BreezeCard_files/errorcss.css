@@ -1,0 +1,33 @@
+.errormsg {
+	   font-family: Tahoma, Arial, Helvetica, sans-serif;
+	   font-size:11px; 
+	   font-weight:bold;
+       color: #FF0000;
+}
+
+
+div.informationmsg {
+        font-family: Tahoma, Arial, Helvetica, sans-serif;
+        border: 1px solid #9bb8d9;
+        color: #40B03F;
+        padding: 5px 5px 5px 36px;
+        margin: 5px;
+        width: 50%;
+}
+
+
+.statusmsg {
+		font-family: Tahoma, Arial, Helvetica, sans-serif;
+		font-size:11px;
+		font-weight:bold;
+	   	color: #40B03F;        
+}
+div.warningmsg {       
+		font-family: Tahoma, Arial, Helvetica, sans-serif;        
+        border: 1px solid #ffd324;
+        color: #59A4FF;
+        padding: 5px 5px 5px 36px;
+        margin: 5px;
+        width: 50%;  
+}
+

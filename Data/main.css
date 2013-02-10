@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+
+h1
+	{
+		font-size: 2em;
+		text-align: center;
+	}
+
+h2
+	{
+		font-size: 1.5em;
+		color: crimson;
+	}
+
+table
+	{
+		border-collapse: collapse;
+	}
+
+thead th
+	{
+		background-color: gold;
+		white-space: nowrap;
+	}
+
+table.DataExample thead th
+	{
+		background-color: cornflowerblue;
+	}
+
+th, td
+	{
+		border-width: 1px;
+		border-style: solid;
+		border-color: black;
+		text-align: left;
+		vertical-align: top;
+		padding-left: 0.25em;
+		padding-right: 0.25em;
+	}
+
+p.image
+	{
+		text-align: center;
+	}
+
+.strike
+	{
+		text-decoration: line-through;
+		background-color: #999;
+	}

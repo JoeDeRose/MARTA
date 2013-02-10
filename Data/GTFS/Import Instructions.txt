@@ -1,0 +1,23 @@
+Import Instructions
+
+Get and Prepare Data from MARTA
+(1) Download updated GTFS data from MARTA at http://www.itsmarta.com/marta-developer-resources.aspx.
+(2) Save files into new folder (named after the date) in C:\Users\Joe Laptop\Documents\My Webs\Joe - Bluehost\MARTA\Data\GTFS.
+(3) Create new "upload" folder under the new date folder.
+(4) Copy files to that "upload" folder.
+(5) Rename them all to *.csv.
+(6) Open each one in Notepad++ and remove the field names at top (DO NOT delete the blank line at bottom).
+(7) For any file larger than 20MiB, split it into 20MiB chunks.
+(8) Replace "" with \" (notably in routes, line should look like: 110,"Peachtree St./\"The Peach\"",,3,,808000,)
+
+Move the files to Bluehost
+(1) Open SSH Secure File Transfer.
+(2) Log in to "Bluehost - File" profile.
+(3) Copy the files from the "upload" folder to "/home2/joederos/tmp".
+
+Import the files.
+(1) Log into Bluehost cPanel.
+(2) Open phpMyAdmin (under Databases).
+(3) Log in using joederos and the main password.
+(4) Click on the joederos_main database.
+(5) For each table, empty the table and then import from the respective *.csv file.

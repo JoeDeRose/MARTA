@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>(Originally posted on the <a href="http://www.facebook.com/permalink.php?story_fbid=498950653113&amp;id=64214098113">MARTA
+Facebook</a> page on January 16, 2011.)</p>
+<p><span data-jsid="text">Daytime TV sucks. Like the weather and the roads, that's
+	not MARTA's fault -- but since I'm a MARTA rider it definitely became my problem
+	this week. To keep from going crazy on my snow days, I busied myself by mocking
+	up a suggestion for the MARTA website that's been in the back of my mind for
+	ages.</span></p>
+<p><span data-jsid="text">	First, though, let me say that I love the MyCommute pages: They're still
+	new enough that I remember trying to navigate the MARTA site without them, and
+	life is much better now. And they are extremely accurate, functional, and well-designed.
+	But in my own work as a web developer, I know that we often ask people for
+	ideas, get nothing, release a version, and then get a flood of suggestions.
+	And we understand that this is because people need to see something before they
+	can conceptualize how it could be improved. I'm making these suggestions in
+	that same vein: I could never, working alone, have come up with something as
+	elaborate and beautiful as the MyCommute pages -- but now that they exist, that
+	starting point gives me some ideas that I want to share.</span></p>
+<p><span data-jsid="text">	Specifically, I'm writing about the bus schedule pages where you select check
+	boxes beside various bus stops to get service times. I find these pages difficult
+	to read for a few reasons:</span></p>
+<ul>
+	<li><span data-jsid="text">	The text is very dense, with all-capital lettering
+	and minimal use of spaces.</span></li>
+	<li><span data-jsid="text">	Because the quadrant information for streets
+			(NE, NW, SE, SW) and spacing around the &quot;@&quot; is unevenly applied, even for adjacent entries of the same
+		street, the &quot;@&quot; signs don't line up for stops along the same street,
+		making it harder to visually scan the list quickly and hone in on stops along
+		a particular stretch. On my &quot;Before&quot; mock-up link below, look at the
+		10th Street stops at the bottom of the list to see what I mean about finding
+		it difficult to zero in on the 10th Street section; you'll find:<br />
+		10TH ST NE @ MONROE DR NE (has &quot;NE&quot; as well as spaces around &quot;@&quot;)<br />
+		10TH ST NE@W PEACHTREE ST NW (has &quot;NE&quot;; no spaces around &quot;@&quot;)<br />
+		10TH ST @ CHARLES ALLEN DR (drops &quot;NE&quot;; has spaces around &quot;@&quot;)<br />
+		10TH ST@TAFT ST (drops &quot;NE&quot;; no spaces around &quot;@&quot;)</span></li>
+	<li><span data-jsid="text">	The text is all left-justified, with no tabular
+	organization of the data.</span></li>
+	<li><span data-jsid="text">Because the information given is only street intersections,
+			I often find it confusing to figure out the station stop for routes that cross
+			-- but don't terminate at -- a station. (For example, when the 110 pulls into
+		the Arts Center Station bay, that stop is identified only as   &quot;PEACHTREE ST NE@15TH ST NE.&quot;)</span></li>
+</ul>
+<p><span data-jsid="text">	On my personal web space, I've mocked up an alternate display that I would
+	like to share. My examples are for the northbound run of the 99 (my new favorite
+	route after last year's service updates).</span></p>
+<ul>
+	<li><span data-jsid="text">	BEFORE: For comparison, I've also saved this
+		static version of the existing page: <a href="http://home.comcast.net/%7Ejoe.derose/MARTA/99WeekdayNB_Before.htm" onmousedown="UntrustedLink.bootstrap($(this), 'tAQDkUEK1', event, bagof({}));" rel="nofollow" target="_blank">http://home.comcast.net/~j​oe.derose/MARTA/99WeekdayN​B_Before.htm</a></span></li>
+	<li><span data-jsid="text">AFTER: And here's my suggestion of how to show the
+		same information (with a few added data points) instead: <a href="http://home.comcast.net/%7Ejoe.derose/MARTA/99WeekdayNB_After.htm" onmousedown="UntrustedLink.bootstrap($(this), 'eAQBa-NdJ', event, bagof({}));" rel="nofollow" target="_blank">http://home.comcast.net/~j​oe.derose/MARTA/99WeekdayN​B_After.htm</a></span></li>
+</ul>
+<p><span data-jsid="text">	The mock-up incorporates the following changes:</span></p>
+<ol>
+	<li><span data-jsid="text">	I organized the display around what I called
+			the &quot;Service Street&quot;   (i.e.,
+		the street the bus is running on), making that street appear only once with
+		subheadings for the cross streets. Note that even though the service street
+		is visible only in its first row, it is included (in the same color as the
+		background) on ALL rows; this is so the visually impaired, using screen readers,
+		will have all the information they need on every row.</span></li>
+	<li><span data-jsid="text">I added a &quot;Stop #&quot; link to provide access to the MARTA page for
+		stop numbers. Note that for this simple mock-up, I did not throw in the scripting
+		to make it figure out the time of day and include it as part of that link,
+		as I think a better solution would be for these bus stop pages to assume
+		the CURRENT time of day rather than 5:00 AM if the time is not provided --
+		but modifying the page to serve the time as a parameter in the link would not
+		be difficult at all.</span></li>
+	<li><span data-jsid="text">I added an &quot;Amenities&quot; column to display various aspects of the
+		bus stop that people may find useful: I retained, of course, the information
+		that already exists on the MARTA website as to whether the stop is wheelchair
+		accessible. And I added a symbol to identify whether it is sheltered as well
+		as a symbol to indicate if it is a timing point stop. The &quot;alt&quot; tag
+		is included, of course, for screen readers for the visually impaired, but I put
+		the same information in the &quot;title&quot; tag so that anyone could hover
+		the mouse over a symbol to see what it means. Note that if you hover over
+		the shelter symbol, it will tell you not only that there is a shelter, but
+		what kind (MARTA station, building, expressway overpass, bus shelter, etc.).</span></li>
+	<li><span data-jsid="text">I added a &quot;Near This Stop&quot; column to identify rail stations, shared
+		or intersecting bus lines, and points of interest in the vicinity of the
+		various stops. I think a column like this would be enormously helpful to
+		MARTA's riders, especially those unfamiliar with Atlanta and/or unfamiliar
+		with MARTA. For MARTA features (i.e., stations and intersecting lines), I made
+		the description a link to the relevant page on the MARTA website.</span></li>
+	<li><span data-jsid="text">Just to reduce ambiguity, I put in some scripting
+			to make the entire row yellow when you hover your mouse over it. (And on rows
+			where the service street is hidden, it is displayed in gray while hovering
+		over that row.)</span></li>
+	<li><span data-jsid="text">Finally, I did a little bit of clean-up in text and
+			formatting: I put the street names in mixed-case characters, and I removed
+			the quadrant designators (SE, NE, NW). As for the quadrants, I removed them
+			because I didn't think they helped much, and because they were sometimes incorrect.
+			For example, the last stop in the original is listed as &quot;10TH ST NE@W PEACHTREE ST NW&quot; –
+		but it is impossible for a single bus stop to rest in the NE quadrant of 10th
+		Street and the NW quadrant of West Peachtree; West Peachtree is the boundary
+		between NE and NW -- but this stop, inside the Midtown Station, is on the NE
+		side of it, and the stop should actually be labeled as &quot;10TH ST NE@W PEACHTREE
+		ST NE.&quot;</span></li>
+</ol>
+<p><span data-jsid="text">	This is what I, as a rider, would find useful -- but if people have different
+	ideas for how the example page could be made more readable, I'll try to mock
+	those up as well if time permits. Let me know in the comments.</span></p>
+<hr />
+<p><span data-jsid="text">The following is probably more technical than most
+		people will want, but MARTA's software engineers may find it helpful: I created
+		this example by converting the data for this route to XML and displaying that
+		XML file with an XSL stylesheet. Primarily, I did this to demonstrate that
+		this display concept could pull its content from a data source and would not
+		require hard coding of every route. In the &quot;After&quot; file above, I
+		just copied the generated content into the HTML because my server environment
+		is not very sophisticated with server-side scripting, and doesn't give me any
+		way to use an INCLUDE statement (but obviously in a real-world application
+		either an INCLUDE statement of the XSL file or direct HTML generation via interaction
+		with the database would be the way to go). I picked XSL mostly just because
+		I wanted to play with that structure (as I haven't used it in a long time and
+		wanted to remind myself of its capabilities). It may be easier to achieve the
+		same kind of display by pulling directly from a database (Oracle or SQL Server
+		or whatever), as I assume the MyCommute pages are doing now -- but I think
+		there's an argument for storing schedule data in XML on the MARTA website:
+		Eventually, businesses and government agencies could put their own &quot;hooks&quot; into
+		the data, allowing them to display route and schedule information that is most
+		useful in their particular contexts, but with MARTA able to affect those displays
+in real time by updating the XML documents on its own website as needed.</span></p>
+<p><span data-jsid="text">	Here are the design files, for anyone who may find them interesting or
+	useful:</span></p>
+<ul>
+	<li><span data-jsid="text">	My raw XML data: <a href="http://home.comcast.net/%7Ejoe.derose/MARTA/Route99NB_raw.xml" onmousedown="UntrustedLink.bootstrap($(this), 'pAQCTVCKI', event, bagof({}));" rel="nofollow" target="_blank">http://home.comcast.net/~j​oe.derose/MARTA/Route99NB_​raw.xml</a> (only
+		displays properly in Internet Explorer)</span></li>
+	<li><span data-jsid="text">		An HTML display of my XML data: <a href="http://home.comcast.net/%7Ejoe.derose/MARTA/Route99NB_xml.htm" onmousedown="UntrustedLink.bootstrap($(this), 'CAQDa6eQJ', event, bagof({}));" rel="nofollow" target="_blank">http://home.comcast.net/~j​oe.derose/MARTA/Route99NB_​xml.htm</a> (should
+		work in all browsers)</span></li>
+	<li><span data-jsid="text">		My XML data with the XSL stylesheet attached: <a href="http://home.comcast.net/%7Ejoe.derose/MARTA/Route99NB.xml" onmousedown="UntrustedLink.bootstrap($(this), 'UAQB6YSwG', event, bagof({}));" rel="nofollow" target="_blank">http://home.comcast.net/~j​oe.derose/MARTA/Route99NB.​xml</a></span></li>
+	<li><span data-jsid="text">		My XSL style sheet: <a href="http://home.comcast.net/%7Ejoe.derose/MARTA/ShowRoute.xsl" onmousedown="UntrustedLink.bootstrap($(this), 'YAQAYldl3', event, bagof({}));" rel="nofollow" target="_blank">http://home.comcast.net/~j​oe.derose/MARTA/ShowRoute.​xsl</a> (shows
+		some useful information in IE; otherwise, not much to see here)</span></li>
+	<li><span data-jsid="text">		An HTML display of my XSL stylesheet: <a href="http://home.comcast.net/%7Ejoe.derose/MARTA/ShowRoute_xsl.htm" onmousedown="UntrustedLink.bootstrap($(this), 'HAQBUh6xF', event, bagof({}));" rel="nofollow" target="_blank">http://home.comcast.net/~j​oe.derose/MARTA/ShowRoute_​xsl.htm</a> (should
+		work in all browsers)</span></li>
+</ul>
+<p><span data-jsid="text">	For the functions that control display when you're hovering over a row,
+	I used jQuery, a free cross-browser overlay to JavaScript. More information
+	about jQuery can be found at their website: <a href="http://jquery.com/" onmousedown="UntrustedLink.bootstrap($(this), 'TAQBOtqrW', event, bagof({}));" rel="nofollow" target="_blank">http://jquery.com/</a>.</span></p>
+<p><span data-jsid="text">	By the way, I do understand that MARTA's IT department already has a
+	huge to-do list, and that even if everybody agrees with me that these
+	formatting changes are worth pursuing, it won't happen immediately (or
+	even soon, necessarily). But I still think it's worthwhile to share this
+	kind of idea, so that MARTA will know where the enthusiasm lies as it's planning
+	out its strategies. (And also, it kept me sane during the snow.)</span></p>
+<p><span data-jsid="text">	If MARTA finds my code useful in the pages linked above, I grant that
+	code to MARTA free-of-charge and without restriction. And I'll happily
+	be available to MARTA's software engineers if they have questions, or
+	are unfamiliar with the techniques I've used. (Please note, however,
+	that I cribbed the shelter and stopwatch icons from a Google search; I don't
+	know if there are copyrights on these images, but I'm definitely NOT the
+	copyright holder if so.)</span></p>
+</body>
+</html>

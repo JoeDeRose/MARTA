@@ -1,0 +1,123 @@
+/* CSS Document */
+/* ================================================================ 
+This copyright notice must be kept untouched in the stylesheet at 
+all times.
+
+The original version of this stylesheet and the associated (x)html
+is available at http://www.cssplay.co.uk/menus/pro_drop.html
+Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
+This stylesheet and the associated (x)html may be modified in any 
+way to fit your requirements.
+=================================================================== */
+#multi-level {
+	position:relative;
+	z-index:100;
+	width: 780px;
+}
+#multi-level .pad {float:left;}
+
+/* The menu styling */
+/* Remove the padding, margins and bullets from the lists */
+.menu, .menu ul {list-style-type:none; padding:0; margin:0; font-family:Verdana;}
+
+/* Set up the top level list items and float left to place inline */
+.menu li.top {display:block; float:left; position:relative;}
+
+/* Style and position the table so it takes no part in the menu function. The font size is necessary for IE5.5 */
+.menu table {border-collapse:collapse; width:0; height:0; position:absolute; top:0; left:0;}
+
+/* Default top link link styling */
+.menu li.top a.top_link {display:block; float:left; height:38px;}
+.menu li.top a span {position:absolute; left:-9999px; top:0; z-index:0; font-size:10px;} /* move the link text off screen */
+
+/* pre-load the hover images into the lists */
+.menu li.p1 {width:103px; background:url(../images/top_nav/using2.png) no-repeat;;}
+.menu li.p2 {width:138px; background:url(../images/top_nav/schedules2.png) no-repeat;;}
+.menu li.p3 {width:136px; background:url(../images/top_nav/fares2.png) no-repeat;;}
+.menu li.p4 {width:120px; background:url(../images/top_nav/news2.png) no-repeat;;}
+.menu li.p5 {width:109px; background:url(../images/top_nav/about2.png) no-repeat;;}
+
+/* set up the normal unhovered images in the links */
+.menu li a#using {width:103px; background:url(../images/top_nav/using1.png) no-repeat;}
+.menu li a#schedules {width:138px; background:url(../images/top_nav/schedules1.png) no-repeat;}
+.menu li a#fares {width:136px; background:url(../images/top_nav/fares1.png) no-repeat;}
+.menu li a#news {width:120px; background:url(../images/top_nav/news1.png) no-repeat;}
+.menu li a#about {width:109px; background:url(../images/top_nav/about1.png) no-repeat;}
+
+/* Style the list OR link hover. Depends on which browser is used */
+.menu a:hover {visibility:visible;} /* for IE6 */
+.menu li:hover { position:relative; z-index:200;} /* for IE7 */
+
+/* make the links transparent on hover so that the hover images in the lists show through (no flicker) */
+.menu li a#using:hover, .menu li:hover a#using,
+.menu li a#schedules:hover, .menu li:hover a#schedules,
+.menu li a#fares:hover, .menu li:hover a#fares,
+.menu li a#news:hover, .menu li:hover a#news,
+.menu li a#about:hover, .menu li:hover a#about,
+.menu li a#privacy:hover, .menu li:hover a#privacy {background:transparent;}
+
+#topmenuSelected
+{
+	background:transparent;
+}
+
+/* keep the 'next' level invisible by placing it off screen. */
+.menu ul, 
+.menu :hover ul ul, 
+.menu :hover ul :hover ul ul,
+.menu :hover ul :hover ul :hover ul ul,
+.menu :hover ul :hover ul :hover ul :hover ul ul {position:absolute; left:-9999px; top:-9999px; width:0; height:0;}
+
+/* set up the first drop down sub level */
+.menu :hover ul.sub {left:0; top:35px; background: #fff; padding:2px 0; border:1px solid #888; white-space:nowrap; width:170px; height:auto;}
+.menu :hover ul.sub li {display:block; height:20px; position:relative; float:left; width:165px;font-family:Verdana;}
+.menu :hover ul.sub li a {display:block; font-size:11px; height:20px; width:165px; line-height:20px; text-indent:2px; color:#000; text-decoration:none; border:2px solid #fff; border-width:0 0 0 2px;font-family:Verdana;}
+.menu :hover ul.sub li a.fly {background:#fff url(multi_level-files/arrow.gif) 116px 2px no-repeat;font-family:Verdana;}
+.menu :hover ul.sub li a:hover {background:#999999; color:#ffffff;font-family:Verdana}
+.menu :hover ul.sub li a.fly:hover {background:#999999 url(multi_level-files/arrow_over.gif) 116px 2px no-repeat; color:#ffffff;font-family:Verdana;}
+.menu :hover ul li:hover > a.fly {background:#999999 url(multi_level-files/arrow_over.gif) 116px 2px no-repeat; color:#ffffff;font-family:Verdana;} 
+
+/* set up the flyout levels when hovering */
+.menu :hover ul :hover ul,
+.menu :hover ul :hover ul :hover ul,
+.menu :hover ul :hover ul :hover ul :hover ul,
+.menu :hover ul :hover ul :hover ul :hover ul :hover ul
+{left:90px; top:-4px; background: #fff; padding:3px 0; border:1px solid #888; white-space:nowrap; width:140px; z-index:200; height:auto; z-index:300;}
+
+#Layer1 {
+	position:absolute;
+	left:145px;
+	top:70px;
+	width:95px;
+	height:17px;
+	z-index:101;
+}
+
+
+#searchbox #textfield {
+	border: thin solid #FFFFFF;
+}
+#Layer5 {
+	position:absolute;
+	left:839px;
+	top:4px;
+	width:42px;
+	height:26px;
+	z-index:103;
+}
+#Layer6 {
+	position:absolute;
+	left:837px;
+	top:-2px;
+	width:55px;
+	height:48px;
+	z-index:103;
+}
+#Layer4 {
+	position:absolute;
+	left:749px;
+	top:6px;
+	width:77px;
+	height:17px;
+	z-index:102;
+}
