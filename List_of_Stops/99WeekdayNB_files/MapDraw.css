@@ -1,0 +1,141 @@
+td.map_frame
+{
+	border: 1px solid slategray;
+	background-color: window
+}
+
+.map_bar_button
+{
+	cursor: pointer	
+}
+
+.maptoolbar
+{
+}
+
+.mapimage_pan
+{
+	cursor: move;
+}
+
+.mapimage_zoom
+{
+	cursor: crosshair;
+}
+
+/*
+.map_show
+{
+	background-image: url('../images/map-off.gif');
+}
+
+.map_hide
+{
+	background-image: url('../images/map-on.gif');	
+}
+
+.map_terra_on
+{
+	background-image: url('../images/terra-on.gif');
+}
+
+.map_terra_off
+{
+	background-image: url('../images/terra-off.gif');
+}
+*/
+/*
+.map_drag_action_pan
+{
+	background-image: url('../images/Hand2.ico');
+}
+
+.map_drag_action_zoom
+{
+	background-image: url('../images/Hand.ico');
+}
+
+.map_pan_up
+{
+	background-image: url('../images/Up2.ico');
+}
+
+.map_pan_down
+{
+	background-image: url('../images/Down2.ico');
+}
+
+.map_pan_left
+{
+	background-image: url('../images/Left2.ico');
+}
+
+.map_pan_right
+{
+	background-image: url('../images/Right2.ico');
+}
+
+.map_pan_prev_view
+{
+	background-image: url('../images/zoomprev.gif');
+}
+*/
+.map_zoom_button 
+{
+	cursor: pointer	
+}
+
+/*
+.map_z_in
+{
+	background-image: url('../images/In2.ico');
+}
+
+.map_z_out
+{	
+	background-image: url('../images/Out2.ico');
+}
+*/
+.map_z0
+{
+	cursor: pointer	
+	/*
+	---remove bkgd image---
+	background-image: url('../images/Middle_unselected.ico');*/
+}
+
+.map_z1
+{
+	cursor: pointer	
+	/*
+	---remove bkgd image---
+	background-image: url('../images/Middle2.ico');*/
+}
+
+table.map_control_bar
+{
+}
+
+div.plotterGrip
+{
+	background-color: Red;
+	border-bottom-width: 1px;
+	border-color: Black;
+	border-style:solid;
+	border-width: 2px;
+	font-size: 0px;
+	overflow: hidden;
+}
+
+div.plotterLinePixel
+{
+	width: 2px;
+	height: 2px;
+	font-size: 0px;
+	overflow: hidden;
+	border-bottom-style: none;
+	border-bottom-width: 0px;
+	background-color: Red;
+}
+
+DIV#dragrect {border:1px solid black; display:none;position:absolute;left:0;top:0;height:30;width:30;z-index:3}

@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Direction</title>
+<link rel="stylesheet" type="text/css" media="all" href="main.css" />
+</head>
+
+<body>
+
+<h1>direction_id</h1>
+
+<p>In the <strong>trips.txt</strong> file there is a <strong>direction_id</strong> field.
+	This document addresses MARTA's implementation of that field.</p>
+<p>Google's
+	specifications only allow the use of 0 or 1 in this field, so it would have
+	been impossible for MARTA to establish 4 different values for the eastbound/&#8203;westbound/&#8203;northbound/&#8203;southbound
+	directional indicators that are commonly used with MARTA routes. One might
+	have wished for MARTA to assign 0 consistently to one non-intersecting pair
+	(for example, northbound and eastbound) and 1 to the opposites of that pair
+	(southbound and westbound) -- but MARTA's GTFS feed does not apply such regularity.
+	I have not been able to identify any kind of regular pattern, so I put together
+	this page to decrypt the usage in the MARTA GTFS feed.</p>
+<p>The following table associates the
+	<strong>direction_id</strong> field with the compass directions used by MARTA.
+	I kept
+	the <strong>headsign</strong> field
+	as an aide to others in identifying mistakes I may have made. Please bring
+	any such mistakes to my attention at <a href="mailto:joe@joederose.us">joe@joederose.us</a>,
+	and I'll update this file
+	promptly.</p>
+<p>Asssuming I have it correct, a text file suitable for import into
+	your database
+	can be downloaded at <a href="direction.txt">direction.txt</a>. Note that this
+	file omits the <strong>route_id</strong> for the following reasons:</p>
+<ul>
+	<li>The data can just as easily be linked by the <strong>route_short_name</strong> field.</li>
+	<li>The <strong>route_id</strong> changes
+		when MARTA updates its transit feed, so this table would require a full update
+		for each successive update from MARTA if that field were included; as
+		it is now, this table will require only minor updates, and will generally work
+		even if this table and the MARTA feed are not of the same version.</li>
+</ul>
+<table>
+	<thead>
+	<th>route_short_name</th>
+		<th>direction_id</th>
+		<th>Direction</th>
+		<th>trip_headsign</th>
+	</thead>
+	<tbody>
+		<tr><td rowspan="5">1</td><td rowspan="3">0</td><td rowspan="3">Southbound</td><td>1 5 POINTS STATION</td></tr>
+		<tr><td>1 5 POINTS STATION VIA CHATTAHOOCHEE AVE</td></tr>
+		<tr><td>1 5 POINTS STATION VIA MARIETTA BLVD</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Northbound</td><td>1 MOORES MILL VIA CHATTAHOOCHEE AVE</td></tr>
+		<tr><td>1 MOORES MILL VIA MARIETTA BLVD</td></tr>
+		<tr><td rowspan="4">2</td><td rowspan="2">0</td><td rowspan="2">Westbound</td><td>2 NORTH AVE STA</td></tr>
+		<tr><td>2 NORTH AVE STATION VIA NORTH AVE</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Eastbound</td><td>2 DECATUR STATION VIA NORTH AVE</td></tr>
+		<tr><td>2 PONCE DE LEON - CANDLER PARK STA</td></tr>
+		<tr><td rowspan="6">3</td><td rowspan="3">0</td><td rowspan="3">Eastbound</td><td>3 MLK JR DRIVE - FIVE PTS STA</td></tr>
+		<tr><td>3 MLK/AUBURN AVE/CANDLER PARK VIA N HIGHLAND</td></tr>
+		<tr><td>3 MLK/CANDLER PARK VIA BARFIELD/LAKE AVE</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Westbound</td><td>3 M L KING DR - H.E.HOLMES STA</td></tr>
+		<tr><td>3 MLK//H E HOLMES VIA BARFIELD/N HIGHLAND AVE</td></tr>
+		<tr><td>3 MLK/AUBURN AVE/H E HOLMES VIA LAKE AVE</td></tr>
+		<tr><td rowspan="4">4</td><td rowspan="2">0</td><td rowspan="2">Southbound</td><td>4- THOMASVILLE/MORELAND AVE</td></tr>
+		<tr><td>4- THOMASVILLE/MORELAND AVE VIA REBEL FOREST</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Northbound</td><td>4 INMAN PARK STATION - VIA REBEL FORREST</td></tr>
+		<tr><td>4-INMAN PARK STATION</td></tr>
+		<tr><td rowspan="2">5</td><td>0</td><td>Southbound</td><td>5 LINDBERGH STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>5 SANDY SPRINGS - DUNWOODY STA</td></tr>
+		<tr><td rowspan="2">6</td><td>0</td><td>Southbound</td><td>6 INMAN PARK STA - EMORY</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>6 LINDBERGH STA - EMORY</td></tr>
+		<tr><td rowspan="2">8</td><td>0</td><td>Northbound</td><td>8 N.DRUID HILLS - BROKHAVN STA</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>8 N.DRUID HILLS - AVONDALE STA</td></tr>
+		<tr><td rowspan="2">9</td><td>0</td><td>Southbound</td><td>9 TONEY VALLEY/PEACHCREST RD</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>9 TONEY VALLEY / KENSINGTON STA</td></tr>
+		<tr><td rowspan="6">12</td><td rowspan="2">0</td><td rowspan="2">Southbound</td><td>12 HOWELL MILL-MIDTOWN STA</td></tr>
+		<tr><td>12 MIDTOWN STA VIA  NORTH SIDE</td></tr>
+		<tr><td rowspan="4">1</td><td rowspan="4">Northbound</td><td>12 CUMBERLAND VIA NORTHSIDE</td></tr>
+		<tr><td>12 HOWELL MILL / CUMBERLAND</td></tr>
+		<tr><td>12 HOWELL MILL / N SIDE HIGH SCH</td></tr>
+		<tr><td>12 HOWELL MILL-MIDTOWN STA</td></tr>
+		<tr><td rowspan="2">13</td><td>0</td><td>Eastbound</td><td>13 FAIR ST-DOWNTOWN</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>13 FAIR ST - W. LAKE STA</td></tr>
+		<tr><td rowspan="5">15</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>15 DECATUR STA VIA S. DEKALB MALL</td></tr>
+		<tr><td>15 DECATUR STATION</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Southbound</td><td>15 S. DEKALB - COUNTY LINE</td></tr>
+		<tr><td>15 S. DEKALB - PERIMETER COLL.</td></tr>
+		<tr><td>15 S. DEKALB - PERIMETER COLL. VIA S. DEKALB MALL</td></tr>
+		<tr><td rowspan="2">16</td><td>0</td><td>Southbound</td><td>16 NOBLE- DOWNTOWN</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>16 NOBLE-EXECUTIVE PARK</td></tr>
+		<tr><td rowspan="5">19</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>19 CLAIRMONT - CHAMBLEE STA</td></tr>
+		<tr><td>19 VA HOSPITAL</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Southbound</td><td>19 CLAIRMONT - DECATUR STA</td></tr>
+		<tr><td>19 CLAIRMONT - DECATUR STA VIA HLTH CTR</td></tr>
+		<tr><td>19 DECATUR STATION</td></tr>
+		<tr><td rowspan="4">21</td><td rowspan="2">0</td><td rowspan="2">Westbound</td><td>21 MEMORIAL DR - GA STATE STATION</td></tr>
+		<tr><td>21 MEMORIAL DR - KING MEM STA</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Eastbound</td><td>21 MEMORIAL DR - KENSINGTON STA</td></tr>
+		<tr><td>21 MEMORIAL DR- CRIM HIGH</td></tr>
+		<tr><td rowspan="2">24</td><td>0</td><td>Westbound</td><td>24 CANDLER PARK STATION</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>24 EAST LAKE STATION</td></tr>
+		<tr><td rowspan="3">25</td><td>0</td><td>Southbound</td><td>25 LENOX STA</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Northbound</td><td>25 DORAVILLE STA</td></tr>
+		<tr><td>25 MEDICAL CENTER STA</td></tr>
+		<tr><td rowspan="2">26</td><td>0</td><td>Eastbound</td><td>&nbsp;</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>&nbsp;</td></tr>
+		<tr><td rowspan="2">27</td><td>0</td><td>Southbound</td><td>27 CHESHIRE BRDG / MIDTOWN STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>27 CHESHIRE BRDG / LINDBERGH STA</td></tr>
+		<tr><td rowspan="2">30</td><td>0</td><td>Westbound</td><td>30 LINDBERGH STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>30 LAVISTA RD-NORTHLAKE</td></tr>
+		<tr><td rowspan="3">32</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>32 BOULDERCREST - CIVIC CENTER STATION</td></tr>
+		<tr><td>32 BOULDERCREST -FIVE POINTS STATION</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>32 BOULDERCREST - METRO TRANSITIONAL CENTER</td></tr>
+		<tr><td rowspan="2">33</td><td>0</td><td>Southbound</td><td>33 BRIARCLIFF RD - LENOX STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>33 BRIARCLIFF RD - CHAMBLEE STA</td></tr>
+		<tr><td rowspan="6">34</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>34 INMAN PARK STA</td></tr>
+		<tr><td>34 INMAN PK STA VIA VICKI LN & CORRAL DR</td></tr>
+		<tr><td rowspan="4">1</td><td rowspan="4">Southbound</td><td>34 GRESHAM PARK  CLIFTON HEALTH CTNR.</td></tr>
+		<tr><td>34 GRESHAM RD CLIFTON SPRGS HEALTH CTR VIA VICKI LN</td></tr>
+		<tr><td>34 GRESHAM RD GA PERIMETER COLL</td></tr>
+		<tr><td>34 GRESHAM RD VIA VICKI LN GA. PERIMTER</td></tr>
+		<tr><td rowspan="4">36</td><td rowspan="2">0</td><td rowspan="2">Westbound</td><td>36 MIDTOWN STA</td></tr>
+		<tr><td>36 N DECATUR / VA HIGHLAND- MIDTOWN STA</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Eastbound</td><td>36 GRADY HIGH SCH</td></tr>
+		<tr><td>36 N DECATUR / VA HIGHLAND - AVONDALE STA</td></tr>
+		<tr><td rowspan="2">37</td><td>0</td><td>Southbound</td><td>37 DEFOORS FERRY / ATLANTIC STATION-ARTS CTR STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>37 DEFOORS FERRY / ATLANTIC STATION-MARIETTA BLVD</td></tr>
+		<tr><td rowspan="2">39</td><td>0</td><td>Southbound</td><td>39 BUFORD HWY - LINDBERGH STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>39 BUFORD HWY - DORAVILLE STA</td></tr>
+		<tr><td rowspan="4">42</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>42 PRYOR RD/MCDANIEL ST-FIVE POINTS STATION</td></tr>
+		<tr><td>42 PRYOR RD/MCDANIEL ST-FIVE POINTS STATION VIA AMAL DR</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Southbound</td><td>42 PRYOR RD/ MCDANIEL ST-LAKEWOOD STATION</td></tr>
+		<tr><td>42 PRYOR RD/ MCDANIEL ST-LAKEWOOD STATION VIA AMAL DR</td></tr>
+		<tr><td rowspan="2">47</td><td>0</td><td>Southbound</td><td>47 I-85 ACCESS RD/BRIARWOOD RD - BROOKHAVEN</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>47 I-85 ACCESS RD/BRIARWOOD RD - CHAMBLEE</td></tr>
+		<tr><td rowspan="2">49</td><td>0</td><td>Northbound</td><td>49 MCDONOUGH BLVD - FIVE PTS STATION</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>49 MCDONOUGH BLVD</td></tr>
+		<tr><td rowspan="6">50</td><td rowspan="4">0</td><td rowspan="4">Eastbound</td><td>50 HOLLOWELL PWY BANKHEAD STA VIA DARNELL CTR</td></tr>
+		<tr><td>50 HOLLOWELL PWY VIA CARROLL HGTS</td></tr>
+		<tr><td>50 HOLLOWELL PWY VIA CARROLL HGTS/DARNELL CTR</td></tr>
+		<tr><td>50 HOLLOWELL PWY-BANKHEAD STA</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Westbound</td><td>50 HOLLOWELL PWY</td></tr>
+		<tr><td>50 HOLLOWELL PWY VIA CARROLL HGTS</td></tr>
+		<tr><td rowspan="4">51</td><td rowspan="2">0</td><td rowspan="2">Eastbound</td><td>51 BOONE BLVD / FIVE POINTS STA</td></tr>
+		<tr><td>51 BOONE BLVD / FIVE POINTS STA VIA COLL HGTS APTS</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Westbound</td><td>51 BOONE BLVD / W LAKE STA</td></tr>
+		<tr><td>51 BOONE BLVD / W LAKE STA VIA COLL HGTS APTS</td></tr>
+		<tr><td rowspan="2">53</td><td>0</td><td>Eastbound</td><td>53 SKIPPER DR/W LAKE AVE - W LAKE STA</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>53 SKIPPER DR/W LAKE AVE</td></tr>
+		<tr><td rowspan="2">55</td><td>0</td><td>Southbound</td><td>55 JONESBORO RD/HUTCHENS  RD</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>55 JONESBORO RD- FIVE POINTS STATION</td></tr>
+		<tr><td rowspan="5">56</td><td rowspan="2">0</td><td rowspan="2">Eastbound</td><td>56 H E HOLMES STATION</td></tr>
+		<tr><td>56 H E HOLMES STATION VIA ALEX DR</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Westbound</td><td>56 COLLIER HGTS/ADAMSVILLE/PLAINVILLE</td></tr>
+		<tr><td>56 COLLIER HGTS/BOULDER PARK</td></tr>
+		<tr><td>56 COLLIER HGTS/BOULDER PARK VIA ALEX DR</td></tr>
+		<tr><td rowspan="2">58</td><td>0</td><td>Eastbound</td><td>58 BANKHEAD STA</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>58 ATLANTA INDUSTRIAL/HOLLYWOOD RD</td></tr>
+		<tr><td rowspan="2">60</td><td>0</td><td>Southbound</td><td>60 HAMILTON E. HOLMES STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>60 MOORES MILL SHOPPING CTR</td></tr>
+		<tr><td rowspan="3">66</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>66 LYNHURST / BE MAYS HS</td></tr>
+		<tr><td>66 LYNHURST / HAMILTON E. HOLMES STA</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>66 LYNHURST DR/ BARGE RD P/R</td></tr>
+		<tr><td rowspan="2">67</td><td>0</td><td>Westbound</td><td>67 WEST END / W LAKE STATION</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>67 WEST END-WEST END STA</td></tr>
+		<tr><td rowspan="3">68</td><td>0</td><td>Eastbound</td><td>68 DONNELLY TO ASHBY ST. STA. VIA WEST END STA.</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Westbound</td><td>68 DONNELLY TO S GORDON VIA WEST END STATION</td></tr>
+		<tr><td>68 DONNELLY/BEECHER VIA WEST END STATION</td></tr>
+		<tr><td rowspan="3">71</td><td>0</td><td>Eastbound</td><td>71 WEST END STA</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Westbound</td><td>71 CASCADE-ASHLEY COURTS</td></tr>
+		<tr><td>71 CASCADE-COUNTRY SQUIRE</td></tr>
+		<tr><td rowspan="7">73</td><td rowspan="3">0</td><td rowspan="3">Northbound</td><td>73 H E HOLMES STA VIA BAKERS FRY</td></tr>
+		<tr><td>73 H E HOLMES STA VIA WENDELL DR</td></tr>
+		<tr><td>73 H E HOLMES STATION</td></tr>
+		<tr><td rowspan="4">1</td><td rowspan="4">Southbound</td><td>73 FULTON IND - LAGRANGE/BOAT ROCK</td></tr>
+		<tr><td>73 FULTON IND - LAGRANGE/BOAT ROCK VIA WENDELL DR</td></tr>
+		<tr><td>73 FULTON IND BAKERS FRY</td></tr>
+		<tr><td>73 FULTON IND BAKERS FRY VIA WENDELL DR</td></tr>
+		<tr><td rowspan="2">74</td><td>0</td><td>Westbound</td><td>74 FLAT SHOALS FIVE POINTS STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>74 FLAT SHOALS VIA WHITES MILL</td></tr>
+		<tr><td rowspan="2">75</td><td>0</td><td>Southbound</td><td>75 AVONDALE STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>75 TUCKER</td></tr>
+		<tr><td rowspan="2">78</td><td>0</td><td>Westbound</td><td>78 CLEVELAND AVE-EAST POINT STATION</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>78 CLEVELAND AVENUE</td></tr>
+		<tr><td rowspan="2">81</td><td>0</td><td>Northbound</td><td>81 WEST END STA</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>81 VENETIAN / ADAMS PARK</td></tr>
+		<tr><td rowspan="6">82</td><td rowspan="3">0</td><td rowspan="3">Westbound</td><td>82 CAMP CREEK MARKET PLACE</td></tr>
+		<tr><td>82 CAMP CREEK/WELCOME ALL VIA CAMP CREEK MARKET PLACE</td></tr>
+		<tr><td>82 CAMP CREEK/WELCOME ALL VIA GA DOR</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Eastbound</td><td>82 COLLEGE PARK STATION</td></tr>
+		<tr><td>82 COLLEGE PARK STATION VIA GA DOR</td></tr>
+		<tr><td>82 COLLEGE PARK STATION VIA MARKET PLACE</td></tr>
+		<tr><td rowspan="2">83</td><td>0</td><td>Eastbound</td><td>83 OAKLAND CITY STA</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>83 CAMPBELLTON TO GREENBRIAR/BARGE RD P/R</td></tr>
+		<tr><td rowspan="2">84</td><td>0</td><td>Eastbound</td><td>84 EAST POINT STA</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>84 EAST POINT / CAMP CREEK MARKET PL</td></tr>
+		<tr><td rowspan="2">85</td><td>0</td><td>Southbound</td><td>85 N. SPRINGS STA - VIA MANSELL RD</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>85 ROSWELL / MANSELL P/R</td></tr>
+		<tr><td rowspan="2">86</td><td>0</td><td>Westbound</td><td>86 EAST LAKE STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>86 FAIRINGTON RD/MCAFEE RD/STONECREST MALL</td></tr>
+		<tr><td rowspan="3">87</td><td>0</td><td>Southbound</td><td>87 DUNWOODY STATION</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Northbound</td><td>87 NORTH SPRINGS STA</td></tr>
+		<tr><td>87 ROSWELL RD N SPRINGS STA</td></tr>
+		<tr><td rowspan="4">89</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>89 COLLEGE PK STA VIA CADIZ</td></tr>
+		<tr><td>89 COLLEGE PK STA VIA HILLINGDALE</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Southbound</td><td>89 S. FULTON P/R VIA CADIZ</td></tr>
+		<tr><td>89 S. FULTON P/R VIA HILLANDALE</td></tr>
+		<tr><td rowspan="2">93</td><td>0</td><td>Eastbound</td><td>93 EAST PT STA VIA NORMAN BERRY DR</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>93 EAST PT STA VIA DELOWE DR</td></tr>
+		<tr><td rowspan="4">95</td><td>0</td><td>Northbound</td><td>95 WEST END STATION</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Southbound</td><td>95 ATL AREA TECH METRO COLL</td></tr>
+		<tr><td>95 METROPOLITAN PARKWAY-HAPEVILLE</td></tr>
+		<tr><td>95 METROPOLITAN PARKWAY-TRADEPORT</td></tr>
+		<tr><td rowspan="4">99</td><td rowspan="2">0</td><td rowspan="2">Southbound</td><td>99 BOULEVARD/MONROE/GA STATE STA</td></tr>
+		<tr><td>99 BOULEVARD/MONROE/GA STATE STA VIA KING MEM</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Northbound</td><td>99 BOULEVARD MONROE- NORTH AVE STATION VIA KING MEM</td></tr>
+		<tr><td>99 BOULEVARD/MONROE/MIDTOWN STA</td></tr>
+		<tr><td rowspan="2">103</td><td>0</td><td>Southbound</td><td>103 CHAMBLEE STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>103 PEELER RD-N. SHALLOWFORD</td></tr>
+		<tr><td rowspan="2">104</td><td>0</td><td>Northbound</td><td>104 WINTERS CHAPEL RD</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>104 DORAVILLE STA</td></tr>
+		<tr><td rowspan="2">107</td><td>0</td><td>Westbound</td><td>107 GLENWOOD RD / INMAN PK STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>107 GLENWOOD RD / KENSINGTON STA</td></tr>
+		<tr><td rowspan="4">110</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>110 THE PEACH - LENOX STA- BUCKHEAD</td></tr>
+		<tr><td>110 THE PEACH - LENOX STA- BUCKHEAD - VIA ARTS CTR STA</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Southbound</td><td>110 THE PEACH - FIVE PTS STA - DOWNTOWN</td></tr>
+		<tr><td>110 THE PEACH- ARTS CTR STATION</td></tr>
+		<tr><td rowspan="4">111</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>111 INDIAN CREEK STA</td></tr>
+		<tr><td>111 INDIAN CREEK VIA A WILLIAMS TOWERS</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Southbound</td><td>111 SNAPFINGER WOODS DR/STONECREST</td></tr>
+		<tr><td>111 SNAPFINGER WOODS DR/STONECREST VIA A WILLIAMS TOWERS</td></tr>
+		<tr><td rowspan="2">114</td><td>0</td><td>Northbound</td><td>114 AVONDALE STA</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>114 COLUMBIA DR</td></tr>
+		<tr><td rowspan="2">115</td><td>0</td><td>Northbound</td><td>115 INDIAN CREEK STATION</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>115 COVINGTON HWY / S HAIRSTON RD /  EVANSMILL P/R</td></tr>
+		<tr><td rowspan="3">116</td><td rowspan="2">0</td><td rowspan="2">Westbound</td><td>116  INDIAN CREEK VIA HEALTH CENTER</td></tr>
+		<tr><td>116 INDIAN CREEK STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>116 REDAN RD - STONECREST</td></tr>
+		<tr><td rowspan="4">117</td><td rowspan="2">0</td><td rowspan="2">Southbound</td><td>117 ROCKBRIDGE RD / PANOLA RD / GRTA P/R</td></tr>
+		<tr><td>117 ROCKBRIDGE RD / PANOLA RD / GRTA P/R  VIA LOU WALKER CENTER</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Northbound</td><td>117 ROCKBRIDGE RD/PANOLA RD/KENSINGTON STA</td></tr>
+		<tr><td>117 ROCKBRIDGE RD/PANOLA RD/KENSINGTON STA VIA LOU WALKER CENTER</td></tr>
+		<tr><td rowspan="2">119</td><td>0</td><td>Westbound</td><td>119 KENSINGTON STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>119 N HAIRSTON RD MEMORIAL DR P/R</td></tr>
+		<tr><td rowspan="4">120</td><td rowspan="2">0</td><td rowspan="2">Westbound</td><td>120 AVONDALE STATION</td></tr>
+		<tr><td>120 AVONDALE STATION VIA TUCKER</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Eastbound</td><td>120 E PONCE / TUCKER ANDREWS HIGH SCH</td></tr>
+		<tr><td>120 E PONCE DE LEON / TUCKER</td></tr>
+		<tr><td rowspan="6">121</td><td rowspan="3">0</td><td rowspan="3">Westbound</td><td>121 KENSINGTON STATION</td></tr>
+		<tr><td>121 KENSINGTON STATION VIA E PONCE / JULIETTE RD</td></tr>
+		<tr><td>121 KENSINGTON STATION VIA STONE MOUNTAIN</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Eastbound</td><td>121 MEMORIAL DR - DEKALB E CAMPUS</td></tr>
+		<tr><td>121 MEMORIAL DR P/R VIA E PONCE / JULIETTE RD</td></tr>
+		<tr><td>121 MEMORIAL DR VIA STONE MOUNTAIN</td></tr>
+		<tr><td rowspan="3">123</td><td rowspan="2">0</td><td rowspan="2">Southbound</td><td>123 BELEVEDERE</td></tr>
+		<tr><td>123 DECATUR STATION</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>123 NORTH DEKALB MALL</td></tr>
+		<tr><td rowspan="2">124</td><td>0</td><td>Westbound</td><td>124 DORAVILLE STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>124 PLEASANTDALE-CHMBLE-TUCKR</td></tr>
+		<tr><td rowspan="3">125</td><td>0</td><td>Northbound</td><td>125 NORTH LAKE MALL</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Southbound</td><td>125 AVONDALE STATION</td></tr>
+		<tr><td>125 AVONDALE STATION VIA BANK OF AMERICA</td></tr>
+		<tr><td rowspan="6">126</td><td rowspan="3">0</td><td rowspan="3">Eastbound</td><td>126 N LAKE MALL VIA CHAMBLEE-TUCKER</td></tr>
+		<tr><td>126 N LAKE MALL VIA PRES PKWY</td></tr>
+		<tr><td>126 N LAKE MALL VIA S FLOWERS</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Westbound</td><td>126 CHAMBLEE STA VIA S FLOWERS</td></tr>
+		<tr><td>126 CHAMBLEE STATION VIA CHAMBLEE-TUCKER</td></tr>
+		<tr><td>126 CHAMBLEE STATION VIA PRES PKWY</td></tr>
+		<tr><td rowspan="2">132</td><td>0</td><td>Southbound</td><td>132 CHAMBLEE STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>132 TILLY MILL / DUNWOODY CLUB</td></tr>
+		<tr><td rowspan="3">140</td><td>0</td><td>Southbound</td><td>140 N. SPRINGS STA</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Northbound</td><td>140 NORTH POINTE/MANSELL P/R-HAYNES BRDG RD.</td></tr>
+		<tr><td>140 NORTH POINTE/MANSELL P/R-WINDWARD PKWY</td></tr>
+		<tr><td rowspan="6">143</td><td rowspan="3">0</td><td rowspan="3">Southbound</td><td>143 N. SPRINGS STA</td></tr>
+		<tr><td>143 N. SPRINGS STA VIA MORRIS RD</td></tr>
+		<tr><td>143 N. SPRINGS STA VIA WEBB RD</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Northbound</td><td>143 WINDWARD P/R</td></tr>
+		<tr><td>143 WINDWARD P/R VIA MORRIS RD</td></tr>
+		<tr><td>143 WINDWARD P/R VIA WEBB RD</td></tr>
+		<tr><td rowspan="2">148</td><td>0</td><td>Westbound</td><td>148 RIVEREDGE PKWY</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>148 MEDICAL CTR STATION</td></tr>
+		<tr><td rowspan="3">150</td><td>0</td><td>Westbound</td><td>150 DUNWOODY STA</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Eastbound</td><td>150 PERIMETER CTR/DUNWOODY CLUB</td></tr>
+		<tr><td>150 PERIMETER CTR/DUNWOODY VILLAGE</td></tr>
+		<tr><td rowspan="2">153</td><td>0</td><td>Southbound</td><td>153 H E HOLMES STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>153 H E HOLMES-BROWNTOWN</td></tr>
+		<tr><td rowspan="3">155</td><td>0</td><td>Northbound</td><td>155 GA STATE STA VIA FIVE PTS STA / GRADY HOSP</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Southbound</td><td>155 POLAR ROCK VIA FIVE PTS/WINDSOR</td></tr>
+		<tr><td>155 SWALLOW CIR VIA FIVE PTS/WINDSOR</td></tr>
+		<tr><td rowspan="4">162</td><td rowspan="2">0</td><td rowspan="2">Eastbound</td><td>162 OAKLAND CITY STATION</td></tr>
+		<tr><td>162 OAKLAND CITY STATION VIA N CAMP CK</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Westbound</td><td>162 HEADLAND DR / ALISON CT</td></tr>
+		<tr><td>162 HEADLAND DR / ALISON CT VIA N CAMP CK</td></tr>
+		<tr><td rowspan="2">165</td><td>0</td><td>Eastbound</td><td>165 HAMILTON E. HOLMES STA</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>165 FAIRBURN RD / BARGE RD P/R</td></tr>
+		<tr><td rowspan="3">170</td><td>0</td><td>Northbound</td><td>170 HAMILTON E HOLMES STATION</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Southbound</td><td>170 BROWNLEE ROAD / PEYTON</td></tr>
+		<tr><td>170 BROWNLEE ROAD VIA BE MAYS</td></tr>
+		<tr><td rowspan="2">172</td><td>0</td><td>Northbound</td><td>172 OAKLAND CITY STATION</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>172 SYLVAN RD - VIRGINIA AVE</td></tr>
+		<tr><td rowspan="3">178</td><td rowspan="2">0</td><td rowspan="2">Northbound</td><td>&nbsp;</td></tr>
+		<tr><td>178 LAKEWOOD STATION</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>178 EMPIRE BLVD / SOUTHSIDE IND PARK</td></tr>
+		<tr><td rowspan="2">180</td><td>0</td><td>Northbound</td><td>180 COLLEGE PARK STA</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>180 PALMETTO- VIA FAIRBURN</td></tr>
+		<tr><td rowspan="6">181</td><td rowspan="3">0</td><td rowspan="3">Northbound</td><td>181 COLLEGE PARK STATION</td></tr>
+		<tr><td>181 COLLEGE PARK STATION VIA SOUTH FULTON P&R</td></tr>
+		<tr><td>181 COLLEGE PK STATION VIA BANK OF AMERICA</td></tr>
+		<tr><td rowspan="3">1</td><td rowspan="3">Southbound</td><td>181 FAIRBURN VIA: BANK OF AMERICA</td></tr>
+		<tr><td>181 FAIRBURN VIA: SOUTH FULTON P&R</td></tr>
+		<tr><td>181 SOUTH FULTON PARK RIDE BUFFINGTON ROAD</td></tr>
+		<tr><td rowspan="2">183</td><td>0</td><td>Eastbound</td><td>183 BARGE RD/LAKEWOOD LAKEWOOD STA</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>183 BARGE RD/ COUNTY LINE / BARGE RD PARK/RIDE</td></tr>
+		<tr><td rowspan="2">185</td><td>0</td><td>Southbound</td><td>185 NORTH SPRINGS STA</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>185 WINDWARD P/R</td></tr>
+		<tr><td rowspan="2">186</td><td>0</td><td>Westbound</td><td>186 DOWNTOWN</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>186 RAINBOW DR/SOUTH DEKALB</td></tr>
+		<tr><td rowspan="2">189</td><td>0</td><td>Northbound</td><td>189 COLLEGE PARK STATION</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>189 OLD NATL HWY / UNION STATION</td></tr>
+		<tr><td rowspan="2">193</td><td>0</td><td>Southbound</td><td>193 EAST POINT STATION - SYLVAN HILLS</td></tr>
+		<tr><td>1</td><td>Northbound</td><td>193 OAKLAND CITY STATION - SYLVAN HILLS</td></tr>
+		<tr><td rowspan="3">201</td><td rowspan="2">0</td><td rowspan="2">Eastbound</td><td>201 SIX FLAGS HOLMES STA</td></tr>
+		<tr><td>201 SIX FLAGS SIX FLAGS PARK</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>201 SIX FLAGS SIX FLAGS PARK</td></tr>
+		<tr><td rowspan="2">520</td><td>0</td><td>Westbound</td><td>520 MEMORIAL DR BRT LIMITED KENSINGTON STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>520 MEMORIAL DR BRT LIMITED</td></tr>
+		<tr><td rowspan="2">521</td><td>0</td><td>Westbound</td><td>521 MEMORIAL DR BRT EXPRESS KENSINGTON STA</td></tr>
+		<tr><td>1</td><td>Eastbound</td><td>521 MEMORIAL DR BRT EXPRESS</td></tr>
+		<tr><td rowspan="2">BLUE</td><td>0</td><td>Eastbound</td><td>BLUE EASTBOUND TO INDIAN CREEK STATION</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>BLUE WESTBOUND TO H E HOLMES STATION</td></tr>
+		<tr><td rowspan="2">GOLD</td><td>0</td><td>Northbound</td><td>GOLD NORTHBOUND TO DORAVILLE STATION</td></tr>
+		<tr><td>1</td><td>Southbound</td><td>GOLD SOUTHBOUND TO AIRPORT STATION</td></tr>
+		<tr><td rowspan="4">GREEN</td><td rowspan="3">0</td><td rowspan="3">Eastbound</td><td>GREEN EASTBOUND TO CANDLER PARK STATION</td></tr>
+		<tr><td>GREEN EASTBOUND TO KING MEMORIAL STATION</td></tr>
+		<tr><td>GREEN EASTBOUND TO VINE CITY STATION</td></tr>
+		<tr><td>1</td><td>Westbound</td><td>GREEN WESTBOUND TO BANKHEAD STATION</td></tr>
+		<tr><td rowspan="3">RED</td><td>0</td><td>Northbound</td><td>RED NORTHBOUND TO NORTH SPRINGS STATION</td></tr>
+		<tr><td rowspan="2">1</td><td rowspan="2">Southbound</td><td>RED SOUTHBOUND TO AIRPORT STATION</td></tr>
+		<tr><td>RED SOUTHBOUND TO LINDBERGH STATION</td></tr>
+	</tbody>
+</table>
+<p>For quick reference, that means:</p>
+<table>
+	<thead>
+		<tr>
+			<th>0 =</th>
+			<th>1 =</th>
+			<th>On Routes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Eastbound</td>
+			<td>Westbound</td>
+			<td>3, 13, 26, 50, 51, 53, 56, 58, 68, 71, 83, 84, 93, 126, 162, 165, 183, 201, BLUE, GREEN</td>
+		</tr>
+		<tr>
+			<td>Westbound</td>
+			<td>Eastbound</td>
+			<td>2, 21, 24, 30, 36, 67, 74, 78, 82, 86, 107, 116, 119, 120, 121, 124, 148, 150, 186, 520, 521</td>
+		</tr>
+		<tr>
+			<td>Northbound</td>
+			<td>Southbound</td>
+			<td>8, 15, 19, 32, 34, 42, 49, 66, 73, 81, 89, 95, 104, 110, 111, 114, 115, 125, 155, 170, 172, 178, 180, 181, 189, GOLD, RED</td>
+		</tr>
+		<tr>
+			<td>Southbound</td>
+			<td>Northbound</td>
+			<td>1, 4, 5, 6, 9, 12, 16, 25, 27, 33, 37, 39, 47, 55, 60, 75, 85, 87, 99, 103, 117, 123, 132, 140, 143, 153, 185, 193</td>
+		</tr>
+	</tbody>
+</table>
+
+</body>
+</html>

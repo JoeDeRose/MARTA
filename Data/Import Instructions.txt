@@ -1,0 +1,10 @@
+(1) Edit files in Notepad++.
+(2) Remove first line (field names).
+(3) Rename as *.csv files.
+(4) For any files larger than 35 MiB, break into 2 files.
+(5) For any files that have quotation marks, fix the escaping of the quotation marks; example:
+        Wrong: "Peachtree St./""The Peach"""
+        Right: "Peachtree St.\"The Peach\""
+(6) Use SSH Secure File Transfer to copy the file into /home2/joederos/tmp.
+(7) Use Toad for MySQL to truncate the existing tables (queries at Clear Existing Records.sql in this folder).
+(8) Use phpMyAdmin to import the files into the appropriate tables.

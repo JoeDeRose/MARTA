@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+<script src="Scripts/jquery-min.js"></script>
+<script>
+var url = 'http://developer.itsmarta.com/BRDWebService/BRDWebService.asmx'; 
+ 
+function callWebservice( RouteNum ) /*Add parameters and what not*/ { 
+ 
+    var soapBody = 	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+	soapBody += 	"<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n";
+	soapBody += 	"  <soap:Body>\n";
+	soapBody += 	"    <GetBRD xmlns=\"http://tempuri.org/\">\n";
+	soapBody += 	"      <routeabbr>" + RouteNum + "</routeabbr>\n";
+	soapBody += 	"    </GetBRD>\n";
+	soapBody += 	"  </soap:Body>\n";
+	soapBody += 	"</soap:Envelope>";
+	
+	soapBodyLength = soapBody.length;
+	
+	//Example of a xml request probably put this is the parameter 
+    var soapMessage = 	"POST /BRDWebService/BRDWebService.asmx HTTP/1.1\n";
+    soapMessage += 		"Host: developer.itsmarta.com\n";
+    soapMessage += 		"Content-Type: text/xml; charset=utf-8\n";
+    soapMessage += 		"Content-Length: " + soapBodyLength + "\n";
+    soapMessage += 		"SOAPAction: \"http://tempuri.org/GetBRD\"\n\n";
+    soapMessage += 		soapBody;
+
+    $.ajax({ 
+        type: 'POST', 
+        url: url, 
+        cache: false, 
+        success: function(data){ 
+            var xml = data.xml; 
+			alert( xml );
+            //[do something with the xml] 
+        }, 
+        error: function(data){ 
+            var xml = data.xml; 
+			alert( "error" );
+			alert( xml );
+            //[do something with the xml] 
+        }, 
+        contentType: 'text/xml', 
+        data: soapMessage 
+    }); 
+} 
+
+callWebservice( 39 );
+</script>
+</body>
+</html>
+

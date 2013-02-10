@@ -1,0 +1,1799 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title>Breeze Card</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+  <script src="BreezeCard_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+
+var shoppingcartTypeVar = 0 
+function clearCartSession(paramVal, linkName){	
+	if(shoppingcartTypeVar == 1 && linkName !='Buy a Card'){
+		if(confirm("Do you want to remove the cart?")){
+			paramVal += "&removeCartSession=1";
+			document.forms[0].action = paramVal;
+			document.forms[0].method = "POST";
+			document.forms[0].submit();
+		}
+	}
+	else if(shoppingcartTypeVar == 2 && linkName !='Add Trips to Existing Card'){
+		if(confirm("Do you want to remove the cart?")){
+			paramVal += "&removeCartSession=2";
+			document.forms[0].action = paramVal;
+			document.forms[0].method = "POST";
+			document.forms[0].submit();
+		}
+	}
+	else
+	{
+		document.forms[0].action = paramVal;
+		document.forms[0].method = "POST";
+		document.forms[0].submit();
+	}
+}
+</script></head>
+
+	  <body>	
+	  	<div id="wrapper">
+		  			
+
+
+
+
+
+
+
+
+
+
+
+	
+		<title>MARTA</title>
+		<link rel="stylesheet" type="text/css" href="BreezeCard_files/calendar.css">
+		<link rel="stylesheet" type="text/css" href="BreezeCard_files/gui.css">
+		<link rel="alternate stylesheet" type="text/css" href="BreezeCard_files/calendar.css" title="standard">
+		<link rel="alternate stylesheet" type="text/css" href="BreezeCard_files/gui.css" title="standard">
+		<link rel="alternate stylesheet" type="text/css" href="BreezeCard_files/calendar_nographics.css" title="text">
+		<link rel="alternate stylesheet" type="text/css" href="BreezeCard_files/nographics.css" title="text">
+		<link id="cssLink" rel="Stylesheet" type="text/css" href="BreezeCard_files/errorcss.css">
+		
+	
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20374474-1']);
+  _gaq.push(['_setDomainName', '.breezecard.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+	<script type="text/javascript" src="BreezeCard_files/common.js"></script>
+	<script type="text/javascript" src="BreezeCard_files/styleSwitcher.js"></script>
+	<script language="javascript">
+		basePath = 'http://is.breezecard.com/marta/';
+		function checkForGraphicsTest(isGraphic){
+			if(isGraphic == 'true'){
+				document.write("<link id='cssLink' rel='Stylesheet'  type='text/css' href='"+basePath+"css/calendar.css' />");					
+				document.write("<link id='cssLink' rel='Stylesheet'  type='text/css' href='"+basePath+"css/gui.css' />");
+			}else if(isGraphic == 'false'){		
+				document.write("<link id='cssLink' rel='Stylesheet'  type='text/css' href='"+basePath+"css/calendar_nographics.css' />");
+				document.write("<link id='cssLink' rel='Stylesheet'  type='text/css' href='"+basePath+"css/nographics.css' />");		
+			}
+		}
+		
+		function changeGrapics(toWhat){
+			alert("I ma for "+toWhat);
+			if(toWhat == 'txt'){
+				document.write("<link id='cssLink' rel='Stylesheet'  type='text/css' href='./css/calendar_nographics.css' />");
+				document.write("<link id='cssLink' rel='Stylesheet'  type='text/css' href='./css/nographics.css' />");		
+			}else{
+				document.write("<link id='cssLink' rel='Stylesheet'  type='text/css' href='./css/calendar.css' />");					
+				document.write("<link id='cssLink' rel='Stylesheet'  type='text/css' href='./css/gui.css' />");
+			}
+			
+		}
+	
+	</script>
+	
+<div id="header">
+	<div id="header_left" class="logo" title="Breeze Card"><span>Breeze Card |<span class="logo_caption"><span>Connecting the Region</span></span></span>			</div>
+	<div id="header_right">			
+		<div id="header_blueness_front"></div>
+		<div id="header_blueness_repeater">
+			<div id="top_right_menu_contact"><a href="https://is.breezecard.com/marta/contactUs.do">Contact Us</a></div>
+			<div id="top_right_menu_div">|</div>
+			<div id="top_right_menu_faq"><a href="https://is.breezecard.com/marta/jsp/UserGuide.jsp" target="_blank">Tutorial</a></div>
+		</div>
+		<div id="header_blueness_corner"></div>
+	</div>
+</div>
+		
+					
+
+
+
+
+
+
+
+
+
+	<div id="breadcrumbs_bg">
+		<div id="breadcrumbs_leftcont" style="font-style: normal;">
+			<a href="#" onclick="clearCartSession('patronMangementAction.do?dispatchTo=getPatronCardList')" style="font-style: normal; color: white; font-family: Verdana,Arial,Helvetica,sans-serif;" title="Home">Home</a> &gt;&gt; My Cards &gt;&gt; Add Trips to Existing Card
+		</div>
+		<div id="breadcrumbs_rightcont">
+			<div id="breadcrumbs_icon_signout" title="Signout"><a href="https://is.breezecard.com/marta/logout.do?dispatchTo=userLogout" class="add_cart">Signout</a></div>
+			<!-- <div id="breadcrumbs_icon_help" title="Help"><a href="#" class="add_cart">Help</a></div> -->
+			
+			
+			<div id="breadcrumbs_cart_icon" title="MyCart" alt="MyCart"></div>
+			
+		</div>
+	</div>
+		  			<div id="main_pan">
+		  				<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		  				<tbody><tr>
+		  					<td id="left_panel" valign="top">
+		  						
+
+
+
+
+<script type="text/javascript">
+	
+menu_status = new Array();
+function switchit(theid){	
+    if (document.getElementById) {   
+    var switch_id = document.getElementById(theid);	
+        if(menu_status[theid] != 'hide') {
+           switch_id.className = 'hide';
+           menu_status[theid] = 'hide';
+        }else{
+           switch_id.className = 'show';
+           menu_status[theid] = 'show';
+        }
+    }
+}
+</script>
+
+<style>
+
+.submenu{
+	display: block;
+	height: 19px;
+	margin-left: 38px;
+	padding-top: 2px;
+	padding-left: 7px;
+	color: #333333;
+	}
+
+.hide{
+	display: none;
+	}
+
+.show{
+	display: block;
+	}
+
+</style>
+
+<div id="Left_pan">
+			
+				<div id="sidemenu_width_main">
+					<div id="bullet_red" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_red">
+					<a href="#" onclick="switchit('sidemenu_width1')" title="My Cards">My Cards</a>
+					</div>
+				</div>
+				<div id="sidemenu_width1">
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('breezeCardAction.do?dispatchTo=buyNewCards&amp;tabLocation=purchaseCardDiv&amp;cardAction=purchaseCard',this.title)" title="Buy a Card">Buy a Card</a>
+					
+					
+					</div>
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('breezeCardAction.do?dispatchTo=purchaseCard&amp;cardAction=reloadCard',this.title)" title="Add Trips to Existing Card">Add Trips to Existing Card</a>
+					
+					
+					</div>
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('showLinkExistingBreezeCardPage.do?dispatchTo=linkExistingBreezeCard&amp;action=showPage',this.title)" title="Register Existing Card To Account">Register Existing Card To Account</a>
+					
+					
+					</div>
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('viewEditBreezeCardAction.do?dispatchTo=viewEditBreezeCard',this.title)" title="View/Edit Breeze Card">View/Edit Breeze Card</a>
+					
+					
+					</div>
+				
+				
+				</div>
+				
+			
+				<div id="sidemenu_width_main">
+					<div id="bullet_red" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_red">
+					<a href="#" onclick="switchit('sidemenu_width2')" title="My Account">My Account</a>
+					</div>
+				</div>
+				<div id="sidemenu_width2">
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('getPassword.do?dispatchTo=getPassword',this.title)" title="View/Edit Profile">View/Edit Profile</a>
+					
+					
+					</div>
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('changePasswordDetails.do?dispatchTo=userChangePassword',this.title)" title="Change Password">Change Password</a>
+					
+					
+					</div>
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('addressMangementAction.do?dispatchTo=displayAddressSummary',this.title)" title="Manage Addresses">Manage Addresses</a>
+					
+					
+					</div>
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('managePaymentcardAction.do?dispatchTo=managePaymentCards',this.title)" title="Manage Payment Cards">Manage Payment Cards</a>
+					
+					
+					</div>
+				
+				
+				</div>
+				
+			
+				<div id="sidemenu_width_main">
+					<div id="bullet_red" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_red">
+					<a href="#" onclick="switchit('sidemenu_width3')" title="My Orders">My Orders</a>
+					</div>
+				</div>
+				<div id="sidemenu_width3">
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+						<a href="#" onclick="clearCartSession('viewOrder.do?dispatchTo=displayViewOrder',this.title)" title="View Orders">View Orders</a>
+					
+					
+					</div>
+				
+				
+				</div>
+				
+			
+				<div id="sidemenu_width_main">
+					<div id="bullet_red" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_red">
+					<a href="#" onclick="switchit('sidemenu_width4')" title="Information">Information</a>
+					</div>
+				</div>
+				<div id="sidemenu_width4">
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+					      
+					      
+					      <a href="https://is.breezecard.com/marta/jsp/UserGuide.jsp" target="_blank" title="How to">How to</a>
+					      
+					       
+					      
+					
+					
+					</div>
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+					      
+					      
+					       
+						<a href="http://www.breezecard.com/htm/terms_conditons.html" target="_blank" title="Terms and conditions">Terms and conditions</a>
+					      
+					      
+					
+					
+					</div>
+				
+					<div id="bullet_white" title="Bullet">
+						<span>»</span>
+					</div>
+					<div id="sidemenu_white">
+					
+					      
+					      <a href="https://is.breezecard.com/marta/contactUs.do" title="Contact Us">Contact Us</a>
+					      
+					      
+					       
+					      
+					
+					
+					</div>
+				
+				
+				</div>
+				
+			
+			<table>
+					      <tbody><tr>
+					      <td>&nbsp;
+					      
+					      </td>
+					      </tr>
+					        <tr>
+					      <td>&nbsp;
+					      
+					      </td>
+					      </tr>
+					      <tr>
+					      <td>&nbsp;
+					      
+					      </td>
+					      </tr>
+					        <tr>
+					      <td>&nbsp;
+					      
+					      </td>
+					      <td>&nbsp;
+					      
+					      </td>
+					      </tr>
+					        <tr>
+					      <td>&nbsp;
+					      
+					      </td>
+					      </tr>
+					      <tr>
+					      <td>&nbsp;
+					      
+					      </td>
+					      </tr>
+					        <tr>
+					      <td>&nbsp;
+					      
+					      </td>
+					      </tr>
+					      </tbody></table>	
+</div>				
+			
+
+
+<script type="text/javascript">
+
+	//switchit('sidemenu_width1');
+	//switchit('sidemenu_width2');
+	//switchit('sidemenu_width3');
+	//switchit('sidemenu_width');
+
+</script>
+
+		  					</td>
+		  					<td id="right_panel">
+		  						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="BreezeCard_files/isPurchase.js"></script>
+<script type="text/javascript" src="BreezeCard_files/CalendarControl1.js"></script><iframe id="CalendarControlIFrame" src="javascript:false;" scrolling="no" frameborder="0"></iframe><div id="CalendarControl"></div>
+<script type="text/javascript" src="BreezeCard_files/myCommute.js"></script>
+
+
+<!-- MY COMMUTE (start) -->
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		
+	<meta name="keywords" content="Atlanta bus services, trip planner, Atlanta, rail, train, trip itinerary planner, MARTA Trip planner, MyCommute trip planning, schedules">
+		
+
+<!-- MY COMMUTE (end) -->
+
+
+
+<script type="text/javascript">	
+//To get the product names
+	
+	var productNames = new Array(0);
+	var renAdvanceCount = new Array(0);
+	
+	
+	
+	
+	var currBCardId = '';
+	var isSessionAvailable = 'false';
+	var currRegionId = 'null';
+	
+	
+javascript:window.history.forward(1);
+	var tabLocation = 'addMoneyToCartDiv';
+	var shoppingCart = '';
+	if(tabLocation == ''){
+		tabLocation = 'addMoneyToCartDiv';
+	}
+	
+	
+	
+	</script>
+<div id="center_pan" style="overflow: auto;">
+	<form name="purchaseCardForm" method="post" action="/marta/breezeCardAction.do?dispatchTo=purchaseCard" id="purchaseCardForm">
+		<input id="upperLimit" value="6" type="hidden">
+		<input id="reStr" value="0-0" type="hidden">
+		<!-- Add money to card Details -->
+		<div style="" id="addMoneyToCartDiv">
+			<table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+				<tbody><tr>
+					<td>
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tbody><tr>
+								<td valign="top" width="100%">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tbody><tr>
+											<td width="4%">&nbsp;
+												
+											</td>
+											<td width="96%">
+												<table border="0" cellpadding="0" cellspacing="0" width="100%">
+													<tbody><tr>
+														<td>&nbsp;
+															
+														</td>
+													</tr>
+													<tr>
+														<td valign="top">
+															<table border="0" cellpadding="0" cellspacing="0" width="100%">
+																<tbody><tr>
+																	<td class="table_head">
+																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+																			<tbody><tr>
+																				<td width="1%">&nbsp;
+																					
+																				</td>
+
+																				<td id="arrow_bullet_white" title="Bullet" width="3%">
+																					&nbsp;&nbsp;&nbsp;
+																					<!-- <img src="images/arrow_bullet_white.gif" alt=""
+																								width="16" height="16" /> -->
+																				</td>
+																				<td class="table_head_text" width="96%">
+																					Load Breeze Card
+																				</td>
+																				<td class="table_head_text" align="center" width="4%">&nbsp;
+																					
+																				</td>
+																				<td class="table_head_text" width="1%">&nbsp;
+																					
+																				</td>
+																			</tr>
+																		</tbody></table>
+																	</td>
+																</tr>
+                                                                <tr>
+							                                      <td class="table_grid_even" align="right">
+							                                          <img src="BreezeCard_files/lock_icon.gif" width="15">
+								                                       This is a Secure Site
+							  	                                      <img src="BreezeCard_files/help_icon_new.gif" title="Your credit card security is our utmost priority.  BreezeCard.com uses Secure Sockets Layer(SSL) encryption, an advanced encryption technology that protects the information you send us against unauthorized access." width="15">
+						                                          </td>
+						                                        </tr>
+
+																<tr>
+																	<td class="table_body" valign="top">
+																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+																			<tbody><tr>
+																				<td valign="top">
+																					<table border="0" cellpadding="0" cellspacing="0" width="100%">
+																						<tbody><tr>
+																							<td colspan="2">
+																								<table border="0" cellpadding="0" cellspacing="0" width="100%">
+																									<tbody><tr>
+																										<td class="table_head_text_tab_highlight" align="center" width="20%">
+																											Load Breeze Card
+																										</td>
+																										<td class="table_head_text_tab" title="You may adjust your order by selecting, Load Breeze Card Tab OR you may remove already selected products in your Cart below." align="center" width="8%">
+																											<a style="text-decoration: none;" href="#" onclick="javascript:saveData('myCartDiv', '');">My Cart </a>
+																										</td>
+																										<td class="table_head_text_tab" align="center" width="10%">
+																											<a style="text-decoration: none;" href="#" onclick="javascript:modifyDisplayTabData('paymentMethodDiv','','false');">
+																												Payment </a>
+																										</td>
+																										<td class="table_head_text_tab" align="center" width="15%">
+																											<a style="text-decoration: none;" href="#" onclick="javascript:modifyDisplayTabData('reviewOrderDiv', '','false');">Review Order </a>
+																										</td>
+																										<td class="table_head_text_tab" align="center" width="10%">
+																											<a style="text-decoration: none;" href="#" onclick="">Confirmation </a>
+																										</td>
+																									</tr>
+																								</tbody></table>
+																							</td>
+																						</tr>
+																						<tr>
+																							<td colspan="2">&nbsp;
+																								
+																							</td>
+																						</tr>
+
+																						
+																						
+																						<tr>
+																							<td colspan="2">	
+																							
+																								<table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+
+																									<tbody><tr>
+																										<td class="table_text">
+																											<b>&nbsp;Select a Card</b>
+																										</td>
+																									</tr>
+
+																									<tr>
+																										<td>
+																											<table align="center" border="0" cellpadding="2" cellspacing="2" width="100%">
+
+																												<tbody><tr height="40">
+																													<td class="table_text">
+																													Select a Card:
+
+																														
+																																
+																															<select name="breezeCardId" size="1" onchange="populatecardDetails(this.value,isSessionAvailable);" id="breezeCardId"><option value="2366" selected="selected">Joe</option></select>
+																																
+																															&nbsp;&nbsp;<a href="https://is.breezecard.com/marta/showLinkExistingBreezeCardPage.do?dispatchTo=linkExistingBreezeCard&amp;action=showPage" id="login_password">Click here</a> to add Breeze Card	
+																														
+																														
+																													</td>
+																												</tr>
+
+																												
+																															</tbody></table>
+																														
+																													</td>
+																												</tr>
+																											</tbody></table>
+																										</td>
+																									</tr>
+																								</tbody></table>
+																								
+																							</td>
+																						</tr>
+																						<tr>
+																						   <td colspan="2">
+																						       
+																				<table align="center" border="0" cellpadding="2" cellspacing="2" width="98%">
+
+																					<tbody><tr>
+																						<td class="table_grid_main" width="100%">
+																							New Products 
+																						</td>
+																					</tr>
+
+																					<tr>
+																																																								</tr><tr name="cartProductDivID">
+																					<td class="table_text" align="left" valign="top">
+																					<font color="#FF0000">Your order will appear under 
+New Products in your account until you have tapped your Breeze card to 
+load your purchase at a station faregate, vending machine or bus farebox</font>.																												
+																					</td>
+																					</tr>
+
+																					
+																					<tr>
+																						<td class="table_grid_odd" width="20%">
+
+																							Cash Value $10.00 Added On:08/20/2011
+
+																						</td>
+																					</tr>
+																					
+																				</tbody></table>
+																				
+																	   </td>
+																						</tr>   
+																						<tr>
+																							<td colspan="2">
+																								<div id="displayCardDetailsDiv" style="display: block;">
+																									
+																								<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+																									
+																						<tbody><tr>
+																							<td colspan="2">
+																							<table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+																									 
+																								
+																												<tbody><tr>
+																													<td>&nbsp;
+																														
+																													</td>
+																												</tr>
+																												</tbody></table>
+																												
+																												</td>
+																												</tr>
+																									<tr>
+																									    <td colspan="2" class="table_text">&nbsp;&nbsp;<b>Add Trips and/or Time to Your Card </b>
+																									    </td>
+																									</tr>
+																									<tr>
+																									   <td colspan="3">&nbsp;
+																									   </td>
+																									</tr>
+																									<tr>
+																									<td class="arrow_image" valign="top">
+																									        <!--<img src="images/yellow_arrow.gif"/>-->
+																									</td>
+																									<td class="table_text" align="left" valign="top">Add or select up to four transit products&nbsp;
+																									</td>
+																									<td>&nbsp;
+																									</td>
+																									</tr>
+																									<!--  <tr height="60">
+																									    
+																										<td class="table_grid_even">
+																										&nbsp;Region&nbsp;
+																										
+																															<select name="regionId" size="1" onchange="populateregionDetails(this.value);" id="regionId"><option value="1">MARTA</option>
+<option value="2">Cobb</option>
+<option value="4">Gwinnett</option>
+<option value="5">GRTA</option></select>
+																										
+																										<br><br>
+																										&nbsp;You can add/or select up to four products per card.
+																									   </td>
+																									</tr>	-->
+
+																							</tbody></table>
+																							</div></td>
+																						</tr>																						
+																						<tr>
+																							<td width="70%">
+																								<table align="right" border="0" cellpadding="0" cellspacing="0" width="98%">
+																									
+																									
+																									  
+																									  <tbody><tr>
+																									   <td>&nbsp; 
+																									     
+																									  </td>
+																									  <td class="blue_strip" colspan="2">
+																									     MARTA
+																									     
+																									     Bus and Rail Service 
+																									     
+																									     <img src="BreezeCard_files/help_icon_new.gif" title="You can select the region related products under the corrosponding region." align="right">
+																									  </td>
+																									  </tr>
+																									   <tr height="25">
+																									      <td colspan="3">&nbsp;
+																									      </td>
+																									  </tr>
+																									  <tr>
+																										<td width="5%" height="25">&nbsp;
+																											
+																										</td>
+																										<td class="table_text" title="One single trip on bus and rail; each trip includes 4 transfers within 3 hours" width="50%">
+																											<b>Transit Product</b>
+
+																										</td>
+																										<td class="table_text" align="right" width="45%">
+																											Price
+																											($)
+																										</td>
+																									</tr>
+																									<tr>
+																									      <td colspan="3">
+																									      </td>
+																									 </tr>
+																									  
+																									
+																									<tr>
+																										<td>
+																											<input id="12_1 Trip_2.00_17921_MARTA_1" name="productChk" value="12" type="checkbox">
+																										</td>
+																										<td class="table_text" title="One single trip on bus and rail; each trip includes 4 transfers within 3 hours">
+																											1 Trip
+																										</td>
+																										<td class="table_text" align="right">
+																											2.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="13_2 Trip_4.00_18177_MARTA_1" name="productChk" value="13" type="checkbox">
+																										</td>
+																										<td class="table_text" title="2 trips on MARTA bus and rail; each trip includes 4 transfers within 3 hours">
+																											2 Trip
+																										</td>
+																										<td class="table_text" align="right">
+																											4.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="14_10 Trip_20.00_18433_MARTA_1" name="productChk" value="14" type="checkbox">
+																										</td>
+																										<td class="table_text" title="10 trips on MARTA bus and rail; each trip includes 4 transfers within 3 hours">
+																											10 Trip
+																										</td>
+																										<td class="table_text" align="right">
+																											20.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="15_20 Trip_34.00_18689_MARTA_1" name="productChk" value="15" type="checkbox">
+																										</td>
+																										<td class="table_text" title="20 trips on MARTA bus and rail; each trip includes 4 transfers within 3 hours">
+																											20 Trip
+																										</td>
+																										<td class="table_text" align="right">
+																											34.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="6_1 Day Pass_8.00_16385_MARTA_1" name="productChk" value="6" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Unlimited travel on MARTA bus and rail; good for one calendar day; starts when first tapped.">
+																											1 Day Pass
+																										</td>
+																										<td class="table_text" align="right">
+																											8.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="7_2 Day Pass_11.00_16641_MARTA_1" name="productChk" value="7" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Unlimited travel on MARTA bus and rail; good for 2 consecutive calendar days; starts when first tapped">
+																											2 Day Pass
+																										</td>
+																										<td class="table_text" align="right">
+																											11.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="8_3 Day Pass_13.00_16897_MARTA_1" name="productChk" value="8" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Unlimited travel on MARTA bus and rail; good for 3 consecutive calendar days; starts when first tapped">
+																											3 Day Pass
+																										</td>
+																										<td class="table_text" align="right">
+																											13.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="9_4 Day Pass_15.00_17153_MARTA_1" name="productChk" value="9" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Unlimited travel on MARTA bus and rail; good for 4 consecutive calendar days; starts when first tapped">
+																											4 Day Pass
+																										</td>
+																										<td class="table_text" align="right">
+																											15.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="10_7 Day Pass_17.00_17409_MARTA_1" name="productChk" value="10" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Unlimited travel on MARTA bus and rail; good for 7 consecutive calendar days; starts when first tapped">
+																											7 Day Pass
+																										</td>
+																										<td class="table_text" align="right">
+																											17.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="11_30 Day Pass_68.00_17665_MARTA_1" name="productChk" value="11" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Unlimited travel on MARTA bus and rail; good for 30 consecutive calendar days; starts when first tapped">
+																											30 Day Pass
+																										</td>
+																										<td class="table_text" align="right">
+																											68.00
+																										</td>
+																									</tr>
+																									
+																									
+																									  
+																									  <tr>
+																										<td colspan="3">&nbsp;
+																											
+																										</td>
+																									</tr>
+																									
+																									  <tr>
+																									   <td>&nbsp; 
+																									     
+																									  </td>
+																									  <td class="blue_strip" colspan="2">
+																									     Cobb
+																									     
+																									     Bus Service
+																									     
+																									     <img src="BreezeCard_files/help_icon_new.gif" title="You can select the region related products under the corrosponding region." align="right">
+																									  </td>
+																									  </tr>
+																									   <tr height="25">
+																									      <td colspan="3">&nbsp;
+																									      </td>
+																									  </tr>
+																									  <tr>
+																										<td width="5%" height="25">&nbsp;
+																											
+																										</td>
+																										<td class="table_text" title="10 Rides on CCT local routes; free transfer to MARTA bus and rail" width="50%">
+																											<b>Transit Product</b>
+
+																										</td>
+																										<td class="table_text" align="right" width="45%">
+																											Price
+																											($)
+																										</td>
+																									</tr>
+																									<tr>
+																									      <td colspan="3">
+																									      </td>
+																									 </tr>
+																									  
+																									
+																									<tr>
+																										<td>
+																											<input id="17_CB Loc 10R_16.00_27649_Cobb_2" name="productChk" value="17" type="checkbox">
+																										</td>
+																										<td class="table_text" title="10 Rides on CCT local routes; free transfer to MARTA bus and rail">
+																											Cobb Local 10 Ride
+																										</td>
+																										<td class="table_text" align="right">
+																											16.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="16_CB Loc 31D_65.00_27393_Cobb_2" name="productChk" value="16" type="checkbox">
+																										</td>
+																										<td class="table_text" title="31 Day Round Trip Pass for CCT local routes; 31 day period begins the first time the ticket is used">
+																											Cobb Local 31 Day Pass
+																										</td>
+																										<td class="table_text" align="right">
+																											65.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="19_CB Exp 20R_57.00_28417_Cobb_2" name="productChk" value="19" type="checkbox">
+																										</td>
+																										<td class="table_text" title="20 Rides on CCT express routes; free transfer to MARTA bus and rail">
+																											Cobb Express 20 Ride 
+																										</td>
+																										<td class="table_text" align="right">
+																											57.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="18_CB Exp 31D_110.00_27905_Cobb_2" name="productChk" value="18" type="checkbox">
+																										</td>
+																										<td class="table_text" title="31 Day Round Trip Pass for CCT local routes; 31 day period begins the first time the ticket is used">
+																											Cobb Express 31 Day Pass
+																										</td>
+																										<td class="table_text" align="right">
+																											110.00
+																										</td>
+																									</tr>
+																									
+																									
+																									  
+																									  <tr>
+																										<td colspan="3">&nbsp;
+																											
+																										</td>
+																									</tr>
+																									
+																									  <tr>
+																									   <td>&nbsp; 
+																									     
+																									  </td>
+																									  <td class="blue_strip" colspan="2">
+																									     Gwinnett
+																									     
+																									     Bus Service
+																									     
+																									     <img src="BreezeCard_files/help_icon_new.gif" title="You can select the region related products under the corrosponding region." align="right">
+																									  </td>
+																									  </tr>
+																									   <tr height="25">
+																									      <td colspan="3">&nbsp;
+																									      </td>
+																									  </tr>
+																									  <tr>
+																										<td width="5%" height="25">&nbsp;
+																											
+																										</td>
+																										<td class="table_text" title="10 Rides on Gwinnett County Transit express routes within Zone 1; free transfer to MARTA bus and rail" width="50%">
+																											<b>Transit Product</b>
+
+																										</td>
+																										<td class="table_text" align="right" width="45%">
+																											Price
+																											($)
+																										</td>
+																									</tr>
+																									<tr>
+																									      <td colspan="3">
+																									      </td>
+																									 </tr>
+																									  
+																									
+																									<tr>
+																										<td>
+																											<input id="26_GW Z1 Exp 10R_30.00_2305_Gwinnett_4" name="productChk" value="26" type="checkbox">
+																										</td>
+																										<td class="table_text" title="10 Rides on Gwinnett County Transit express routes within Zone 1; free transfer to MARTA bus and rail">
+																											Gwinnett Zone1 Exp 10 Ride
+																										</td>
+																										<td class="table_text" align="right">
+																											30.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="28_GW Z2 Exp 10R_40.00_28161_Gwinnett_4" name="productChk" value="28" type="checkbox">
+																										</td>
+																										<td class="table_text" title="10 Rides on Gwinnett County Transit express routes within Zone 2; free transfer to MARTA bus and rail">
+																											Gwinnett Zone 2 Express 10 Ride
+																										</td>
+																										<td class="table_text" align="right">
+																											40.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="27_GW Z1 Exp Month_100.00_2049_Gwinnett_4" name="productChk" value="27" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Good for unlimited rides for 30 calendar days on Gwinnett County Transit local routes; begins after the first use. Free transfer to MARTA bus and rail">
+																											Gwinnett Express 30 Day
+																										</td>
+																										<td class="table_text" align="right">
+																											100.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="25_GW Loc Monthly_65.00_2817_Gwinnett_4" name="productChk" value="25" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Good for unlimited rides for 30 calendar days on Gwinnett County Transit local routes; begins after the first use. Free transfer to MARTA bus and rail">
+																											Gwinnett Local 30 Day 
+																										</td>
+																										<td class="table_text" align="right">
+																											65.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="24_GW Loc 10 Ride_20.00_2561_Gwinnett_4" name="productChk" value="24" type="checkbox">
+																										</td>
+																										<td class="table_text" title="10 Ride Pass for Gwinnett County Transit local routes: free transfer to MARTA bus and rail">
+																											Gwinnett Local 10 Ride
+																										</td>
+																										<td class="table_text" align="right">
+																											20.00
+																										</td>
+																									</tr>
+																									
+																									
+																									<tr>
+																										<td>
+																											<input id="36_GW Z2 Exp Month_150.00_29185_Gwinnett_4" name="productChk" value="36" type="checkbox">
+																										</td>
+																										<td class="table_text" title="Gwinnett Zone 2 Express 30 Day
+">
+																											Gwinnett Zone 2 Express 30 Day
+																										</td>
+																										<td class="table_text" align="right">
+																											150.00
+																										</td>
+																									</tr>
+																									
+																									<tr>
+																									<td colspan="4" align="right">
+																									
+																									<!--
+																									<a href="#" onclick="javascript:isProductAlreadyExist();">
+																										<img src="images/buttons/add.gif" alt="Add" 
+																											title="Add" border="0" />
+																									</a>
+																									-->
+																									&nbsp;
+																									</td>
+																									</tr>
+																									
+																								</tbody></table>
+																						
+																								</td>
+																								<!-- MY COMMUTE (start) -->
+																								<td valign="top" width="30%">
+																									<div id="planYourTripDiv">
+																										<table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+																											<tbody><tr>
+																												<td class="blue_strip">
+																													<font size="1">PLAN YOUR TRIP</font>
+																												</td>
+																											</tr>
+																											<tr>
+																												<td>
+																													<table style="background: url(&quot;images/trip_planner_back.png&quot;) no-repeat scroll 0% 0% transparent;" border="0" cellpadding="0" cellspacing="0" width="100%" height="281">
+																															
+																														<tbody><tr>
+																															<td class="contentBold_black" align="right" valign="top" width="22%" height="20"><span class="tripplanner_txt_bold">
+																													
+																															<input name="ShowHide" onclick="formshowhide('atob')" value="atob" checked="checked" type="radio"> Point A to B</span></td>
+																																
+																															<td class="tripplanner_txt_bold" valign="top" width="21%"><input name="ShowHide" value="schedules_trip" onclick="formshowhide('schedules_trip')" type="radio"> Schedules</td>
+																														</tr>
+																														
+																														<tr>
+																															<td colspan="2" valign="top" height="242">
+																																<div id="atob">
+																																	<table align="center" border="0" cellpadding="1" cellspacing="0" width="210">
+																																		<tbody>
+																																			<tr>
+																																				<td class="tripplanner_txt">Leaving From:</td>
+																																				<td><input name="Start" class="tripplanner_txt" id="Start" tabindex="1" size="25"></td>
+																																			</tr>
+																																			<tr>
+																																				<td class="tripplanner_txt">Going To:</td>
+																															
+																																				<td class="tripplanner_txt"><input name="End" class="tripplanner_txt" id="End" tabindex="2" size="25" "=""> <span class="tripplanner_txt">example: 123 Peachtree St.</span></td>
+																																			</tr>
+																																			<tr>
+																																			<td class="tripplanner_txt">Date:</td>
+																																			<td>
+																																			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+																																				<tbody><tr>
+																														
+																																					<td width="39%"><input name="DateTP" class="tripplanner_txt" id="DateTP" tabindex="3" onfocus="showCalendarControl(this);" size="12" maxlength="10" type="text"></td>
+																																					<td width="61%"><a href="#" onclick="showCalendarControl(DateTP);">&nbsp;<img src="BreezeCard_files/myCommuteCalendar.gif" alt="Icon" id="Icon" border="0" width="18" height="16"> </a></td>
+																																				</tr>
+																																			</tbody></table>
+																																			</td>
+																																		</tr>
+																														
+																																		<tr>
+																																			<td class="tripplanner_txt" colspan="2">Time:<label> <input tabindex="4" name="TripDirection" value="DEP" type="radio"> <span class="tripplanner_txt">Departure</span></label> <span class="tripplanner_txt_normal"> <label> <input name="TripDirection" class="tripplanner_txt_normal" tabindex="5" value="ARR" type="radio"> </label> </span> <label><span class="tripplanner_txt">Arrival</span></label></td>
+																														
+																																		</tr>
+																																		<tr>
+																																			<td height="26">&nbsp;</td>
+																																			<td><!--Times---> <select name="HourDropDown" class="tripplanner_txt" tabindex="6" id="HourDropDown">
+																																				<option selected="selected" value="100">1</option>
+																																				<option value="200">2</option>
+																														
+																																				<option value="300">3</option>
+																																				<option value="400">4</option>
+																																				<option value="500">5</option>
+																																				<option value="600">6</option>
+																																				<option value="700">7</option>
+																																				<option value="800">8</option>
+																														
+																																				<option value="900">9</option>
+																																				<option value="1000">10</option>
+																																				<option value="1100">11</option>
+																																				<option value="1200">12</option>
+																																			</select> <!--Minutes---> <select name="MinuteDropDown" class="tripplanner_txt" tabindex="7" id="MinuteDropDown">
+																														
+																																				<option selected="selected" value="00">00</option>
+																																				<option value="01">01</option>
+																																				<option value="02">02</option>
+																																				<option value="03">03</option>
+																																				<option value="04">04</option>
+																																				<option value="05">05</option>
+																														
+																																				<option value="06">06</option>
+																																				<option value="07">07</option>
+																																				<option value="08">08</option>
+																																				<option value="09">09</option>
+																																				<option value="10">10</option>
+																																				<option value="11">11</option>
+																														
+																																				<option value="12">12</option>
+																																				<option value="13">13</option>
+																																				<option value="14">14</option>
+																																				<option value="15">15</option>
+																																				<option value="16">16</option>
+																																				<option value="17">17</option>
+																														
+																																				<option value="18">18</option>
+																																				<option value="19">19</option>
+																																				<option value="20">20</option>
+																																				<option value="21">21</option>
+																																				<option value="22">22</option>
+																																				<option value="23">23</option>
+																														
+																																				<option value="24">24</option>
+																																				<option value="25">25</option>
+																																				<option value="26">26</option>
+																																				<option value="27">27</option>
+																																				<option value="28">28</option>
+																																				<option value="29">29</option>
+																														
+																																				<option value="30">30</option>
+																																				<option value="31">31</option>
+																																				<option value="32">32</option>
+																																				<option value="33">33</option>
+																																				<option value="34">34</option>
+																																				<option value="35">35</option>
+																														
+																																				<option value="36">36</option>
+																																				<option value="37">37</option>
+																																				<option value="38">38</option>
+																																				<option value="39">39</option>
+																																				<option value="40">40</option>
+																																				<option value="41">41</option>
+																														
+																																				<option value="42">42</option>
+																																				<option value="43">43</option>
+																																				<option value="44">44</option>
+																																				<option value="45">45</option>
+																																				<option value="46">46</option>
+																																				<option value="47">47</option>
+																														
+																																				<option value="48">48</option>
+																																				<option value="49">49</option>
+																																				<option value="50">50</option>
+																																				<option value="51">51</option>
+																																				<option value="52">52</option>
+																																				<option value="53">53</option>
+																														
+																																				<option value="54">54</option>
+																																				<option value="55">55</option>
+																																				<option value="56">56</option>
+																																				<option value="57">57</option>
+																																				<option value="58">58</option>
+																																				<option value="59">59</option>
+																														
+																																			</select> <select name="MeridiemDropDown" size="1" class="tripplanner_txt" tabindex="8" id="MeridiemDropDown">
+																																				<option selected="selected" value="a">am</option>
+																																				<option value="p">pm</option>
+																																			</select></td>
+																																		</tr>
+																																		<tr>
+																																			<td colspan="2" height="70"> <input name=".a" value="iItinerary" type="hidden"> <input name="FormState" value="0" type="hidden"> <br>
+																																			<div align="center">
+																																				<input value="Submit" alt="Submit" title="Submit" onclick="javascript:heQuickTrip(this.form,'TripPlan','http://mycommute.itsmarta.com');" type="button"> &nbsp;
+																																			</div>
+																																				</td> 
+																																		</tr>
+																														
+																																	</tbody>
+																																</table>
+																															</div>
+																															<div id="schedules_trip" style="display: none;">
+																															<table align="center" cellpadding="1" cellspacing="1" width="196">
+																																<tbody>
+																																	<tr>
+																																		<td class="tripplanner_txt" width="50">
+																																		<div align="right"><strong>Route Number: </strong></div>
+																																		</td>
+																													
+																																		<td width="162"><label> <select name="LineAbbr" size="1" class="tripplanner_txt" tabindex="10">
+																																			<option selected="selected" value="0">Select a Route or Rail Line</option>
+																																			<option value="GREEN">Green Rail Line</option>
+																																			<option value="GOLD">Gold Rail Line</option>
+																																			<option value="RED">Red Rail Line</option>
+																																			<option value="BLUE">Blue Rail Line</option>
+																																			<option value="  1">Route 1</option>
+																																			<option value="  2">Route 2</option>
+																																			<option value="  3">Route 3</option>
+																																			<option value="  4">Route 4</option>
+																																			<option value="  5">Route 5</option>
+																																			<option value="  6">Route 6</option>
+																																			<option value="  7">Route 7</option>
+																																			<option value="  8">Route 8</option>
+																																			<option value="  9">Route 9</option>
+																																			<option value=" 11">Route 11</option>
+																																			<option value=" 12">Route 12</option>
+																																			<option value=" 13">Route 13</option>
+																																			<option value=" 15">Route 15</option>
+																																			<option value=" 16">Route 16</option>
+																																			<option value=" 17">Route 17</option>
+																																			<option value=" 18">Route 18</option>
+																																			<option value=" 19">Route 19</option>
+																																			<option value=" 21">Route 21</option>
+																																			<option value=" 22">Route 22</option>
+																																			<option value=" 24">Route 24</option>
+																																			<option value=" 25">Route 25</option>
+																																			<option value=" 26">Route 26</option>
+																																			<option value=" 27">Route 27</option>
+																																			<option value=" 28">Route 28</option>
+																																			<option value=" 30">Route 30</option>
+																																			<option value=" 32">Route 32</option>
+																																			<option value=" 33">Route 33</option>
+																																			<option value=" 34">Route 34</option>
+																																			<option value=" 36">Route 36</option>
+																																			<option value=" 37">Route 37</option>
+																																			<option value=" 38">Route 38</option>
+																																			<option value=" 39">Route 39</option>
+																																			<option value=" 42">Route 42</option>
+																																			<option value=" 44">Route 44</option>
+																																			<option value=" 45">Route 45</option>
+																																			<option value=" 47">Route 47</option>
+																																			<option value=" 49">Route 49</option>
+																																			<option value=" 50">Route 50</option>
+																																			<option value=" 51">Route 51</option>
+																																			<option value=" 52">Route 52</option>
+																																			<option value=" 53">Route 53</option>
+																																			<option value=" 54">Route 54</option>
+																																			<option value=" 55">Route 55</option>
+																																			<option value=" 56">Route 56</option>
+																																			<option value=" 57">Route 57</option>
+																																			<option value=" 58">Route 58</option>
+																																			<option value=" 59">Route 59</option>
+																																			<option value=" 60">Route 60</option>
+																																			<option value=" 66">Route 66</option>
+																																			<option value=" 67">Route 67</option>
+																																			<option value=" 68">Route 68</option>
+																																			<option value=" 69">Route 69</option>
+																																			<option value=" 70">Route 70</option>
+																																			<option value=" 71">Route 71</option>
+																																			<option value=" 72">Route 72</option>
+																																			<option value=" 73">Route 73</option>
+																																			<option value=" 74">Route 74</option>
+																																			<option value=" 75">Route 75</option>
+																																			<option value=" 77">Route 77</option>
+																																			<option value=" 78">Route 78</option>
+																																			<option value=" 81">Route 81</option>
+																																			<option value=" 82">Route 82</option>
+																																			<option value=" 83">Route 83</option>
+																																			<option value=" 84">Route 84</option>
+																																			<option value=" 85">Route 85</option>
+																																			<option value=" 86">Route 86</option>
+																																			<option value=" 87">Route 87</option>
+																																			<option value=" 88">Route 88</option>
+																																			<option value=" 89">Route 89</option>
+																																			<option value=" 91">Route 91</option>
+																																			<option value=" 93">Route 93</option>
+																																			<option value=" 95">Route 95</option>
+																																			<option value=" 96">Route 96</option>
+																																			<option value=" 97">Route 97</option>
+																																			<option value=" 99">Route 99</option>
+																																			<option value="103">Route 103</option>
+																																			<option value="104">Route 104</option>
+																																			<option value="105">Route 105</option>
+																																			<option value="107">Route 107</option>
+																																			<option value="110">Route 110</option>
+																																			<option value="111">Route 111</option>
+																																			<option value="113">Route 113</option>
+																																			<option value="114">Route 114</option>
+																																			<option value="115">Route 115</option>
+																																			<option value="116">Route 116</option>
+																																			<option value="117">Route 117</option>
+																																			<option value="118">Route 118</option>
+																																			<option value="119">Route 119</option>
+																																			<option value="120">Route 120</option>
+																																			<option value="121">Route 121</option>
+																																			<option value="122">Route 122</option>
+																																			<option value="123">Route 123</option>
+																																			<option value="124">Route 124</option>
+																																			<option value="125">Route 125</option>
+																																			<option value="126">Route 126</option>
+																																			<option value="132">Route 132</option>
+																																			<option value="137">Route 137</option>
+																																			<option value="139">Route 139</option>
+																																			<option value="140">Route 140</option>
+																																			<option value="143">Route 143</option>
+																																			<option value="148">Route 148</option>
+																																			<option value="150">Route 150</option>
+																																			<option value="151">Route 151</option>
+																																			<option value="153">Route 153</option>
+																																			<option value="155">Route 155</option>
+																																			<option value="160">Route 160</option>
+																																			<option value="162">Route 162</option>
+																																			<option value="165">Route 165</option>
+																																			<option value="170">Route 170</option>
+																																			<option value="172">Route 172</option>
+																																			<option value="178">Route 178</option>
+																																			<option value="180">Route 180</option>
+																																			<option value="181">Route 181</option>
+																																			<option value="183">Route 183</option>
+																																			<option value="185">Route 185</option>
+																																			<option value="186">Route 186</option>
+																																			<option value="189">Route 189</option>
+																																			<option value="193">Route 193</option>
+																																			<option value="201">Route 201</option>
+																																			<option value="216">Route 216</option>
+																																			<option value="245">Route 245</option>
+																																			<option value="273">Route 273</option>
+																																			<option value="311">Route 311</option>
+																																			<option value="328">Route 328</option>
+																																			<option value="329">Route 329</option>
+																																			<option value="341">Route 341</option>
+																																			<option value="364">Route 364</option>
+																																			<option value="376">Route 376</option>
+																																			<option value="389">Route 389</option>
+																																			<option value="397">Route 397</option>
+																																			<option value="500">Route 500</option>
+																																			<option value="501">Route 501</option>
+																																			<option value="502">Route 502</option>
+																																			<option value="503">Route 503</option>
+																																			<option value="504">Route 504</option>
+																													
+																																		</select> </label></td>
+																																	</tr>
+																																	<tr>
+																																		<td class="tripplanner_txt" height="26">
+																																		<div align="right"><strong>Date:</strong></div>
+																																		</td>
+																																		<td><input name="DateSchedule" class="tripplanner_txt" id="DateSchedule" tabindex="11" onfocus="showCalendarControl(this);" value="3-29-2010" size="12" maxlength="20" type="text"> <a href="#" onclick="showCalendarControl(DateSchedule);"><img src="BreezeCard_files/myCommuteCalendar.gif" alt="Icon" id="Img1" border="0" width="18" height="16"> </a></td>
+																													
+																																	</tr>
+										
+																																	<tr>
+																																		<td>&nbsp;</td>
+																																		<td>
+																																			<input value="submit" onclick="javascript:heQuickTrip(this.form,'TripPlan2','http://mycommute.itsmarta.com');" type="button">
+																																		</td>
+																																	</tr>
+																													
+																																</tbody>
+																															</table>
+																															</div>
+																															</td>
+																														</tr>
+																															
+																															
+																														<input name="Date" id="Date" tabindex="3" value="3-29-2010" size="12" maxlength="10" visible="false" type="hidden"> <input id="hidVal" name="hidVal" type="hidden">
+																													</tbody></table>
+																												</td>
+																											</tr>
+																										</tbody></table>
+																									</div>
+																								</td>
+																						<!-- MY COMMUTE (end) -->
+																								</tr>
+																								<tr>
+																									
+																									
+																									
+																										<td colspan="2">
+																								<table align="right" border="0" cellpadding="0" cellspacing="0" width="98%">
+																									<tbody><tr>
+																										<td class="table_text">
+																											<b>Add Money</b>
+																										</td>
+																									</tr>
+																									<tr>
+																										
+																										<td>
+																											<table align="center" border="0" cellpadding="2" cellspacing="2" width="100%">
+
+																												<tbody><tr>
+																												    <td class="table_text" colspan="3">
+																												          Cash Value may be deducted for 
+single trips by MARTA, CCT, GRTA, or Gwinnett in absence of a MARTA, 
+CCT, GRTA, or Gwinnett pass.You can load cash directly onto your Breeze 
+Card; Maximum cash allowed per card is $100.
+																												    </td>
+																												</tr>
+
+																												<tr>
+																													<td colspan="3" class="table_text" width="100%">Previous Available Balance is  &nbsp;
+																														
+																														'$10.00'
+																														.&nbsp;&nbsp;
+																														You can add cash value up to&nbsp;
+																														'$90.00'&nbsp;per card.
+																													</td>
+
+																												</tr>
+																												<tr>
+																													<!--   <td class="table_text"><input type="radio" name="moneyValue" value="1" id="moneyValue">$1
+																													  </td> -->
+																													  <td class="table_text"><input name="moneyValue" value="2" id="moneyValue" type="radio">$2
+																													  </td>
+																													  <td class="table_text"><input name="moneyValue" value="4" id="moneyValue" type="radio">$4
+																													  </td>
+																												  </tr> 
+																												  <tr>
+																													  <td class="table_text"><input name="moneyValue" value="5" id="moneyValue" type="radio">$5
+																													  </td>
+																													  <td class="table_text"><input name="moneyValue" value="10" id="moneyValue" type="radio">$10
+																													  </td>
+																													  <td class="table_text"><input name="moneyValue" value="20" id="moneyValue" type="radio">$20
+																													  </td>
+																												 </tr> 
+																											</tbody></table>
+																										</td>
+																										
+																									</tr>
+
+
+
+																								</tbody></table>
+																							</td>
+																						</tr>
+																								</tbody></table>
+																								
+																							</td>
+																						</tr>
+																						
+																						
+																						<tr>
+																							<td width="98%">
+																								<table align="center" border="0" cellpadding="0" cellspacing="0" width="19%">
+																									<tbody><tr>
+																										<td width="1%">&nbsp;
+																											
+																										</td>
+																										<td width="32%">
+																											<!-- MARTA UI Review Changes (start) -->
+																											<!--
+																											<SCRIPT> 
+																												document.write("<a href='#' onclick='javascript: addToCart(\"addMoneyToCartDiv\",\"10.00\",\"0\",productNames,\"0\");'><img src='"+
+																														imageUrl+"add.gif' border='0' alt='Add' title='Add'/></a>");
+																											</SCRIPT> 
+																											
+																											<a href="#" onclick="javascript: addToCart('addMoneyToCartDiv','10.00','0',productNames);">
+																												<img src="images/buttons/add.gif" alt="Add" 
+																													title="Add" border="0" />
+																											</a>
+																											-->
+																											<!--
+																											<input name="Button" type="button" alt="Add"
+																												title="Add" class="button"
+																												onclick="javascript: addToCart('addMoneyToCartDiv','10.00','0',productNames);"
+																												value="Add" />
+																											-->	
+																											<!-- MARTA UI Review Changes (end)  -->	
+																											<script> 
+																													document.write("<a href='#'><img src='"+
+																																					imageUrl+"back_disabled.gif' border='0' alt='Back' title='Back'/></a>");
+																											</script><a href="#"><img src="BreezeCard_files/back_disabled.gif" alt="Back" title="Back" border="0"></a>
+																										</td>
+																										<td width="1%">&nbsp;
+																											
+																										</td>
+																										<td width="32%">
+																											<!-- MARTA UI Review Changes (start)  -->
+																											
+																											
+	                                                                                                        
+																												<script> 
+																													document.write("<a href='#' onclick='javascript: addToCartNew(\"myCartDiv\",\"10.00\",\"0\",productNames,\"0\");'><img src='"+
+																															imageUrl+"continue.gif' border='0' alt='Continue' title='Continue'/></a>");
+																												</script><a href="#" onclick='javascript: addToCartNew("myCartDiv","10.00","0",productNames,"0");'><img src="BreezeCard_files/continue.gif" alt="Continue" title="Continue" border="0"></a>
+																											
+																											
+																											<!--
+																											<a href="#" onclick="javascript: addToCart('myCartDiv','10.00','0',productNames);">
+																												<img src="images/buttons/add_checkout.gif" alt="Add and Checkout" 
+																													title="Add and Checkout" border="0" />
+																											</a>
+																											-->
+																											
+																											<!--
+																											<input name="Button" type="button"
+																												alt="Add and Checkout"
+																												title="Add and Checkout" class="button"
+																												onclick="javascript: addToCart('myCartDiv','10.00','0','');"
+																												value="Add and Checkout" />
+																											-->
+																											<!-- MARTA UI Review Changes (end)  -->
+																										</td>
+																										<td width="1%">&nbsp;
+																											
+																										</td>
+																										<td class="table_text" width="32%">
+																											<!-- MARTA UI Review Changes (start) -->
+																											
+																											<!--
+																											<a href="#" onclick="javascript:saveData('myCartDiv', '');">
+																												<img src="images/buttons/next.gif" alt="Next" 
+																													title="Next" border="0" />
+																											</a>
+																											-->
+																											
+																											<!--
+																											<input name="Button" type="button"
+																												alt="Next"
+																												title="Next"
+																												class="button"
+																												value="Next"
+																												onclick="javascript:saveData('myCartDiv', '');" />
+																											-->
+																											<!-- MARTA UI Review Changes (end) -->
+																											<a href="javascript:cancelFn();" title="Cancel">Cancel</a>
+																										</td>
+																										<!-- 
+																												<td width="4%">
+																													&nbsp;
+																												</td>
+																												 -->
+																									</tr>
+																								</tbody></table>
+																							</td>
+																						</tr>
+																						
+																						
+																					</tbody></table>
+																				</td>
+																			</tr>
+
+																		</tbody></table>
+																	</td>
+																</tr>
+																<!-- bbbbbbbbbbb -->
+															</tbody></table>
+														</td>
+													</tr>
+													<tr>
+														<td>&nbsp;
+															
+														</td>
+													</tr>
+												</tbody></table>
+											</td>
+										</tr>
+									</tbody></table>
+								</div></form></div></td>
+							</tr>
+
+						</tbody></table>
+					
+				
+			
+		</div>
+		<!--Add money to card Details-->
+		<!-- Mycart Details -->
+		<div id="myCartDiv" style="display: none;">			
+		</div>
+		<!-- Mycart Details -->
+		<!-- PaymentMethod Details -->
+		<div id="paymentMethodDiv" style="display: none;">			
+		</div>
+		<!-- PaymentMethod Details -->
+		<!-- ReviewOrder Details -->
+		<div id="reviewOrderDiv" style="display: none;">		
+		</div>
+		<!-- ReviewOrder Details -->
+		<!-- Confirmation Details -->
+		<div id="confirmationDiv" style="display: none;">			
+		</div>
+		<div id="shippingDiv" style="display: none;">
+		</div>
+		<div id="purchaseCardDiv" style="display: none;">
+		</div>
+		<div id="recur_thrDiv" style="display: none;">
+			
+		</div>
+		<!-- Confirmation Details -->
+		<!-- Hidden fields -->
+			<input name="editAddress" value="" type="hidden">
+			<input name="editPaymentCard" value="" type="hidden">
+			<input name="editBillingAddress" value="" type="hidden">
+			<input id="cardNickNames" name="cardNickNames" type="hidden">
+			<input id="selectedProducts" name="selectedProducts" type="hidden">
+			<input id="cardAction" name="cardAction" value="reloadCard" type="hidden">
+			<!-- Hidden fields -->
+	
+</div>
+<script type="text/javascript">	
+	
+	if(tabLocation == ''){
+		tabLocation = 'addMoneyToCartDiv';
+	}
+	if(document.forms[0].breezeCardId != null)
+	    modifyDisplayTabData(tabLocation);	
+	var editPaymentDiv = '';	
+	if(editPaymentDiv != '' && editPaymentDiv != 'null'){
+		displayEditCard(editPaymentDiv);
+	}
+		
+</script>
+		  					
+		  				
+		  				
+								
+					   			
+				  	
+		  			
+
+
+
+<div>
+	
+	<!-- #BeginLibraryItem "/Library/footer.lbi" -->
+	
+	<div id="footer_bg">
+	
+	<table id="footer_menu" border="0" cellpadding="0" cellspacing="0" width="100%">
+	    
+	    <tbody>
+	      
+	      <tr>
+	        
+	        <td>
+				<a href="http://www.breezecard.com/htm/terms_conditons.html" target="blank">Terms &amp; Conditions</a> 
+			</td>
+			
+	        <td>|</td>
+	        
+	        <td align="center">
+	        	<a href="https://is.breezecard.com/marta/ISSitemap.html" target="_blank">Site Map</a> 
+	        </td>
+	        
+	        <td>|</td>
+	        
+	        <td> 
+	        	<a href="http://www.breezecard.com/htm/privacy_statement.html" target="blank">Privacy Policy &amp; Disclaimers</a> 
+	        </td>
+	        
+	        <td>|</td>
+	        
+	        <td align="center">
+	        	<a href="http://www.itsmarta.com/" target="_blank">MARTA</a>
+	        </td>
+	        
+	        <td>|</td>
+	        
+	        <td>
+	        	<a href="http://www.cobbdot.org/cct.htm" target="_blank">CCT</a>
+	        </td>
+	        
+	        <td>|</td>
+	        
+	    <!--     <TD>
+	        	<A href="http://web.co.clayton.ga.us/ctran/index.htm" target=_blank>C-TRAN</A>
+	        </TD>
+	        
+	        <TD>|</TD> -->
+	        
+	        <td> 
+	        	<a href="http://www.gwinnettcounty.com/" target="_blank">GCT</a>
+	        </td>
+	        
+	        <td>|</td>
+	        
+	        <td align="center">
+	        	<a href="http://www.xpressga.com/" target="_blank">GRTA</a>
+	        </td>
+	        
+			<td align="center"> 
+				
+			</td>
+			
+	        <td id="footer_menu_bold">
+	        	© 2010 MARTA All rights reserved 
+	        </td>
+	        
+	      </tr>
+	      
+	    </tbody>
+	    
+  	</table>
+  	
+	</div>
+	
+	<!-- #EndLibraryItem -->
+	
+</div>
+		 
+	 
+</body></html>

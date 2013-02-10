@@ -1,0 +1,475 @@
+/* CSS Document */
+body, td, th, p, li, ul {
+	font-family: Arial, Verdana, Arial, sans-serif;
+	font-size: 11px;
+	color:#000000;
+}
+
+h1,h2,h3,h4  {
+	font-family: Arial, Verdana, Arial, sans-serif;
+	font-weight: bold;
+    color:#000000;
+	
+}
+
+.PageHeaderBlue {
+	font-family: Arial, Verdana;
+	font-size: 14px;
+	font-weight: bold;
+	color:#657394;
+}
+
+.PageHeaderBlack {
+	font-family: Arial, Verdana;
+	font-size: 16px;
+	font-weight: bold;
+	color:#000000;
+}
+
+.PageHeaderGray {
+	font-family: Arial, Verdana;
+	font-size: 16px;
+	font-weight: bold;
+	color:#666666;
+}
+
+.bigOrange {
+	font-family: Arial, Verdana;
+	font-size: 12px;
+	font-weight: bold;
+	color:#ff6600;
+}
+
+/*.cool hr {
+	background-attachment: fixed;
+	background-image: url(../../images/menuline_horizontal.gif);
+	background-repeat: no-repeat;
+	background-position: 550px 2px;
+}
+*/
+hr {
+	border: 1px solid #CCCCCC;
+	
+}
+
+body {
+	/*background-image: url(images/tc_mock/skygrass.jpg);*/
+	background-image: url(../images/newback_large.jpg);
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-repeat: no-repeat;
+	background-attachment:fixed;
+	border: 1px solid #CCCCCC;
+}
+
+/* a {
+font-family: Arial, Verdana;
+font-size: 11px;
+font-weight: normal;	
+color:#000066;
+text-decoration:none;
+}
+*/
+
+
+a:link, a:visited, a:active {
+font-family: Arial, Verdana;
+font-size: 11px;
+font-weight: normal;	
+color:#000066;
+text-decoration:none;
+}
+
+a:hover {
+font-family: Arial, Verdana;
+font-size: 11px;
+font-weight: normal;	
+color:#D98200;
+	text-decoration:underline;
+}
+
+.footer{
+	font-family: Arial, Verdana;
+	font-size:10px;
+	color:#224785;
+}
+
+.more a:link, .more a:visited, .more a:active {
+	font-family:Arial, Verdana;
+	font-size:8px;
+	font-weight:bold;
+	color:#000066;
+	text-decoration:none;
+}
+.more a:hover {
+	font-family:Arial, Verdana;
+	font-size:8px;
+	font-weight:bold;
+	color:#D98200;
+	text-decoration:underline;
+}
+
+
+.txtbreadcrumbs{
+	font-family:Arial, verdana;
+	font-size:11px;
+	color:#666666;
+	padding-left:2px;
+
+}
+.txtbreadcrumbs a:link, .txtbreadcrumbs a:visited, .txtbreadcrumbs a:active {
+	font-family:Arial, verdana;
+	font-size:11px;
+	color:#666666;
+	text-decoration:underline;
+	padding-left:2px;
+}
+
+.txtbreadcrumbs a:hover {
+	font-family:Arial, verdana;
+	font-size:11px;
+	color:#D98200;
+	text-decoration:none;
+	padding-left:2px;
+	
+}
+
+.contentNormal{
+font-family: Arial, Verdana;
+font-size: 11px;
+font-weight: normal;
+color: #214785;
+}
+.contentNormal_black {
+	font-family: Arial, Verdana;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+}
+
+
+
+.contentNormal_black a:link, .contentNormal_black a:visited, .contentNormal_black a:active {
+	color:#000066;
+	text-decoration:none;
+}
+
+.contentNormal_black a:hover {
+	color:#D98200;
+	text-decoration:underline;
+}
+
+
+
+.contentBold_blue a:link,.contentBold_blue a:visited,.contentBold_blue a:active {
+	color:#000066;
+	text-decoration:none;
+}
+
+.contentBold_blue a:hover {
+	color:#D98200;
+	text-decoration:underline;
+}
+
+.contentBold {
+font-family: Arial, Verdana;
+font-size: 11px;
+font-weight: bold;
+color: #214785;
+}
+
+.contentBold_white {
+font-family: Arial, Verdana;
+font-size: 11px;
+font-weight: bold;
+color: #ffffff;
+}
+
+.contentBold_black {
+font-family: arial;
+font-size: 11px;
+font-weight: bold;
+color: #000000;
+}
+
+.contentBold_orange {
+	font-family: Arial, Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color:#D98200;
+}
+
+.contentBold_coolBlue {
+	font-family: Arial, Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	color: #0B46A8;
+}
+
+.contentBold_coolBlue a:link ,.contentBold_coolBlue a:visited, .contentBold_coolBlue a:active{	
+	text-decoration:none;
+}
+
+.contentBold_coolBlue a:hover {
+	color:#D98200;
+	text-decoration:underline;
+}
+
+/*li {
+	list-style-position: outside;
+	list-style-image: url(images/bullet_gray.png);
+	list-style-type: none;	
+}
+*/
+
+
+#Layer1 {
+	position:absolute;
+	left:129px;
+	top:76px;
+	width:89px;
+	height:18px;
+	z-index:1;
+}
+#Layer2 {
+	position:absolute;
+	left:873px;
+	top:843px;
+	width:59px;
+	height:14px;
+	z-index:1;
+}
+
+
+
+
+.txtSearch {
+	border: 1px solid #FFFFFF;
+	font-family: Arial, Verdana;
+	font-size: 9px;
+	font-weight: normal;
+	color:#999999;
+}
+
+.commute_calc_table {
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+      margin: 2px;
+      padding: 2px;
+      width: auto;
+}
+.site_text
+{
+	font-family: Arial, Verdana, Arial, sans-serif;
+	font-size: 11px;
+	color:#000000;
+	}
+	
+.calendar_cool {
+	background-attachment: fixed;
+	background-image: url(images/calendar_back.png);
+	background-repeat: no-repeat;
+	height: 215px;
+}
+.Jobs1_ButtonFind {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	font-weight: bold;
+	background-color: #CCCCCC;
+	border: 1px solid #999999;
+}
+
+littlelisttext {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;
+ line-height: 11px;
+ font-weight: bold;
+}
+.littlelisttext a:link {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;
+ color:#0000ff;
+ line-height: 11px;
+}
+.littlelisttext a:visited {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;
+ line-height: 11px;
+}
+.littlelisttext a:hover {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;
+ color:#A64F00;
+ line-height: 11px;
+}
+.littlelisttext a:active {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;
+ line-height: 11px; 
+}
+.littlelisttextcolor {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;
+ line-height: 11px;
+ font-weight: bold;
+ color:Gray;
+}
+
+/*===============================Hover Table=====================================*/
+#gradient-style-CMS
+{
+	font-family: "arial","verdana", Sans-Serif;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	border: 1px solid #cccccc;
+}
+#gradient-style-CMS th
+{
+	font-size: 11px;
+	font-weight: bold;
+	padding: 3px;
+	background: url('../images/gradhead_cms.png') repeat-x;
+	border-top: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+	color: #666666;
+}
+
+#gradient-style-CMS td
+{
+	padding: 3px; 
+	border-bottom: 1px solid #CCCCCC;
+	color: #333333;
+	border-top: 1px solid #CCCCCC;
+	background: url('../images/gradback_cms.png') repeat-x;
+}
+
+#gradient-style-CMS tfoot tr td
+{
+	font-size: 12px;
+	color: #333333;
+	background-color: #CCCCCC;
+}
+
+#gradient-style-CMS tbody tr:hover td
+{
+	background: url('../images/gradhover_cms.png') repeat-x;
+	color: #000000;
+}
+
+#gradient-style-CMS th
+{
+	font-size: 12px;
+	font-weight: bold;
+	padding: 3px;
+	background: url('../images/gradhead_cms.png') repeat-x;
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #CCCCCC;
+	color: #333333;
+}
+#gradient-style-CMS td
+{
+	padding: 3px; 
+	border-bottom: 1px solid #CCCCCC;
+	color: #333333;
+	border-top: 1px solid #CCCCCC;
+	background: url('../images/gradback_cms.png') repeat-x;
+}
+#gradient-style-CMS tfoot tr td
+{
+	font-size: 10px;
+	color: #666666;
+	background-color: #666666;
+}
+#gradient-style-CMS tbody tr:hover td
+{
+	background: url('../images/gradhover_cms.png') repeat-x;
+	color: #999999;
+}
+.gradient-odd
+{
+	background: #000000;
+}
+.gradient-even
+{
+	background: #e8edff;
+}
+
+
+/*=============================== No Hover Table =====================================*/
+#gradient-style-CMS-noHover
+{
+	font-family: "arial","verdana", Sans-Serif;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	border: 1px solid #cccccc;
+}
+#gradient-style-CMS-noHover th
+{
+	font-size: 11px;
+	font-weight: bold;
+	padding: 3px;
+	background: url('../images/gradhead_cms.png') repeat-x;
+	border-top: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+	color: #666666;
+}
+#gradient-style-CMS-noHover td
+{
+	padding: 3px; 
+	border-bottom: 1px solid #CCCCCC;
+	color: #333333;
+	border-top: 1px solid #CCCCCC;
+	background: #e8edff url('../images/gradback_cms.png') repeat-x;
+}
+#gradient-style-CMS-noHover tfoot tr td
+{
+	font-size: 12px;
+	color: #333333;
+	background-color: #CCCCCC;
+}
+#gradient-style-CMS-noHover tbody tr:hover td
+{
+background-color: #666666;
+}
+
+#gradient-style-CMS-noHover th
+{
+	font-size: 12px;
+	font-weight: bold;
+	padding: 3px;
+	background: url('../images/gradhead_cms.png') repeat-x;
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #CCCCCC;
+	color: #333333;
+}
+#gradient-style-CMS-noHover td
+{
+	padding: 3px; 
+	border-bottom: 1px solid #CCCCCC;
+	color: #333333;
+	border-top: 1px solid #CCCCCC;
+	background: url('../images/gradback_cms.png') repeat-x;
+}
+#gradient-style-CMS-noHover tfoot tr td
+{
+	font-size: 10px;
+	color: #666666;
+	background-color: #666666;
+}
+#gradient-style-CMS-noHover tbody tr:hover td
+{
+background-color: #666666;
+}
+
+
+.page_repeater {
+	
+	background-image: url(../images/page-repeater.png);
+	background-repeat:repeat-y;
+	
+}

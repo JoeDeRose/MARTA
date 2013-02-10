@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="ShowRoute.xsl"?>
+
+<Route>
+	<Number>99</Number>
+	<Name>Boulevard/Monroe Drive</Name>
+	<Direction>NB</Direction>
+	<Stops>
+		<Stop>
+			<StopNum>210431</StopNum>
+			<StopID>99970659</StopID>
+			<StopType>node</StopType>
+			<ServiceStreet>Jesse Hill Jr DR</ServiceStreet>
+			<CrossStreet>Decatur ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>Station</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="station" Route="ew-geo">Georgia State Station (E1)</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="rail" Route="EW">Blue Line</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="rail" Route="PC">Green Line</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="21">Route 21</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="155">Route 155</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>210709</StopNum>
+			<StopID>99970990</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Piedmont AVE</ServiceStreet>
+			<CrossStreet>Martin Luther King DR</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>Station</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="station" Route="ew-geo">Georgia State Station (E1)</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="rail" Route="EW">Blue Line</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="rail" Route="PC">Green Line</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="155">Route 155</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="186">Route 186</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>210555</StopNum>
+			<StopID>99970779</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Piedmont AVE</ServiceStreet>
+			<CrossStreet>Gilmer ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>Building</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Grady Memorial Hospital</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="21">Route 21</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="155">Route 155</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>211471</StopNum>
+			<StopID>99971906</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Piedmont AVE</ServiceStreet>
+			<CrossStreet>Auburn AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>APEX Museum</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="3">Route 3</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>103052</StopNum>
+			<StopID>103052</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Auburn AVE</ServiceStreet>
+			<CrossStreet>Jesse Hill Jr DR</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="3">Route 3</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>103184</StopNum>
+			<StopID>103184</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Auburn AVE</ServiceStreet>
+			<CrossStreet>Bell ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="3">Route 3</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>103064</StopNum>
+			<StopID>103064</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Auburn AVE</ServiceStreet>
+			<CrossStreet>Fort ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>Expressway</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="3">Route 3</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>103162</StopNum>
+			<StopID>103162</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Auburn AVE</ServiceStreet>
+			<CrossStreet>Hilliard ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="3">Route 3</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>103196</StopNum>
+			<StopID>103196</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Auburn AVE</ServiceStreet>
+			<CrossStreet>Jackson ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Martin Luther King, Jr. Center</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="3">Route 3</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>103060</StopNum>
+			<StopID>103060</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Old Wheat ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>901234</StopNum>
+			<StopID>999751</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet> Irwin ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="3">Route 3</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>900950</StopNum>
+			<StopID>94174</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Freedom PKY</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Freedom Park Trail</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="3">Route 3</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>903460</StopNum>
+			<StopID>94026</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Highland AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>903225</StopNum>
+			<StopID>94028</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>East AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>Pedestrian Bridge</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Atlanta Medical Center</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>903226</StopNum>
+			<StopID>94030</StopID>
+			<StopType>node</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Ralph McGill BLVD</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="16">Route 16</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>903227</StopNum>
+			<StopID>94031</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Wabash AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>903228</StopNum>
+			<StopID>94032</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Angier AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Boulevard-Angier Park</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>903253</StopNum>
+			<StopID>94033</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Rankin ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>903252</StopNum>
+			<StopID>94035</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Morgan ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Morgan-Boulevard Park</POIItem>
+				</POI>
+				<POI>
+					<POIItem>Parkway-Merritts Park</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>901391</StopNum>
+			<StopID>94146</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Boulevard PL</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>211491</StopNum>
+			<StopID>99971926</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>North AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="2">Route 2</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>904636</StopNum>
+			<StopID>82118</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Boulevard</ServiceStreet>
+			<CrossStreet>Ponce de Leon AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="2">Route 2</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>904635</StopNum>
+			<StopID>82116</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Monroe DR</ServiceStreet>
+			<CrossStreet>Ponce de Leon AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>Bus Shelter</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="2">Route 2</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>904634</StopNum>
+			<StopID>82114</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Monroe DR</ServiceStreet>
+			<CrossStreet>Saint Charles AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>904756</StopNum>
+			<StopID>82112</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Monroe DR</ServiceStreet>
+			<CrossStreet>Greenwood AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>904755</StopNum>
+			<StopID>82110</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Monroe DR</ServiceStreet>
+			<CrossStreet>Seal PL</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>905000</StopNum>
+			<StopID>82132</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>Monroe DR</ServiceStreet>
+			<CrossStreet>Virginia AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Midtown Promenade Shopping Center</POIItem>
+				</POI>
+				<POI>
+					<POIItem>Henry W. Grady High School</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="2">Route 2</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>904754</StopNum>
+			<StopID>82106</StopID>
+			<StopType>node</StopType>
+			<ServiceStreet>Monroe DR</ServiceStreet>
+			<CrossStreet>Virginia AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="36">Route 36</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>211359</StopNum>
+			<StopID>99971863</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>10th ST</ServiceStreet>
+			<CrossStreet> Monroe DR</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+		</Stop>
+		<Stop>
+			<StopNum>211357</StopNum>
+			<StopID>99971861</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>10th ST</ServiceStreet>
+			<CrossStreet> Charles Allen DR</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Piedmont Park</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="36">Route 36</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>901166</StopNum>
+			<StopID>999763</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>10th ST</ServiceStreet>
+			<CrossStreet>Taft ST</CrossStreet>
+			<Wheelchair>N</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Piedmont Park</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="36">Route 36</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>901164</StopNum>
+			<StopID>999761</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>10th ST</ServiceStreet>
+			<CrossStreet>Argonne AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem>Piedmont Park</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="36">Route 36</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>901229</StopNum>
+			<StopID>999764</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>10th ST</ServiceStreet>
+			<CrossStreet>Piedmont AVE</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="36">Route 36</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>901165</StopNum>
+			<StopID>999762</StopID>
+			<StopType>stop</StopType>
+			<ServiceStreet>10th ST</ServiceStreet>
+			<CrossStreet>Juniper ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>N</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="bus" Route="27">Route 27</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="36">Route 36</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="110">Route 110</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+		<Stop>
+			<StopNum>904800</StopNum>
+			<StopID>81910</StopID>
+			<StopType>node</StopType>
+			<ServiceStreet>10th ST</ServiceStreet>
+			<CrossStreet>W Peachtree ST</CrossStreet>
+			<Wheelchair>Y</Wheelchair>
+			<Shelter>Station</Shelter>
+			<POIs>
+				<POI>
+					<POIItem LinkType="station" Route="ns-mid">Midtown Station (N4)</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="rail" Route="NE">Gold Line</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="rail" Route="NS">Red Line</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="12">Route 12</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="27">Route 27</POIItem>
+				</POI>
+				<POI>
+					<POIItem LinkType="bus" Route="36">Route 36</POIItem>
+				</POI>
+			</POIs>
+		</Stop>
+	</Stops>
+</Route>

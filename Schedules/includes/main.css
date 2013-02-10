@@ -1,0 +1,199 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Universal Elements */
+
+	body
+		{
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 1em;
+		}
+	
+	table
+		{
+			border-collapse: collapse;
+		}
+	
+	td, th
+		{
+			padding-left: 0.25em;
+			padding-right: 0.25em;
+			border-style: solid;
+			border-width: 1px;
+			border-color: black;
+		}
+	
+	th
+		{
+			background-color: silver;
+		}
+	
+/* Specific IDs */
+
+	#map_canvas
+		{
+			border-width: 1px;
+			border-style: solid;
+			border-color: black;
+		}
+
+/* Class Groups */
+
+	/* .RouteList */
+
+		.RouteList th
+			{
+				font-weight: bold;
+				text-align: center;
+				padding-left: 0.5em;
+				padding-right: 0.5em;
+			}
+		
+		.RouteList th, .RouteList td
+			{
+				background-color: white;
+				border-color: white;
+				border-width: 0.25em;
+				vertical-align: top;
+			}
+		
+		.RouteList a
+			{
+				padding-left: 1em;
+			}
+		
+		.RouteList .AdherenceUnknown
+			{
+				background-color: yellow;
+				vertical-align: middle;
+				text-align: center;
+				font-size: 0.8em;
+				font-weight: bold;
+			}
+
+		.RouteList .AdherenceOnTime
+			{
+				background-color: limegreen;
+				vertical-align: middle;
+				text-align: center;
+				font-size: 0.8em;
+				font-weight: bold;
+			}
+
+		.RouteList .AdherenceLate
+			{
+				background-color: red;
+				vertical-align: middle;
+				text-align: center;
+				font-size: 0.8em;
+				font-weight: bold;
+			}
+
+		.RouteList .NoRun
+			{
+				background-color: darkgray;
+				vertical-align: middle;
+				text-align: center;
+				font-size: 0.8em;
+				font-weight: bold;
+			}
+
+	/* .offset */
+
+		th.offset
+			{
+				background-color: darkorange;
+			}
+		
+		td.offset
+			{
+				background-color: orange;
+			}
+
+	/* .mapexample */
+
+		table.mapexample th, table.mapexample td
+			{
+				text-align: left;
+				vertical-align: top;
+				border: 1px solid black;
+				padding-left: 0.25em;
+				padding-right: 0.25em;
+			}
+
+	/* HeadsignList */
+
+		ul.HeadsignList
+			{
+				padding: 0;
+			}
+		
+		ul.HeadsignList li
+			{
+				list-style-type: none;
+				padding-left: 2em;
+				text-indent: -2em;
+			}
+
+	/* .RunsToday__ */
+
+		.RunsTodayYes
+			{
+				font-weight: bold;
+				color: black;
+			}
+		
+		.RunsTodayNo
+			{
+				font-weight: bold;
+				color: gray;
+			}
+
+/* General Classes in Specific Circumstances */
+
+	.duplicateName
+		{
+			color: lightgray;
+		}
+	
+	.PopUpContent
+		{
+			font-size: 0.8em;
+		}
+
+/* General Classes in Broad Circumstances */
+
+	.noBorder
+		{
+			border-style: none;
+		}
+	
+	.noShade
+		{
+			background-color: white;
+		}
+	
+	.noBold
+		{
+			font-weight: normal;
+		}
+	
+	.HighlightYellow
+		{
+			background-color: yellow;
+		}
+	
+	.alignLeft
+		{
+			text-align: left;
+		}
+	
+	.alignRight
+		{
+			text-align: right;
+		}
+	
+	.alert
+		{
+			color: red;
+		}

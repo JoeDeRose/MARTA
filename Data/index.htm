@@ -1,0 +1,1027 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MARTA Developer Resources</title>
+<link rel="stylesheet" type="text/css" media="all" href="main.css" />
+</head>
+
+<body>
+
+<h1>MARTA Developer Resources</h1>
+<p>This is my attempt to catalog information related to the MARTA GTFS (General
+	Transit Feed Specification) feed -- both for my own use and for the benefit of
+	other programmers.</p>
+<p>My personal opinion is that the community would be better served if this were
+	hosted on the MARTA website, so I will happily turn over these files -- at
+	no charge, of course -- if they
+	give MARTA a head start to hosting a more detailed set of developer pages.
+	(But I would appreciate attribution for my work.)</p>
+<h2>Contact</h2>
+<p>Please be aware that I am not affiliated with MARTA. Contact information
+	for MARTA can be found on the agency's website at:<br />
+<a href="http://www.itsmarta.com/Contact-us.aspx" target="_blank">http://www.itsmarta.com/Contact-us.aspx</a></p>
+<p>If you would like to contact me about this resource (and please feel welcome
+	to do so, especially if you find any errors I need to correct), my e-mail
+	address is <a href="mailto:joe@joederose.us">joe@joederose.us</a>.</p>
+<h2>Source Information</h2>
+
+<p>The MARTA GTFS feed is available on the
+	MARTA website at:<br />
+<a href="http://www.itsmarta.com/marta-developer-resources.aspx">http://www.itsmarta.com/marta-developer-resources.aspx</a></p>
+
+<p>This feed was designed for Google Transit, and meets Google's specifications
+	as outlined at<br />
+<a href="https://developers.google.com/transit/gtfs/reference">https://developers.google.com/transit/gtfs/reference</a></p>
+<p>MARTA also has a real-time bus feed that provides data in XML (via a SOAP
+	call) and JSON (both via SOAP and via a direct URL call). MARTA wants to
+	be aware of any developers using the real-time feed, so I am not providing
+	links here to the real-time feed; instead, you will need to submit a request
+	on the MARTA developer page linked above. (If you don't get a reply, though,
+	please contact me at the e-mail address above and I'll try to reach out to
+	my contacts at MARTA to see if your request
+	has been lost.)</p>
+
+<h2>UML</h2>
+<p>Following is a UML diagram of the table relationships
+	in MARTA's GTFS feed. I included <strong>calendar.txt</strong> and <strong>calendar_dates.txt</strong> on
+	this example to show the field relationship, but I think a query that incorporates
+	these tables would be needlessly complex. For my own work, I plan to set up
+	separate function calls to get the appropriate <strong>service_id</strong> from
+	those tables,
+	and simply pass in the resultant value as a parameter in the WHERE clause of
+	the query.</p>
+<p class="image"><img src="UML.jpg" alt="UML of table relationships" /></p>
+<h2>Tables (.txt Files)</h2>
+
+<p>Following are the tables provided in the MARTA GTFS feeds. Please note the
+	following:</p>
+
+<ul>	
+	<li>Hyperlinks are to the Google table specifications.</li>
+	<li>Data type information is not specified by MARTA nor (for most fields) by Google. The types listed below reflect my best assumption regarding the most useful data type to apply.</li>
+	<li>The parenthetical numbers after &quot;text&quot; in the &quot;Data Type&quot;
+		column reflect the longest line in the current dataset -- not a prescribed
+			maximum length. For my own database design, I intend to pad those numbers
+			somewhat to allow for longer text in the future, and I recommend
+			that others do the same.</li>
+	<li>Notes are my own observations about the data (which I believe to be correct, of course -- but which may reflect misunderstandings on my part).</li>
+</ul>
+
+<h2><a href="https://developers.google.com/transit/gtfs/reference#agency_fields" target="_blank">agency.txt</a></h2>
+
+<p>This table provides information about the transit agency (in our case, MARTA).</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Data Type</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>agency_id</th>
+			<td>text(5)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>agency_name</th>
+			<td>text(44)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>agency_url</th>
+			<td>text(23)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>agency_timezone</th>
+			<td>text(16)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>agency_lang</th>
+			<td>text(2)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>agency_phone</th>
+			<td>text</td>
+			<td>Not used by MARTA in the current data set.</td>
+		</tr>
+	</tbody>
+</table>
+
+<h3>Data Example</h3>
+
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>agency_id</th>
+			<th>agency_name</th>
+			<th>agency_url</th>
+			<th>agency_timezone</th>
+			<th>agency_lang</th>
+			<th>agency_phone</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>MARTA</td>
+			<td>Metropolitan Atlanta Rapid Transit Authority</td>
+			<td>http://www.itsmarta.com</td>
+			<td>America/New_York</td>
+			<td>en</td>
+			<td>&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2><a href="https://developers.google.com/transit/gtfs/reference#stops_fields" target="_blank">stops.txt</a></h2>
+
+<p>This table provides information about specific transit stops and stations.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Data Type</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>stop_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>stop_code</th>
+			<td>integer</td>
+			<td>This is the numeric code that is also displayed as the &quot;Stop Number&quot; on MARTA's MyCommute pages.</td>
+		</tr>
+		<tr>
+			<th>stop_name</th>
+			<td>text(35)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>stop_desc</th>
+			<td>text(81)</td>
+			<td>Google instructs that this should be a description of the stop with &quot;useful, quality information&quot; to distinguish it from <strong>stop_name</strong>; MARTA does not seem to be using it to its potential, and in some cases leaves it blank.</td>
+		</tr>
+		<tr>
+			<th>stop_lat</th>
+			<td>float</td>
+			<td>Latitude in decimal WGS 84 format.</td>
+		</tr>
+		<tr>
+			<th>stop_lon</th>
+			<td>float</td>
+			<td>Longitude in decimal WGS 84 format.</td>
+		</tr>
+		<tr>
+			<th>zone_id</th>
+			<td>integer</td>
+			<td>Not used by MARTA in the current data set.</td>
+		</tr>
+		<tr>
+			<th>stop_url</th>
+			<td>text</td>
+			<td>Not used by MARTA in the current data set.</td>
+		</tr>
+		<tr>
+			<th>location_type</th>
+			<td>integer</td>
+			<td>Not used by MARTA in the current data set.</td>
+		</tr>
+		<tr>
+			<th>parent_station</th>
+			<td>integer</td>
+			<td>Not used by MARTA in the current data set.</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Data Example</h3>
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>stop_id</th>
+			<th>stop_code</th>
+			<th>stop_name</th>
+			<th>stop_desc</th>
+			<th>stop_lat</th>
+			<th>stop_lon</th>
+			<th>zone_id</th>
+			<th>stop_url</th>
+			<th>location_type</th>
+			<th>parent_station</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>99174</td>
+			<td>900992</td>
+			<td>MARTIN LUTHER KING J DR@RACINE ST</td>
+			<td>0 MARTIN LUTHER KING J &amp; RACINE</td>
+			<td>33.75142</td>
+			<td>-84.4413</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>99176</td>
+			<td>900934</td>
+			<td>MARTIN LUTHER KING J DR@GORDON TER</td>
+			<td>0 MARTIN LUTHER KING J &amp; GORDON</td>
+			<td>33.75101</td>
+			<td>-84.4427</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>99178</td>
+			<td>900935</td>
+			<td>MARTIN LUTHER KING J@1444</td>
+			<td>&nbsp;</td>
+			<td>33.75338</td>
+			<td>-84.4349</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>99186</td>
+			<td>900936</td>
+			<td>BARFIELD AVE SW@WINGATE ST SW</td>
+			<td>0 BARFIELD AVE SW &amp; WINGATE ST SW</td>
+			<td>33.74889</td>
+			<td>-84.4617</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>99188</td>
+			<td>900937</td>
+			<td>BARFIELD AVE SW @ LARCHWOOD ST SW</td>
+			<td>0 BARFIELD AVE SW &amp; LARCHWOOD ST SW</td>
+			<td>33.74764</td>
+			<td>-84.4617</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2><a href="https://developers.google.com/transit/gtfs/reference#routes_fields" target="_blank">routes.txt</a></h2>
+
+<p>This table provides information about specific transit stops and stations.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Data Type</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>route_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>agency_id</th>
+			<td>text</td>
+			<td>Probably intended to be an integer like the other &quot;_id&quot; fields, but assigned
+				a text value in <strong>agency.txt</strong>, so I made it a text value here even
+				though it is not used. Not used by MARTA in the current data
+				set.</td>
+		</tr>
+		<tr>
+			<th>route_short_name</th>
+			<td>text(5)</td>
+			<td>Must be imported as text rather than as an integer because the heavy rail
+				line designations in this field use the line colors (see data sample below)</td>
+		</tr>
+		<tr>
+			<th>route_long_name</th>
+			<td>text(35)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>route_desc</th>
+			<td>text</td>
+			<td>Not used by MARTA in the current data set.</td>
+		</tr>
+		<tr>
+			<th>route_type</th>
+			<td>integer</td>
+			<td>3 = bus; 1 = subway/metro; see the Google specification for more information.</td>
+		</tr>
+		<tr>
+			<th>route_url</th>
+			<td>text</td>
+			<td>Not used by MARTA in the current data set.</td>
+		</tr>
+		<tr>
+			<th>route_color</th>
+			<td>text(6)</td>
+			<td><a href="http://en.wikipedia.org/wiki/Web_colors" target="_blank">Hexadecimal
+					triplet representing RGB color</a>. Cannot be more than  6
+				characters.</td>
+		</tr>
+		<tr>
+			<th>route_text_color</th>
+			<td>text(6)</td>
+			<td><a href="http://en.wikipedia.org/wiki/Web_colors" target="_blank">Hexadecimal
+			triplet representing RGB color</a>. Cannot be more than 6 characters. Not
+			used by MARTA in the current data set.</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Data Example</h3>
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>route_id</th>
+			<th>agency_id</th>
+			<th>route_short_name</th>
+			<th>route_long_name</th>
+			<th>route_desc</th>
+			<th>route_type</th>
+			<th>route_url</th>
+			<th>route_color</th>
+			<th>route_text_color</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>7479</td>
+			<td>&nbsp;</td>
+			<td>1</td>
+			<td>Centennial Oly. Park/Coronet Way</td>
+			<td>&nbsp;</td>
+			<td>3</td>
+			<td>&nbsp;</td>
+			<td>FFFF00</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>7480</td>
+			<td>&nbsp;</td>
+			<td>2</td>
+			<td>Ponce de Leon  Ave/Moreland Ave</td>
+			<td>&nbsp;</td>
+			<td>3</td>
+			<td>&nbsp;</td>
+			<td>00FF00</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>7481</td>
+			<td>&nbsp;</td>
+			<td>3</td>
+			<td>Martin Luther King Jr. Dr/Auburn Av</td>
+			<td>&nbsp;</td>
+			<td>3</td>
+			<td>&nbsp;</td>
+			<td>008080</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>7574</td>
+			<td>&nbsp;</td>
+			<td>BLUE</td>
+			<td>BLUE-East/West Line</td>
+			<td>&nbsp;</td>
+			<td>1</td>
+			<td>&nbsp;</td>
+			<td>00FFFF</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>7576</td>
+			<td>&nbsp;</td>
+			<td>GOLD</td>
+			<td>GOLD-Northeast Doraville Line</td>
+			<td>&nbsp;</td>
+			<td>1</td>
+			<td>&nbsp;</td>
+			<td>FFFF00</td>
+			<td>&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<h2><a href="https://developers.google.com/transit/gtfs/reference#trips_fields" target="_blank">trips.txt</a></h2>
+
+<p>This table provides information about specific transit trips (meaning from one end-point of a route to the other).</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Data Type</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>route_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>service_id</th>
+			<td>integer</td>
+			<td>Relates to the <strong>service_id</strong> field in the <strong>calendar.txt</strong> file;
+			essentially, though: 3 = Saturday, 4 = Sunday, and 5 = weekday</td>
+		</tr>
+		<tr>
+			<th>trip_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>trip_headsign</th>
+			<td>text(64)</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>direction_id</th>
+			<td>integer</td>
+			<td>Must be either 0 or 1; see my <a href="direction.htm" target="_blank">direction_id</a> page for information on MARTA's
+				implementation.</td>
+		</tr>
+		<tr>
+			<th>block_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>shape_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Data Example</h3>
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>route_id</th>
+			<th>service_id</th>
+			<th>trip_id</th>
+			<th>trip_headsign</th>
+			<th>direction_id</th>
+			<th>block_id</th>
+			<th>shape_id</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>7480</td>
+			<td>3</td>
+			<td>2069608</td>
+			<td>2 NORTH AVE STA</td>
+			<td>0</td>
+			<td>825129</td>
+			<td>48064</td>
+		</tr>
+		<tr>
+			<td>7480</td>
+			<td>3</td>
+			<td>2069609</td>
+			<td>2 NORTH AVE STA</td>
+			<td>0</td>
+			<td>825129</td>
+			<td>48064</td>
+		</tr>
+		<tr>
+			<td>7480</td>
+			<td>3</td>
+			<td>2069610</td>
+			<td>2 NORTH AVE STATION VIA NORTH AVE</td>
+			<td>0</td>
+			<td>825130</td>
+			<td>48063</td>
+		</tr>
+		<tr>
+			<td>7480</td>
+			<td>3</td>
+			<td>2069642</td>
+			<td>2 PONCE DE LEON - CANDLER PARK STA</td>
+			<td>1</td>
+			<td>825129</td>
+			<td>48066</td>
+		</tr>
+		<tr>
+			<td>7480</td>
+			<td>3</td>
+			<td>2069643</td>
+			<td>2 DECATUR STATION VIA NORTH AVE</td>
+			<td>1</td>
+			<td>825130</td>
+			<td>48065</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2><a href="https://developers.google.com/transit/gtfs/reference#stop_times_fields" target="_blank">stop_times.txt</a></h2>
+
+<p>This table provides information about stop times.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Data Type</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>trip_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>arrival_time</th>
+			<td>text(8)</td>
+			<td>Cannot be  more than 8 characters. Looks like it should be imported as a time
+				field, but the Google specification of showing times after midnight
+				as 24:xx:xx, 25:xx:xx, 26:xx:xx, etc. may cause database errors; a better
+				approach is to import it as text and parse it into hours, minutes, and seconds
+				(some techniques are shown below).</td>
+		</tr>
+		<tr>
+			<th>departure_time</th>
+			<td>text(8)</td>
+			<td>Cannot be more than 8 characters. Looks like it should be imported as
+				a time field, but the Google specification of showing times after
+				midnight as 24:xx:xx, 25:xx:xx, 26:xx:xx, etc. may cause database
+				errors; a better approach is to import it as text and parse it
+				into hours, minutes, and seconds (some techniques are shown below).
+				In the MARTA GTFS feed, <strong>arrival_time</strong> and <strong>departure_time</strong> are always
+				the same.</td>
+		</tr>
+		<tr>
+			<th>stop_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>stop_sequence</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr class="strike">
+			<th>stop_headsign</th>
+			<td>text</td>
+			<td>Not used by MARTA in the current data set.  Dropped by MARTA in the data
+			feed of February 6, 2013.</td>
+		</tr>
+		<tr class="strike">
+			<th>pickup_type</th>
+			<td>integer</td>
+			<td>0 = regular pickup; 1 = no pickup (of which there are a handful of examples
+				in the MARTA GTFS feed). Dropped by MARTA in the data feed of
+				February 6, 2013.</td>
+		</tr>
+		<tr class="strike">
+			<th>drop_off_type</th>
+			<td>integer</td>
+			<td>0 = regular drop off; 1 = no drop off (of which there are a handful of
+			examples in the MARTA GTFS feed).  Dropped by MARTA in the data feed
+			of February 6, 2013.</td>
+		</tr>
+		<tr class="strike">
+			<th>shape_dist_traveled</th>
+			<td>float</td>
+			<td>In kilometers. Unlike with the similar field in <strong>shapes.txt</strong>,
+				MARTA leaves the field null, rather than displaying 0, at the
+				beginning of the route. Dropped by MARTA in the data feed of
+				February 6, 2013.</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Data Example</h3>
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>trip_id</th>
+			<th>arrival_time</th>
+			<th>departure_time</th>
+			<th>stop_id</th>
+			<th>stop_sequence</th>
+			<th>stop_headsign</th>
+			<th>pickup_type</th>
+			<th>drop_off_type</th>
+			<th>shape_dist_traveled</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2069593</td>
+			<td>5:56:00</td>
+			<td>5:56:00</td>
+			<td>84901</td>
+			<td>1</td>
+			<td>&nbsp;</td>
+			<td>0</td>
+			<td>0</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>2069593</td>
+			<td>5:56:36</td>
+			<td>5:56:36</td>
+			<td>84386</td>
+			<td>2</td>
+			<td>&nbsp;</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0.2318</td>
+		</tr>
+		<tr>
+			<td>2069593</td>
+			<td>5:56:56</td>
+			<td>5:56:56</td>
+			<td>105302</td>
+			<td>3</td>
+			<td>&nbsp;</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0.3586</td>
+		</tr>
+		<tr>
+			<td>2069593</td>
+			<td>5:57:15</td>
+			<td>5:57:15</td>
+			<td>84384</td>
+			<td>4</td>
+			<td>&nbsp;</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0.4818</td>
+		</tr>
+		<tr>
+			<td>2069593</td>
+			<td>5:57:32</td>
+			<td>5:57:32</td>
+			<td>84380</td>
+			<td>5</td>
+			<td>&nbsp;</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0.5947</td>
+		</tr>
+	</tbody>
+</table>
+<p>Parsing the <strong>arrival_time</strong> and <strong>departure_time</strong> fields into hour, minute, and
+	second values is very straightforward. Most languages have a mechanism for
+	manipulating strings based on regular expressions, and the VBA (VisualBasic for
+	Applications) examples below illustrate a pretty common framework for parsing the
+	information in languages without support for regular expressions. These techniques
+	will return a text value; likely you'll want to convert it to a numerical value
+	using the appropriate function in the language you're using -- usually some
+	variation of <strong>val()</strong>, <strong>value()</strong>, <strong>Integer()</strong> or <strong>parseInt()</strong>.</p>
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>To Get</th>
+			<th>Regular Expression<br />Empty String Replacement</th>
+			<th>Regular Expression<br />Backreference Replacement</th>
+			<th>VBA</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Hour</th>
+			<td>departure_time.replace( /:\d+:\d+$/, &quot;&quot; )</td>
+			<td>departure_time.replace( /(\d+):(\d+):(\d+)/, "$1" )</td>
+			<td>Left([departure_time],Len([departure_time])-6)</td>
+		</tr>
+		<tr>
+			<th>Minute</th>
+			<td>departure_time.replace( /^\d+:|:\d+$/g, &quot;&quot; )</td>
+			<td>departure_time.replace( /(\d+):(\d+):(\d+)/, "$2" )</td>
+			<td>Left(Right([departure_time],5),2)</td>
+		</tr>
+		<tr>
+			<th>Second</th>
+			<td>departure_time.replace( /^\d+:\d+:/, &quot;&quot; )</td>
+			<td>departure_time.replace( /(\d+):(\d+):(\d+)/, "$3" )</td>
+			<td>Right([departure_time],2)</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2><a href="https://developers.google.com/transit/gtfs/reference#calendar_fields" target="_blank">calendar.txt</a></h2>
+
+<p>This table provides information about the routine schedule.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Data Type</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>service_id</th>
+			<td>integer</td>
+			<td>Essentially 3 = Saturday, 4 = Sunday, and 5 = weekday</td>
+		</tr>
+		<tr>
+			<th>monday</th>
+			<td>integer</td>
+			<td>0 = no service on Monday; 1 = service on Monday</td>
+		</tr>
+		<tr>
+			<th>tuesday</th>
+			<td>integer</td>
+			<td>0 = no service on Tuesday; 1 = service on Tuesday</td>
+		</tr>
+		<tr>
+			<th>wednesday</th>
+			<td>integer</td>
+			<td>0 = no service on Wesnesday; 1 = service on Wednesday</td>
+		</tr>
+		<tr>
+			<th>thursday</th>
+			<td>integer</td>
+			<td>0 = no service on Thursday; 1 = service on Thursday</td>
+		</tr>
+		<tr>
+			<th>friday</th>
+			<td>integer</td>
+			<td>0 = no service on Friday; 1 = service on Friday</td>
+		</tr>
+		<tr>
+			<th>saturday</th>
+			<td>integer</td>
+			<td>0 = no service on Saturday; 1 = service on Saturday</td>
+		</tr>
+		<tr>
+			<th>sunday</th>
+			<td>integer</td>
+			<td>0 = no service on Sunday; 1 = service on Sunday</td>
+		</tr>
+		<tr>
+			<th>start_date</th>
+			<td>text(8)</td>
+			<td>Cannot be more than 8 characters. Date in YYYYMMDD format.</td>
+		</tr>
+		<tr>
+			<th>end_date</th>
+			<td>text(8)</td>
+			<td>Cannot be more than 8 characters. Date in YYYYMMDD format.</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Data Example</h3>
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>service_id</th>
+			<th>monday</th>
+			<th>tuesday</th>
+			<th>wednesday</th>
+			<th>thursday</th>
+			<th>friday</th>
+			<th>saturday</th>
+			<th>sunday</th>
+			<th>start_date</th>
+			<th>end_date</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>3</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>1</td>
+			<td>0</td>
+			<td>20120825</td>
+			<td>20131214</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>1</td>
+			<td>20120825</td>
+			<td>20131214</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>0</td>
+			<td>0</td>
+			<td>20120825</td>
+			<td>20131214</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2><a href="https://developers.google.com/transit/gtfs/reference#calendar_fields" target="_blank">calendar_dates.txt</a></h2>
+
+<p>This table provides information about interruptions in the schedule (usually
+	for holiday service).</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Data Type</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>service_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>date</th>
+			<td>text(8)</td>
+			<td>Cannot be more than 8 characters. Date in YYYYMMDD format.</td>
+		</tr>
+		<tr>
+			<th>exception_type</th>
+			<td>integer</td>
+			<td>1 = service added for a date; 2 = service removed for a date. When weekday
+				service is changed to Saturday or Sunday service for a holiday,
+				there are two lines for the date in question: one to remove the weekday service
+				(exception_type = 2; service_id = 5) and another to add the appropriate alternate
+				service (exception_type = 1; service_id = 3 or 4)</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Data Example</h3>
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>service_id</th>
+			<th>date</th>
+			<th>exception_type</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>4</td>
+			<td>20120903</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>20120903</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>20121122</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>20121122</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>20121123</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>20121123</td>
+			<td>2</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2><a href="https://developers.google.com/transit/gtfs/reference#shapes_fields" target="_blank">shapes.txt</a></h2>
+
+<p>This table provides information for drawing a map of a route.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Data Type</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>shape_id</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>shape_pt_lat</th>
+			<td>float</td>
+			<td>Latitude in decimal WGS 84 format.</td>
+		</tr>
+		<tr>
+			<th>shape_pt_lon</th>
+			<td>float</td>
+			<td>Longitude in decimal WGS 84 format.</td>
+		</tr>
+		<tr>
+			<th>shape_pt_sequence</th>
+			<td>integer</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr class="strike">
+			<th>shape_dist_traveled</th>
+			<td>float</td>
+			<td>In kilometers. Unlike with the similar field in <strong>stop_times.txt</strong>,
+				MARTA displays 0 rather than null at
+				the beginning of the route. Dropped by MARTA in the data feed of February
+				6, 2013.</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Data Example</h3>
+<table class="DataExample">
+	<thead>
+		<tr>
+			<th>shape_id</th>
+			<th>shape_pt_lat</th>
+			<th>shape_pt_lon</th>
+			<th>shape_pt_sequence</th>
+			<th>shape_dist_traveled</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>48058</td>
+			<td>33.78635</td>
+			<td>-84.4117</td>
+			<td>1</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>48058</td>
+			<td>33.78777</td>
+			<td>-84.41182</td>
+			<td>2</td>
+			<td>0.1594</td>
+		</tr>
+		<tr>
+			<td>48058</td>
+			<td>33.786349</td>
+			<td>-84.411699</td>
+			<td>3</td>
+			<td>0.1594</td>
+		</tr>
+		<tr>
+			<td>48058</td>
+			<td>33.785799</td>
+			<td>-84.41168</td>
+			<td>4</td>
+			<td>0.2204</td>
+		</tr>
+		<tr>
+			<td>48058</td>
+			<td>33.784229</td>
+			<td>-84.41191</td>
+			<td>5</td>
+			<td>0.3977</td>
+		</tr>
+	</tbody>
+</table>
+
+</body>
+</html>
