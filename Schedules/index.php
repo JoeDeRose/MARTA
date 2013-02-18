@@ -1,6 +1,7 @@
 <?php
 require_once('models/includes/main.php');
 require_once('models/includes/validate.php');
+require_once('models/favorites.php' );
 
 function callback( $buffer ) {
 	global $header_find, $header_replace;
@@ -28,8 +29,8 @@ $header_replace = array();
 
 <body>
 
+<!-- Google Analytics -->
 <script type="text/javascript">
-// Google Analytics
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-37469097-1']);
   _gaq.push(['_setDomainName', 'joederose.us']);
@@ -41,7 +42,33 @@ $header_replace = array();
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
+<!-- Google Maps -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCF2hkVUVY70uZdaxiQfYwlh7f3P4CNVKw&sensor=false"></script>
+
+<!-- jQuery Mobile
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0-rc.1/jquery.mobile-1.3.0-rc.1.min.css" />
+<script src="http://code.jquery.com/mobile/1.3.0-rc.1/jquery.mobile-1.3.0-rc.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+-->
 <script src="includes/jquery-min.js"></script>
+
+<!-- This App -->
+<script>
+	function ReturnToRouteList() {
+		window.location.href = "?action=routes";
+	}
+</script>
+
+<?php
+if ( $_SERVER["QUERY_STRING"] != "" && $_SERVER["QUERY_STRING"] != "action=routes" ):
+?>
+<span class="buttonEffect buttonEffectMinimized buttonItem" onclick="ReturnToRouteList();">
+	Return to Route List
+</span>
+<?php
+endif;
+?>
 
 <?php
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "routes" ;
@@ -86,6 +113,13 @@ function currentinfo() {
 	$data = array();
 	$data["validated_route"] = _validate( "route" );
 	_load_view( 'currentinfo', $data ); 
+}
+
+function favorites() {
+	$data = array();
+	$data["validated_route"] = _validate( "route" );
+	$data["validated_favoriteaction"] = _validate( "favoriteaction" );
+	_load_view( 'favorites', $data ); 
 }
 
 function list_timingpoints() {

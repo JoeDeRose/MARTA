@@ -1,0 +1,7 @@
+cd "C:\Users\Joe Laptop\Documents\My Webs\Joe - Bluehost\MARTA"
+git add .
+git status
+git commit -m "Description"
+git status
+git push -u origin master
+git status
