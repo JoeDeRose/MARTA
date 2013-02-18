@@ -16,16 +16,10 @@
 	
 	td, th
 		{
-			padding-left: 0.25em;
-			padding-right: 0.25em;
-			border-style: solid;
-			border-width: 1px;
-			border-color: black;
 		}
 	
 	th
 		{
-			background-color: silver;
 		}
 	
 /* Specific IDs */
@@ -45,16 +39,14 @@
 			{
 				font-weight: bold;
 				text-align: center;
-				padding-left: 0.5em;
-				padding-right: 0.5em;
 			}
 		
 		.RouteList th, .RouteList td
 			{
-				background-color: white;
+				vertical-align: middle;
 				border-color: white;
-				border-width: 0.25em;
-				vertical-align: top;
+				border-width: 10px;
+				border-style: solid;
 			}
 		
 		.RouteList a
@@ -148,6 +140,71 @@
 				font-weight: bold;
 				color: gray;
 			}
+	
+	/* .button */
+
+		.buttonItem:hover
+			{
+				color: firebrick;
+				cursor: pointer;
+			}
+
+		.buttonEffect
+			{
+				font-weight: bold;
+				background-color: silver;
+				padding-top: 0.25em;
+				padding-bottom: 0.25em;
+				padding-left: 0.5em;
+				padding-right: 0.5em;
+				font-size: 1.5em;
+				position: relative;
+			}
+
+		.buttonEffectMinimized
+			{
+				border-radius: 0.75em;
+				border: 1px solid white;
+			}
+
+		.buttonEffectExpanded
+			{
+				border-top-left-radius: 0.75em;
+				border-bottom-left-radius: 0.75em;
+				border-top: 1px solid white;
+				border-left: 1px solid white;
+				border-bottom: 1px solid white;
+				border-right: 1px solid black;
+			}
+		
+		.buttonMenu
+			{
+				position: absolute;
+				top: -1px;
+				background-color: silver;
+				border-top-right-radius: 0.75em;
+				border-bottom-right-radius: 0.75em;
+				border-bottom-left-radius: 0.75em;
+				border: 1px solid white;
+				z-index: 1;
+			}
+		
+		.buttonMenuItem
+			{
+				padding: 0.25em;
+				text-align: left;
+			}
+	
+		.buttonMenuItem:not(:last-child)
+			{
+				border-bottom: 1px solid white;
+			}
+
+		.buttonMenuItem:hover
+			{
+				color: firebrick;
+				cursor: pointer;
+			}
 
 /* General Classes in Specific Circumstances */
 
@@ -177,7 +234,12 @@
 		{
 			font-weight: normal;
 		}
-	
+
+	.noWrap
+		{
+			white-space: nowrap;
+		}
+
 	.HighlightYellow
 		{
 			background-color: yellow;

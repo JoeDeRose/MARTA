@@ -50,7 +50,7 @@ foreach ( $shape["shape_info"] as $key => $value ):
 	if ( $value["RunsToday"] == 0 ) {
 		$AllRoutesRunToday = false;
 	}
-	$HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign Is Missing in MARTA Database)</i>" : $value["headsign"];
+	$HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign for shape " . $value["shape_id"] . " missing in MARTA database)</i>" : $value["headsign"];
 ?>
 	<li class="<?=$RunTodayClass[$value["RunsToday"]]?>" id="HeadsignList<?=$key?>"><span onmouseover="HighlightRoute( '<?=$key?>' );" onmouseout="UnhighlightRoute( '<?=$key?>' );" onclick="TempHighlightRoute( '<?=$key?>' );"><?=$HeadsignDisplay?></span></li>
 <?php
@@ -66,9 +66,12 @@ endif;
 ?>
 <p>Markers show last reported bus locations. Lines projecting from those markers are an approximation of the bus's current location based on schedule (but not traffic).</p>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF2hkVUVY70uZdaxiQfYwlh7f3P4CNVKw&sensor=false"></script>
 <script type="text/javascript">
-	$(document).ready( initialize() );
+	$( document ).ready( initialize() );
+	
+	var LocationMarker = {};
+	var popup = {};
+	var activepopup = null;
 	
 	DirectionColors = 
 		{
@@ -217,25 +220,30 @@ endforeach;
 		GetRealtime();
 	}
 	
-	function ShowMarker( Latitude, Longitude, Direction, BusID, Adherence, MessageAge, Headsign, PredictionLatitude, PredictionLongitude ) {
+	function ShowMarker( Latitude, Longitude, Direction, BusID, Adherence, MessageAge, Headsign, PredictionLatitude, PredictionLongitude, NearestStopSequence, PredictionSequence ) {
 		// Draw the prediction line first, so it will be behind the marker.
 		PredicationLineCoordinates = [
 			new google.maps.LatLng( Latitude, Longitude ),
 			new google.maps.LatLng( PredictionLatitude, PredictionLongitude )
 		];
-		PredicationLine = new google.maps.Polyline(
-			{
-				path: PredicationLineCoordinates,
-				strokeColor: DirectionColors[Direction]["RGB"],
-				strokeOpacity: 0.6,
-				strokeWeight: 6
-			}
-		);
-		PredicationLine.setMap( map );
-		markersArray.push( PredicationLine );
+		// This prediction line doesn't seem to be necessary.
+		/*
+		if ( PredictionSequence > NearestStopSequence ) {
+			PredicationLine = new google.maps.Polyline(
+				{
+					path: PredicationLineCoordinates,
+					strokeColor: DirectionColors[Direction]["RGB"],
+					strokeOpacity: 0.6,
+					strokeWeight: 6
+				}
+			);
+			PredicationLine.setMap( map );
+			markersArray.push( PredicationLine );
+		}
+		*/
 		// Then draw the marker.
 		var myLatLng = new google.maps.LatLng( Latitude, Longitude );
-		var LocationMarker = new google.maps.Marker( {
+		LocationMarker[BusID] = new google.maps.Marker( {
 			position: myLatLng,
 			map: map,
 			icon: imgDirection[Direction]
@@ -257,13 +265,28 @@ endforeach;
 			PopUpContent += "<strong>Updated:</strong> " + MessageAge + " min. ago";
 		}
 		PopUpContent += "</div>";
-		var popup = new google.maps.InfoWindow( {
-			content: PopUpContent
-		} );
-		google.maps.event.addListener( LocationMarker, 'click', function() {
-			popup.open(map, this);
-		} );
-		markersArray.push( LocationMarker );
+		popup[BusID] = PopUpContent;
+		google.maps.event.addListener(
+			LocationMarker[BusID],
+			'click',
+			function() {
+				ShowPopUp( BusID );
+			}
+		);
+		markersArray.push( LocationMarker[BusID] );
+	}
+	
+	function ShowPopUp( BusID ) {
+		// This doesn't work.
+		if ( activepopup ) {
+			activepopup.close();
+		}
+		activepopup = new google.maps.InfoWindow(
+			{
+				content: popup[BusID]
+			}
+		);
+		activepopup.open( map, LocationMarker[BusID] );
 	}
 	
 	function RemoveMarkers() {
@@ -316,7 +339,9 @@ endforeach;
 							VehicleList[key]["MESSAGE_AGE"],
 							VehicleList[key]["HEADSIGN"],
 							VehicleList[key]["PREDICTION_LATITUDE"],
-							VehicleList[key]["PREDICTION_LONGITUDE"]
+							VehicleList[key]["PREDICTION_LONGITUDE"],
+							VehicleList[key]["NEAREST_STOP_SEQUENCE"],
+							VehicleList[key]["PREDICTION_SEQUENCE"]
 						);
 					}
 				}

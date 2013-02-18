@@ -32,7 +32,7 @@ QUERY;
 			}
 			break;
 		case "scope":
-			if ( isset( $_GET["scope"] ) && preg_match( "/^all|rail|FP|route$/i", $_GET["scope"] ) == 1 ) {
+			if ( isset( $_GET["scope"] ) && preg_match( "/^(all|rail|FP|route)$/i", $_GET["scope"] ) == 1 ) {
 				return strtoupper( $_GET["scope"] );
 			} else {
 				return "ROUTE";
@@ -57,6 +57,13 @@ QUERY;
 				return true;
 			} else {
 				return false;
+			}
+			break;
+		case "favoriteaction":
+			if ( isset( $_GET["favoriteaction"] ) && preg_match( "/^(add|remove)$/i", $_GET["favoriteaction"] ) == 1 ) {
+				return strtoupper( $_GET["favoriteaction"] );
+			} else {
+				return "";
 			}
 			break;
 	}

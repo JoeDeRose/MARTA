@@ -20,6 +20,8 @@ foreach( $RealTimeResult as $arraykey => $arrayvalue ):
 	try {
 
 		$RealTimeResult[$arraykey] -> COORDINDATES = $RealTimeResult[$arraykey] -> LATITUDE . ',' . $RealTimeResult[$arraykey] -> LONGITUDE;
+		// Sometimes TRIPID is blank; recover gracefully when this happens.
+		$ThisTripID = ( $RealTimeResult[$arraykey] -> TRIPID == "" ) ? 0 : $RealTimeResult[$arraykey] -> TRIPID;
 
 // HEREDOC ------------------------------------------------------------------------
 	$qClosestStop = <<<Q_CLOSEST_STOP
@@ -46,7 +48,7 @@ FROM
       INNER JOIN stops S
         ON ST.stop_id = S.stop_id
     WHERE
-      T.trip_id = {$RealTimeResult[$arraykey] -> TRIPID}
+      T.trip_id = {$ThisTripID}
     ORDER BY dist
   ) AS Q1
 LIMIT 1;
@@ -75,6 +77,9 @@ Q_CLOSEST_STOP;
 		$RealTimeResult[$arraykey] -> MESSAGE_AGE = $MessageAgeText;
 		$MessageAgeDiff = $MessageAgeText * 100;
 
+// The Following prediction content was based on the (incorrect) assumption that the MSGTIME value
+// in the MARTA JSON response was the time that the bus location was last updated.
+/*
 // HEREDOC ------------------------------------------------------------------------
 	$qPredictionStop = <<<Q_PREDICTION_STOP
 
@@ -102,13 +107,64 @@ LIMIT 1;
 
 Q_PREDICTION_STOP;
 // --------------------------------------------------------------------------------
-
 		$PredictionStop = $mysqli -> query( $qPredictionStop );
 		$row1 = $PredictionStop -> fetch_assoc();	// One-row query, so I don't need a while(){} construct.
 		$RealTimeResult[$arraykey] -> PREDICTION_LATITUDE = $row1["stop_lat"];
 		$RealTimeResult[$arraykey] -> PREDICTION_LONGITUDE = $row1["stop_lon"];
 		$RealTimeResult[$arraykey] -> PREDICTION_CODE = $row1["stop_code"];
 		$RealTimeResult[$arraykey] -> PREDICTION_NAME = $row1["stop_name"];
+*/
+
+// The Following prediction content is based on the (revised) understanding that the MSGTIME value
+// in the MARTA JSON response is the time that the bus last reached a timepoint stop.
+// HEREDOC ------------------------------------------------------------------------
+	$qPredictionStop = <<<Q_PREDICTION_STOP
+
+SELECT Q1.*
+FROM
+  (
+    SELECT
+      ST.*,
+      S.stop_code,
+      S.stop_name,
+  	  S.stop_lon,
+  	  S.stop_lat,
+      abs
+        (
+          timediff
+            (
+              ST.arrival_time,
+                (
+                  SELECT ST1.arrival_time
+                  FROM stop_times ST1
+                    INNER JOIN stops S1
+                      ON ST1.stop_id = S1.stop_id
+                  WHERE
+                    ST1.trip_id = {$RealTimeResult[$arraykey] -> TRIPID}
+                    AND S1.stop_code = {$RealTimeResult[$arraykey] -> STOPID}
+                )
+            ) - {$MessageAgeDiff}
+        ) AS DIFF
+    FROM stop_times ST
+      INNER JOIN stops S
+        ON ST.stop_id = S.stop_id
+    WHERE
+      ST.trip_id = {$RealTimeResult[$arraykey] -> TRIPID}
+    ORDER BY
+      DIFF,
+      ST.stop_sequence
+  ) Q1
+LIMIT 1;
+
+Q_PREDICTION_STOP;
+// --------------------------------------------------------------------------------
+		$PredictionStop = $mysqli -> query( $qPredictionStop );
+		$row1 = $PredictionStop -> fetch_assoc();	// One-row query, so I don't need a while(){} construct.
+		$RealTimeResult[$arraykey] -> PREDICTION_LATITUDE = $row1["stop_lat"];
+		$RealTimeResult[$arraykey] -> PREDICTION_LONGITUDE = $row1["stop_lon"];
+		$RealTimeResult[$arraykey] -> PREDICTION_CODE = $row1["stop_code"];
+		$RealTimeResult[$arraykey] -> PREDICTION_NAME = $row1["stop_name"];
+		$RealTimeResult[$arraykey] -> PREDICTION_SEQUENCE = $row1["stop_sequence"];
 
 // HEREDOC ------------------------------------------------------------------------
 		$qTimePredictionsInsert = <<<Q_TIMEPREDICTIONSINSERT

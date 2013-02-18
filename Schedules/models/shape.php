@@ -103,6 +103,7 @@ QUERY_ROUTE_SHAPES;
 	while ( $row = $route_shapes -> fetch_assoc() ) {
 		if ( isset( $shape_info[$row["shape_id"]] ) == false ) {
 			$shape_info[$row["shape_id"]]["headsign"] = $row["trip_headsign"];
+			$shape_info[$row["shape_id"]]["shape_id"] = $row["shape_id"];
 			$shape_info[$row["shape_id"]]["RunsToday"] = $row["RunsToday"];
 			$shape_info[$row["shape_id"]]["coordinates"] = array();
 		}

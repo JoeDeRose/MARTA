@@ -4,72 +4,112 @@ _load_model( 'routes');
 
 $RouteList = get_routes();
 ?>
+<script>
+	function ToggleButtonMenu( Route ) {
+		if ( $( "#button" + Route ).attr( "class" ).indexOf( "buttonEffectMinimized" ) != -1 ) {
+			ExpandButtonMenu( Route );
+		} else {
+			MinimizeButtonMenu( Route );
+		}
+	}
+
+	function ExpandButtonMenu( Route ) {
+		$( "#button" + Route ).addClass( "buttonEffectExpanded" );
+		$( "#button" + Route ).removeClass( "buttonEffectMinimized" );
+		$( "#button" + Route + " .buttonMenu" ).css( "left", ( $( "#button" + Route ).outerWidth() - 2 ) + "px" );
+		$( "#button" + Route + " .buttonMenu" ).show();
+	}
+	
+	function MinimizeButtonMenu( Route ) {
+		$( "#button" + Route ).addClass( "buttonEffectMinimized" );
+		$( "#button" + Route ).removeClass( "buttonEffectExpanded" );
+		$( "#button" + Route + " .buttonMenu" ).hide();
+	}
+	
+	function openCurrentInfo( Route ) {
+		window.location.href = "?action=currentinfo&route=" + Route;
+	}
+	
+	function openFavorites( FavoriteAction, Route ) {
+		window.location.href = "?action=favorites&favoriteaction=" + FavoriteAction + "&route=" + Route;
+	}
+	
+	function openMap( Route ) {
+		window.location.href = "?action=map&route=" + Route;
+	}
+	
+</script>
+
 <h1>MARTA Routes</h1>
 
-<p>Adherence Data</p>
-<table class="RouteList">
+<?php
+$FavoritesCookie = GetFavorites();
+$FavoriteRoutes = "";
+$AllRoutes = "";
+
+while ( $row = $RouteList->fetch_assoc() ):
+
+	$RouteRow = <<<ROUTE_ROW
 	<tr>
-		<th class="AdherenceUnknown">U</th>
-		<td>No Information.</td>
+		<th onmouseover="ExpandButtonMenu( '[RouteShortName][FavoriteFlag]' );" onmouseout="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' );" >
+			<div id="button[RouteShortName][FavoriteFlag]" class="buttonEffect buttonEffectMinimized" >
+				<div class="buttonMenu noWrap" style="display: none;">
+					<div class="buttonMenuItem" onclick="openCurrentInfo( '[RouteShortName]' );" >
+						Current Information
+					</div>
+					<div class="buttonMenuItem" onclick="openFavorites( '[FavoriteAction]', '[RouteShortName]' );" >
+						[FavoriteText] Favorites
+					</div>
+					<div class="buttonMenuItem" onclick="openMap( '[RouteShortName]' );" >
+						Map
+					</div>
+				</div>
+				<div class="buttonItem" >
+					[RouteShortName]
+				</div>
+			</div>
+		</th>
+		<td>
+			<strong>[RouteLongName]</strong><br />
+		</td>
 	</tr>
-	<tr>
-		<th class="AdherenceOnTime">Y</th>
-		<td>All buses are within 5 minutes of schedule.</td>
-	</tr>
-	<tr>
-		<th class="AdherenceLate">N</th>
-		<td>One or more buses is running 5+ minutes late.</td>
-	</tr>
-	<tr>
-		<th class="NoRun">X</th>
-		<td>No scheduled runs today.</td>
-	</tr>
-</table>
-<p id="AJAXWaiting" class="alert" >Waiting for schedule adherence information on buses</p>
-<hr />
-	
+ROUTE_ROW;
+
+	$RouteRow = str_replace( "[RouteShortName]", $row["route_short_name"], $RouteRow );
+	$RouteRow = str_replace( "[RouteLongName]", $row["route_long_name"], $RouteRow );
+	if ( strpos( $FavoritesCookie, "(" . $row["route_short_name"] . ")" ) === false ) {
+		$RouteRow = str_replace( "[FavoriteAction]", "add", $RouteRow );
+		$RouteRow = str_replace( "[FavoriteText]", "Add to", $RouteRow );
+	} else {
+		$RouteRow = str_replace( "[FavoriteAction]", "remove", $RouteRow );
+		$RouteRow = str_replace( "[FavoriteText]", "Remove from", $RouteRow );
+		$FavoriteRow = $RouteRow;
+		$FavoriteRow = str_replace( "[FavoriteFlag]", "F", $FavoriteRow );
+		$FavoriteRoutes .= $FavoriteRow;
+	}
+	$RouteRow = str_replace( "[FavoriteFlag]", "", $RouteRow );
+	$AllRoutes .= $RouteRow;
+
+endwhile;
+?>
 <table class="RouteList">
 <?php
-while ( $row = $RouteList->fetch_assoc() ):
-	if ( $row["RunsToday"] == 0 ) {
-		$AdherenceClass = "NoRun";
-		$AdherenceText = "X";
-	} else {
-		$AdherenceClass = "AdherenceUnknown";
-		$AdherenceText = "U";
-	}
+if ( $FavoriteRoutes != "" ) :
 ?>
 	<tr>
-		<th id="Adherence<?=$row["route_short_name"]?>" class="<?=$AdherenceClass?>"><?=$AdherenceText?></th>
-		<th><?=$row["route_short_name"]?></th>
-		<td>
-			<strong><?=$row["route_long_name"]?></strong><br />
-			<a href="?action=currentinfo&route=<?=$row["route_short_name"]?>">Current Info.</a>
+		<td colspan="2">
+			<h2>Favorite Routes</h2>
+		</td>
+	</tr>
+<?=$FavoriteRoutes?>
+	<tr>
+		<td colspan="2">
+			<h2>All Routes</h2>
 		</td>
 	</tr>
 <?php
-endwhile;
+endif;
 ?>
+<?=$AllRoutes?>
 </table>
 
-<script>
-	$.ajax( {
-		dataType: "json",
-		url: "models/ajax/realtime-all.php",
-		success: function( data ) {
-			showData = JSON.stringify( data );	// Use only for diagnostics.
-			for ( var i = 0; i < data.length; i++ ) {
-				if ( data[i]["ADHERENCE"] >= -5 ) {
-					$( "#Adherence" + data[i]["ROUTE"] + ".AdherenceUnknown" ).addClass( "AdherenceOnTime" ).removeClass( "AdherenceUnknown" );
-				} else {
-					$( "#Adherence" + data[i]["ROUTE"] ).addClass( "AdherenceLate" ).removeClass( "AdherenceUnknown" );
-				}
-			}
-			$( ".AdherenceUnknown" ).html( "U" );
-			$( ".AdherenceOnTime" ).html( "Y" );
-			$( ".AdherenceLate" ).html( "N" );
-			$( ".NoRun" ).html( "X" );
-			$( "#AJAXWaiting" ).hide();
-		}
-	} );
-</script>
