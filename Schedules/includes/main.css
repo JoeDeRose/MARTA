@@ -1,6 +1,12 @@
 @charset "utf-8";
 /* CSS Document */
 
+/* MARTA Colors
+	Blue: #3E78DA
+	Yellow: #F7CD30
+	Orange: #EA7D09
+*/
+
 /* Universal Elements */
 
 	body
@@ -14,14 +20,43 @@
 			border-collapse: collapse;
 		}
 	
-	td, th
+	a, a:link, a:visited
 		{
+			color: black;
+			text-decoration: none;
 		}
 	
-	th
+	a:hover
 		{
+			color: #3E78DA;
+			text-decoration: none;
 		}
-	
+
+/* ID Groups */
+
+	/* #logo */
+
+		#logo
+			{
+				font-weight: bold;
+				font-size: 1.2em;
+				text-transform: uppercase;
+			}
+		
+		#logo span
+			{
+				padding-top: 0.1em;
+				padding-bottom: 0.1em;
+				padding-left: 0.25em;
+				padding-right: 0.25em;
+				border-radius: 0.5em;
+				margin-right: 0.05em;
+			}
+		 #logo span:not(:first-child)
+		 	{
+				margin-left: 0.3em;
+			}
+
 /* Specific IDs */
 
 	#map_canvas
@@ -30,6 +65,7 @@
 			border-style: solid;
 			border-color: black;
 		}
+	
 
 /* Class Groups */
 
@@ -47,11 +83,6 @@
 				border-color: white;
 				border-width: 10px;
 				border-style: solid;
-			}
-		
-		.RouteList a
-			{
-				padding-left: 1em;
 			}
 		
 		.RouteList .AdherenceUnknown
@@ -135,6 +166,12 @@
 				color: black;
 			}
 		
+		.RunsTodayEarlier
+			{
+				font-weight: bold;
+				color: gray;
+			}
+	
 		.RunsTodayNo
 			{
 				font-weight: bold;
@@ -143,16 +180,10 @@
 	
 	/* .button */
 
-		.buttonItem:hover
-			{
-				color: firebrick;
-				cursor: pointer;
-			}
-
 		.buttonEffect
 			{
 				font-weight: bold;
-				background-color: silver;
+				background-color: #F7CD30;
 				padding-top: 0.25em;
 				padding-bottom: 0.25em;
 				padding-left: 0.5em;
@@ -181,7 +212,7 @@
 			{
 				position: absolute;
 				top: -1px;
-				background-color: silver;
+				background-color: #F7CD30;
 				border-top-right-radius: 0.75em;
 				border-bottom-right-radius: 0.75em;
 				border-bottom-left-radius: 0.75em;
@@ -199,11 +230,15 @@
 			{
 				border-bottom: 1px solid white;
 			}
-
-		.buttonMenuItem:hover
+		
+		.buttonMenuItem:hover, .buttonEffect:hover
 			{
-				color: firebrick;
 				cursor: pointer;
+			}
+		
+		.buttonEffect:hover .buttonItem a, .buttonMenuItem:hover a
+			{
+				color: #3E78DA;
 			}
 
 /* General Classes in Specific Circumstances */
@@ -216,6 +251,11 @@
 	.PopUpContent
 		{
 			font-size: 0.8em;
+		}
+	
+	.GridTable td, .GridTable th
+		{
+			border: 1px solid black;
 		}
 
 /* General Classes in Broad Circumstances */

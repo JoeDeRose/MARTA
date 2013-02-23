@@ -55,17 +55,17 @@ while ( $row = $RouteList->fetch_assoc() ):
 			<div id="button[RouteShortName][FavoriteFlag]" class="buttonEffect buttonEffectMinimized" >
 				<div class="buttonMenu noWrap" style="display: none;">
 					<div class="buttonMenuItem" onclick="openCurrentInfo( '[RouteShortName]' );" >
-						Current Information
+						<a href="#" onclick="return false;">Current Information</a>
 					</div>
 					<div class="buttonMenuItem" onclick="openFavorites( '[FavoriteAction]', '[RouteShortName]' );" >
-						[FavoriteText] Favorites
+						<a href="#" onclick="return false;">[FavoriteText] Favorites</a>
 					</div>
 					<div class="buttonMenuItem" onclick="openMap( '[RouteShortName]' );" >
-						Map
+						<a href="#" onclick="return false;">Map</a>
 					</div>
 				</div>
 				<div class="buttonItem" >
-					[RouteShortName]
+					<a href="#" onclick="return false;">[RouteShortName]</a>
 				</div>
 			</div>
 		</th>

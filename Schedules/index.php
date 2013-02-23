@@ -59,13 +59,24 @@ $header_replace = array();
 		window.location.href = "?action=routes";
 	}
 </script>
-
+<p>
+<div>
+<?php
+require_once('views/images/logo.svg');
+?>
+</div>
+	<div id="logo">
+		<span style="background-color: #3E78DA;">A</span>t
+		<span style="background-color: #F7CD30;">Y</span>our
+		<span style="background-color: #EA7D09;">F</span>ingertips
+	</div>
+</p>
 <?php
 if ( $_SERVER["QUERY_STRING"] != "" && $_SERVER["QUERY_STRING"] != "action=routes" ):
 ?>
-<span class="buttonEffect buttonEffectMinimized buttonItem" onclick="ReturnToRouteList();">
+<a href="#" class="buttonEffect buttonEffectMinimized buttonItem" onclick="ReturnToRouteList(); return false;">
 	Return to Route List
-</span>
+</a>
 <?php
 endif;
 ?>
@@ -113,6 +124,10 @@ function currentinfo() {
 	$data = array();
 	$data["validated_route"] = _validate( "route" );
 	_load_view( 'currentinfo', $data ); 
+}
+
+function diagnostics() {
+	_load_view( 'diagnostics' ); 
 }
 
 function favorites() {

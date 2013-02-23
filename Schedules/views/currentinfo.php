@@ -42,7 +42,8 @@ if ( max( $shape["route_span_lat"], $shape["route_span_lon"] ) <= 0.04 ) {
 <ul class="HeadsignList">
 <?php
 $RunTodayClass["0"] = "RunsTodayNo";
-$RunTodayClass["1"] = "RunsTodayYes";
+$RunTodayClass["1"] = "RunsTodayEarlier";
+$RunTodayClass["2"] = "RunsTodayYes";
 
 $AllRoutesRunToday = true;
 
@@ -144,6 +145,7 @@ endif;
 		shapeHighlight = {};
 		
 <?php
+// RunsTodayNo
 foreach ( $shape["shape_info"] as $key => $value ):
 	if ( $value["RunsToday"] == 0 ):
 		$coordinates = implode( ",", $value["coordinates"] );
@@ -180,8 +182,48 @@ foreach ( $shape["shape_info"] as $key => $value ):
 <?php
 	endif;
 endforeach;
+
+// RunsTodayEarlier
 foreach ( $shape["shape_info"] as $key => $value ):
 	if ( $value["RunsToday"] == 1 ):
+		$coordinates = implode( ",", $value["coordinates"] );
+?>
+		shape<?=$key?>Coordinates = [ <?=$coordinates?> ];
+		shapeNormal["<?=$key?>"] = new google.maps.Polyline(
+			{
+				path: shape<?=$key?>Coordinates,
+				strokeColor: "#999",
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			}
+		);
+		shapeHighlight["<?=$key?>"] = new google.maps.Polyline(
+			{
+				path: shape<?=$key?>Coordinates,
+				strokeColor: "#F00",
+				strokeOpacity: 1.0,
+				strokeWeight: 2,
+				icons:
+					[
+						{
+							repeat: '20px', //CHANGE THIS VALUE TO CHANGE THE DISTANCE BETWEEN ARROWS
+							icon: 
+								{
+									path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+								},
+							offset: '100%'
+						}
+					]
+			}
+		);
+		shapeNormal["<?=$key?>"].setMap( map );
+<?php
+	endif;
+endforeach;
+
+// RunsTodayYes
+foreach ( $shape["shape_info"] as $key => $value ):
+	if ( $value["RunsToday"] == 2 ):
 		$coordinates = implode( ",", $value["coordinates"] );
 ?>
 		shape<?=$key?>Coordinates = [ <?=$coordinates?> ];
