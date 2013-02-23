@@ -51,6 +51,7 @@ QUERY_ROUTE_FRAME;
 	$route_max_lon = $row["MAX_LON"];
 	$route_avg_lon = ( $route_min_lon + $route_max_lon ) / 2;
 	$route_span_lon = $route_max_lon - $route_min_lon;
+	$MARTA_Time = _MARTA_time();
 
 	// HEREDOC ------------------------------------------------------------------------
 	$query_route_shapes = <<<QUERY_ROUTE_SHAPES
@@ -73,7 +74,16 @@ FROM
       SH.shape_pt_lat,
       SH.shape_pt_lon,
       CASE T.service_id
-        WHEN {$ServiceID} THEN 1
+        WHEN {$ServiceID} THEN
+          CASE
+            WHEN 
+              (
+                SELECT MAX( timediff( ST1.arrival_time, '{$MARTA_Time}' ) + 0 )
+                FROM stop_times ST1
+                WHERE ST1.trip_id = T.trip_id
+              ) > 0 THEN 2
+            ELSE 1
+          END
         ELSE 0
       END AS RunsToday
     FROM routes R

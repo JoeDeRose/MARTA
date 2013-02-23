@@ -1,5 +1,9 @@
 <?php
-$DiagnosticMode = false;
+if ( isset( $_GET["diagnostics"] ) ) {
+	$DiagnosticMode = true;
+} else {
+	$DiagnosticMode = false;
+}
 
 if ( $DiagnosticMode == false ) {
 	header('Content-type: application/json');

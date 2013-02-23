@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="routes.php" server="ftp.joederose.us/public_html/" local="130056291111543560" remote="130056219000000000" />
+<file name="routes.php" server="ftp.joederose.us/public_html/" local="130057078024382400" remote="130057005600000000" />
 <file name="route.php" server="ftp.joederose.us/public_html/" local="130041589487452612" remote="130056148200000000" />
 <file name="map.php" server="ftp.joederose.us/public_html/" local="130025935940357579" remote="130025863800000000" />
 <file name="list_timingpoints.php" server="ftp.joederose.us/public_html/" local="130038201840220274" remote="130038129600000000" />
-<file name="currentinfo.php" server="ftp.joederose.us/public_html/" local="130055204162361334" remote="130055133000000000" />
+<file name="currentinfo.php" server="ftp.joederose.us/public_html/" local="130060636457959152" remote="130060564200000000" />
 <file name="favorites.php" server="ftp.joederose.us/public_html/" local="130056253140811758" remote="130056180600000000" />
+<file name="diagnostics.php" server="ftp.joederose.us/public_html/" local="130060607583397621" remote="130060535400000000" />
 </dwsync>

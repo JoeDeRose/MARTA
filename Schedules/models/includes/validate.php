@@ -191,4 +191,11 @@ function _convert_time_from_Gis( $time_string ) {
 	
 	return $result;
 }
+
+function _MARTA_time() {
+	$NowHour = date( 'G' );
+	$NowMinuteSecond = date( 'i:s' );
+	$NowHour = $NowHour + ( $NowHour >= 3 ? 0 : 24 ) ;
+	return $NowHour . ":" . $NowMinuteSecond;
+}
 ?>
