@@ -14,20 +14,37 @@ function callback( $buffer ) {
 ob_start("callback");
 $header_find = array();
 $header_replace = array();
+
+if ( isset( $_GET["fullscreen"] ) ) {
+	$FullScreen = true;
+	$FullScreenClass = "FullScreen";
+} else {
+	$FullScreen = false;
+	$FullScreenClass = "Normal";
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MARTA Routes and Schedules</title>
+<title>MARTA At Your Fingertips</title>
 
+<!-- CSS -->
 <link rel="stylesheet" type="text/css" media="all" href="includes/main.css" />
+
+<!-- Icons -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="apple-touch-icon" sizes="57x57" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon-144x144.png" />
+
 <style></style>
 
 </head>
 
-<body>
+<body class="<?=$FullScreenClass?>">
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -46,45 +63,22 @@ $header_replace = array();
 <!-- Google Maps -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCF2hkVUVY70uZdaxiQfYwlh7f3P4CNVKw&sensor=false"></script>
 
-<!-- jQuery Mobile
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0-rc.1/jquery.mobile-1.3.0-rc.1.min.css" />
-<script src="http://code.jquery.com/mobile/1.3.0-rc.1/jquery.mobile-1.3.0-rc.1.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
--->
+<!-- jQuery -->
 <script src="includes/jquery-min.js"></script>
 
 <!-- This App -->
+<script src="includes/main.js"></script>
 <script>
+	// Probably will delete this.
 	function ReturnToRouteList() {
 		window.location.href = "?action=routes";
 	}
 </script>
-<p>
-<div>
-<?php
-require_once('views/images/logo.svg');
-?>
-</div>
-	<div id="logo">
-		<span style="background-color: #3E78DA;">A</span>t
-		<span style="background-color: #F7CD30;">Y</span>our
-		<span style="background-color: #EA7D09;">F</span>ingertips
-	</div>
-</p>
-<?php
-if ( $_SERVER["QUERY_STRING"] != "" && $_SERVER["QUERY_STRING"] != "action=routes" ):
-?>
-<a href="#" class="buttonEffect buttonEffectMinimized buttonItem" onclick="ReturnToRouteList(); return false;">
-	Return to Route List
-</a>
-<?php
-endif;
-?>
-
 <?php
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "routes" ;
 
 function _load_view( $viewname, $data = null ) {
+	require( 'views/includes/header.php' );
 	require( 'views/'.$viewname.'.php' );
 }
 
@@ -93,10 +87,12 @@ function _load_model( $modelname, $data = null ) {
 }
 
 function routes() {
-	_load_view( 'routes' ); 
+	$data["MenuItems"] = "(main)";
+	_load_view( 'routes', $data ); 
 }
 
 function route() {
+	// This page needs to be dropped or completely rewritten; not currently used.
 	$data = array();
 	$data["route"] = _validate( "route" );
 	$data["scope"] = _validate( "scope" );
@@ -104,25 +100,28 @@ function route() {
 	$data["showstops"] = _validate( "showstops" );
 	$data["highway"] = _validate( "highway" );
 	$data["norail"] = _validate( "norail" );
+	$data["MenuItems"] = "(main)";
 	_load_model( 'route' );
 	_load_view( 'route', get_shape( $data ) ); 
 }
 
 function map() {
 	$data = array();
-	$data["route"] = _validate( "route" );
+	$data["validated_route"] = _validate( "route" );
 	$data["scope"] = _validate( "scope" );
 	$data["size"] = _validate( "size" );
 	$data["showstops"] = _validate( "showstops" );
 	$data["highway"] = _validate( "highway" );
 	$data["norail"] = _validate( "norail" );
+	$data["MenuItems"] = "(main)(routes)(currentinfo)";
 	_load_model( 'route' );
-	_load_view( 'map', get_shape( $data ) ); 
+	_load_view( 'map', $data ); 
 }
 
 function currentinfo() {
 	$data = array();
 	$data["validated_route"] = _validate( "route" );
+	$data["MenuItems"] = "(main)(routes)(fullscreen)(map)";
 	_load_view( 'currentinfo', $data ); 
 }
 
@@ -134,6 +133,7 @@ function favorites() {
 	$data = array();
 	$data["validated_route"] = _validate( "route" );
 	$data["validated_favoriteaction"] = _validate( "favoriteaction" );
+	$data["MenuItems"] = "(main)";
 	_load_view( 'favorites', $data ); 
 }
 

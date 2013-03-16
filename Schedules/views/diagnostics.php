@@ -34,7 +34,7 @@ $data = get_diagnostics();		// Uses same data content as that which was passed i
 		<tr>
 			<th>MARTA</th>
 			<td>&nbsp;</td>
-			<td><?=$data["MARTA_Time"]?></td>
+			<td style="text-align: right;"><?=$data["MARTA_Time"]?></td>
 		</tr>
 	</tbody>
 </table>
@@ -51,7 +51,9 @@ print_r( $data["PHP_Server"] );
 
 <h3><code>phpinfo()</code></h3>
 
-<?=$data["PHP_Info"]?>
+<?php
+phpinfo();
+?>
 
 <h2>MySQL</h2>
 

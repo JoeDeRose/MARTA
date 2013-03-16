@@ -1,15 +1,15 @@
 <?php
 global $header_find, $header_replace;
 $header_find["title"] = "/<title>.*?<\/title>/";
-if ( is_numeric( $data["route"] ) ) {
-	$header_replace["title"] = "<title>MARTA Route " . $data["route"] . "</title>";
+if ( is_numeric( $data["validated_route"] ) ) {
+	$header_replace["title"] = "<title>MARTA Route " . $data["validated_route"] . "</title>";
 } else {
-	$header_replace["title"] = "<title>MARTA " . $data["route"] . " Line</title>";
+	$header_replace["title"] = "<title>MARTA " . $data["validated_route"] . " Line</title>";
 }
 
 require( 'includes/busmap.php' );
 
-$display = show_map( $data );
+$display = show_map( get_shape( $data ) );
 
 $pre_display = $display;
 $pre_display = preg_replace( "/&/", "&amp;", $pre_display );

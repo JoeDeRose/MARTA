@@ -295,7 +295,6 @@ QUERY_MYSQL_STATUS;
 		"MySQL_DateTime" => $MySQL_DateTime,
 		"PHP_Version" => phpversion(),
 		"PHP_DateTime" => date('Y-m-d H:i:s'),
-		"PHP_Info" => phpinfo(),
 		"MARTA_Time" => _MARTA_time()
 	);
 
