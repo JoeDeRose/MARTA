@@ -7,7 +7,7 @@ _load_model( 'shape', $data );
 $shape = get_shape( $data );		// Uses same data content as that which was passed in.
 
 // Fix the title to show (for example) "MARTA Route 1" or "MARTA Blue Line".
-global $header_find, $header_replace;
+global $header_find, $header_replace, $FullScreen, $FullScreenClass;
 $header_find["title"] = "/<title>.*?<\/title>/";
 if ( is_numeric( $validated_route ) ) {
 	$route_title = "Route " . $validated_route;
@@ -26,53 +26,74 @@ if ( max( $shape["route_span_lat"], $shape["route_span_lon"] ) <= 0.04 ) {
 } else {
 	$zoom = 10;		// default
 }
-?>
 
+if ( $FullScreen == false ) :
+?>
 <h1>
 	<?=$route_title?><br />
 	<?=$shape["route_long_name"]?>
 </h1>
 
-<div id="map_canvas" style="width:300px; height:300px"></div>
-
+<div class="countdownTimer buttonContainer" >
+	<div class="buttonEffect buttonEffectPadding buttonEffectRoundedAll" >
+		<div id="CountdownTimerRefresh" style="display: none;" onclick="RefreshNow();">
+			<a href="#" onclick="return false;">Refresh Now</a>
+		</div>
+		<span id="CountdownTimerWaiting" >Waiting for Update</span>
+	</div>
+</div>
+<?php
+endif;
+?>
+<div id="map_canvas" class="<?=$FullScreenClass?>"></div>
+<?php
+if ( $FullScreen == false ) :
+?>
 <p id="NoRealTimeAlert" class="alert" style="display:none;" ><strong>Alert:</strong> MARTA is not currently providing real-time data for this route.</p>
 
 <h2>Bus Headsigns on This Route</h2>
 <p>Hover over (or tap) a headsign to see the portion and direction it describes.</p>
 <ul class="HeadsignList">
 <?php
-$RunTodayClass["0"] = "RunsTodayNo";
-$RunTodayClass["1"] = "RunsTodayEarlier";
-$RunTodayClass["2"] = "RunsTodayYes";
-
-$AllRoutesRunToday = true;
-
-foreach ( $shape["shape_info"] as $key => $value ):
-	if ( $value["RunsToday"] == 0 ) {
-		$AllRoutesRunToday = false;
-	}
-	$HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign for shape " . $value["shape_id"] . " missing in MARTA database)</i>" : $value["headsign"];
+	$RunTodayClass["0"] = "RunsTodayNo";
+	$RunTodayClass["1"] = "RunsTodayEarlier";
+	$RunTodayClass["2"] = "RunsTodayYes";
+	
+	$AllRoutesRunToday = true;
+	
+	foreach ( $shape["shape_info"] as $key => $value ):
+		if ( $value["RunsToday"] == 0 ) {
+			$AllRoutesRunToday = false;
+		}
+		$HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign for shape " . $value["shape_id"] . " missing in MARTA database)</i>" : $value["headsign"];
 ?>
 	<li class="<?=$RunTodayClass[$value["RunsToday"]]?>" id="HeadsignList<?=$key?>"><span onmouseover="HighlightRoute( '<?=$key?>' );" onmouseout="UnhighlightRoute( '<?=$key?>' );" onclick="TempHighlightRoute( '<?=$key?>' );"><?=$HeadsignDisplay?></span></li>
 <?php
-endforeach;
+	endforeach;
 ?>
 </ul>
 <?php
-if ( $AllRoutesRunToday == false ) :
+	if ( $AllRoutesRunToday == false ) :
 ?>
 <p>Black lines show active routes today; routes for other days are shown by gray lines.</p>
 <?php
+	endif;
+
 endif;
 ?>
-<p>Markers show last reported bus locations. Lines projecting from those markers are an approximation of the bus's current location based on schedule (but not traffic).</p>
-
 <script type="text/javascript">
 	$( document ).ready( initialize() );
 	
 	var LocationMarker = {};
 	var popup = {};
 	var activepopup = null;
+	
+	// The following variables are assigned at the end of the initialize() function; it didn't work to assign values here.
+	var CountdownTimerRemaining;
+	var CountdownTimerTotalSeconds;
+	var CountdownTimerUpdateFrequencySeconds;
+	var CountdownTimerCSSWidth;
+	var CountdownTimerRefreshInProgress;
 	
 	DirectionColors = 
 		{
@@ -101,34 +122,36 @@ endif;
 	imgDirection =
 		{
 			"Northbound" :	{
-								path: 'm -5,0 5,-5 5,5 0,5 -10,0 z',
+								path: 'm -7,0 7,-7 7,7 0,7 -14,0 z',
 								fillColor: DirectionColors["Northbound"]["ColorName"],
 								strokeColor: "black",
 								fillOpacity: 1.0,
-								strokeWeight: 1
+								scale: 1,
+								strokeWeight: 2
 							},
 			"Southbound" :	{
-								path: 'm 5,0 -5,5 -5,-5 0,-5 10,0 z',
+								path: 'm 7,0 -7,7 -7,-7 0,-7 14,0 z',
 								fillColor: DirectionColors["Southbound"]["ColorName"],
 								strokeColor: "black",
 								fillOpacity: 1.0,
 								scale: 1,
-								strokeWeight: 1
+								strokeWeight: 2
 							},
 			"Westbound" :	{
-								path: 'm -5,5 -5,-5 5,-5 5,0 0,10 z',
+								path: 'm -7,7 -7,-7 7,-7 7,0 0,14 z',
 								fillColor: DirectionColors["Westbound"]["ColorName"],
 								strokeColor: "black",
 								fillOpacity: 1.0,
-								strokeWeight: 1
+								scale: 1,
+								strokeWeight: 2
 							},
 			"Eastbound" :	{
-								path: 'm 5,-5 5,5 -5,5 -5,0 0,-10 z',
+								path: 'm 7,-7 7,7 -7,7 -7,0 0,-14 z',
 								fillColor: DirectionColors["Eastbound"]["ColorName"],
 								strokeColor: "black",
 								fillOpacity: 1.0,
 								scale: 1,
-								strokeWeight: 1
+								strokeWeight: 2
 							}
 		}
 	markersArray = new Array();
@@ -259,7 +282,16 @@ foreach ( $shape["shape_info"] as $key => $value ):
 	endif;
 endforeach;
 ?>
-		GetRealtime();
+		CountdownTimerRemaining = 0;
+		CountdownTimerTotalSeconds = 30;
+		CountdownTimerUpdateFrequencySeconds = .25;
+		CountdownTimerRefreshInProgress = false;
+		setInterval(
+			function() {
+				CountdownTimer();
+			},
+			CountdownTimerUpdateFrequencySeconds * 1000
+		);
 	}
 	
 	function ShowMarker( Latitude, Longitude, Direction, BusID, Adherence, MessageAge, Headsign, PredictionLatitude, PredictionLongitude, NearestStopSequence, PredictionSequence ) {
@@ -360,6 +392,28 @@ endforeach;
 		HighlightRoute( ShapeID );
 	}
 
+	function RefreshNow() {
+		CountdownTimerRemaining = 0;
+		$( "#CountdownTimerRefresh" ).hide();
+		$( "#CountdownTimerWaiting" ).show();
+		CountdownTimerRefreshInProgress = true;
+		GetRealtime();
+	}
+
+	function CountdownTimer() {
+		CountdownTimerRemaining = CountdownTimerRemaining - CountdownTimerUpdateFrequencySeconds;
+		if ( CountdownTimerRemaining <= 0 ) {
+			if ( CountdownTimerRefreshInProgress == false ) {
+				RefreshNow();
+			}
+		} else {
+			$( "#CountdownTimerRefresh" ).css( "width", ( ( CountdownTimerRemaining / CountdownTimerTotalSeconds ) * 100 ) + "%" );
+			$( "#CountdownTimerRefresh" ).show();
+			$( "#CountdownTimerWaiting" ).hide();
+		}
+		$( "#showCountdown" ).html( ( ( CountdownTimerRemaining / CountdownTimerTotalSeconds ) * 100 ) + "%" );
+	}
+
 	function GetRealtime() {
 		$.ajax( {
 			dataType: "json",
@@ -392,12 +446,10 @@ endforeach;
 				} else {
 					$( "#NoRealTimeAlert" ).hide();
 				}
-				setTimeout(
-					function() {
-						GetRealtime();
-					},
-					30000
-				);
+				CountdownTimerRemaining = CountdownTimerTotalSeconds;
+				$( "#CountdownTimerRefresh" ).css( "width", "100%" );
+				CountdownTimerRefreshInProgress = false;
+				CountdownTimer();
 			}
 		} );
 	}

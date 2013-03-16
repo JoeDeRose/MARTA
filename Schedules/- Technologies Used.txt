@@ -11,4 +11,7 @@ JavaScript
 	JSON
 	Google Maps API
 
-SVG
+SVG (dynamically generated)
+
+Adobe Illustrator
+Adobe Photoshop

@@ -6,7 +6,7 @@ $RouteList = get_routes();
 ?>
 <script>
 	function ToggleButtonMenu( Route ) {
-		if ( $( "#button" + Route ).attr( "class" ).indexOf( "buttonEffectMinimized" ) != -1 ) {
+		if ( $( "#button" + Route ).attr( "class" ).indexOf( "buttonEffectRoundedAll" ) != -1 ) {
 			ExpandButtonMenu( Route );
 		} else {
 			MinimizeButtonMenu( Route );
@@ -14,15 +14,15 @@ $RouteList = get_routes();
 	}
 
 	function ExpandButtonMenu( Route ) {
-		$( "#button" + Route ).addClass( "buttonEffectExpanded" );
-		$( "#button" + Route ).removeClass( "buttonEffectMinimized" );
+		$( "#button" + Route ).addClass( "buttonEffectRoundedTLBL" );
+		$( "#button" + Route ).removeClass( "buttonEffectRoundedAll" );
 		$( "#button" + Route + " .buttonMenu" ).css( "left", ( $( "#button" + Route ).outerWidth() - 2 ) + "px" );
 		$( "#button" + Route + " .buttonMenu" ).show();
 	}
 	
 	function MinimizeButtonMenu( Route ) {
-		$( "#button" + Route ).addClass( "buttonEffectMinimized" );
-		$( "#button" + Route ).removeClass( "buttonEffectExpanded" );
+		$( "#button" + Route ).addClass( "buttonEffectRoundedAll" );
+		$( "#button" + Route ).removeClass( "buttonEffectRoundedTLBL" );
 		$( "#button" + Route + " .buttonMenu" ).hide();
 	}
 	
@@ -40,8 +40,6 @@ $RouteList = get_routes();
 	
 </script>
 
-<h1>MARTA Routes</h1>
-
 <?php
 $FavoritesCookie = GetFavorites();
 $FavoriteRoutes = "";
@@ -52,8 +50,8 @@ while ( $row = $RouteList->fetch_assoc() ):
 	$RouteRow = <<<ROUTE_ROW
 	<tr>
 		<th onmouseover="ExpandButtonMenu( '[RouteShortName][FavoriteFlag]' );" onmouseout="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' );" >
-			<div id="button[RouteShortName][FavoriteFlag]" class="buttonEffect buttonEffectMinimized" >
-				<div class="buttonMenu noWrap" style="display: none;">
+			<div id="button[RouteShortName][FavoriteFlag]" class="buttonEffect buttonEffectPadding buttonEffectRoundedAll" >
+				<div class="buttonMenu buttonFlyout buttonEffectRoundedTRBLBR noWrap" style="display: none;">
 					<div class="buttonMenuItem" onclick="openCurrentInfo( '[RouteShortName]' );" >
 						<a href="#" onclick="return false;">Current Information</a>
 					</div>
@@ -61,7 +59,7 @@ while ( $row = $RouteList->fetch_assoc() ):
 						<a href="#" onclick="return false;">[FavoriteText] Favorites</a>
 					</div>
 					<div class="buttonMenuItem" onclick="openMap( '[RouteShortName]' );" >
-						<a href="#" onclick="return false;">Map</a>
+						<a href="#" onclick="return false;">Thumbnail Map</a>
 					</div>
 				</div>
 				<div class="buttonItem" >
@@ -98,13 +96,13 @@ if ( $FavoriteRoutes != "" ) :
 ?>
 	<tr>
 		<td colspan="2">
-			<h2>Favorite Routes</h2>
+			<h1>Favorite Routes</h1>
 		</td>
 	</tr>
 <?=$FavoriteRoutes?>
 	<tr>
 		<td colspan="2">
-			<h2>All Routes</h2>
+			<h1>All Routes</h1>
 		</td>
 	</tr>
 <?php

@@ -22,13 +22,13 @@ function get_shape( $data ) {
 
 SELECT *
 FROM routes
-WHERE route_short_name = '{$data["route"]}'
+WHERE route_short_name = '{$data["validated_route"]}'
 
 QUERY_ROUTEINFO;
 // --------------------------------------------------------------------------------
 	$routeinfo = $mysqli -> query( $query_routeinfo );
 	$row = $routeinfo -> fetch_assoc();	// One-row query, so I don't need a while(){} construct.
-	$route_selected = $data["route"];
+	$route_selected = $data["validated_route"];
 	$route_long_name = $row["route_long_name"];
 	$route_type = $row["route_type"];
 	$route_color = $row["route_color"];
@@ -120,7 +120,7 @@ SELECT DISTINCT
 	stop_lon
 FROM all_runs
 WHERE
-	route_short_name = '{$data["route"]}'
+	route_short_name = '{$data["validated_route"]}'
 
 QUERY_STOPIDS;
 // --------------------------------------------------------------------------------
@@ -335,7 +335,7 @@ QUERY_HIGHWAY_SHAPES;
 
 	$shapeinfo = array(
 		"haversineratio" => $haversineratio,
-		"route" => $route_selected,
+		"validated_route" => $route_selected,
 		"route_long_name" => $route_long_name,
 		"route_type" => $route_type,
 		"size" => $size,

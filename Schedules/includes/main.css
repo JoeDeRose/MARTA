@@ -9,10 +9,17 @@
 
 /* Universal Elements */
 
+	html
+		{
+			height: 100%;
+		}
+
 	body
 		{
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 1em;
+			height: 100%;
+			padding: 0;
 		}
 	
 	table
@@ -34,16 +41,94 @@
 
 /* ID Groups */
 
-	/* #logo */
+	/* #NavHeader */
+	
+		#NavHeader
+			{
+				display: table;
+			}
+		
+		#NavHeader:after
+			{
+				display: block;
+				clear: both;
+				content: " ";
+				height: 0;
+				overflow: hidden;
+			}
+		
+		#NavHeader .VerticalGroup
+			{
+				display: table-row;
+			}
+		
+		#NavHeader .BlankDiv
+			{
+				display: table-cell;
+				background-color: #F7CD30;
+				position: relative;
+				top: -2px;
+				border: 1px solid #F7CD30;
+				border-bottom-left-radius: 1em;
+			}
+	
+		#NavHeader #NavExpandHolder
+			{
+				font-size: 1.75em;
+				vertical-align: top;
+				display: table-cell;
+				border-top-left-radius: 1em;
+				border-top-right-radius: 1em;
+				border-width: 1px;
+				border-color: #F7CD30;
+				position: relative;
+				z-index: 1;
+			}
+		
+		#NavHeader #NavExpand.NavMinimized
+			{
+				border-radius: 1em;
+			}
 
-		#logo
+		#NavHeader #LogoMenuHolder
+			{
+				display: table-cell;
+			}
+	
+		#NavHeader #LogoHolder
+			{
+				padding-left: 0.25em;
+				padding-bottom: .5em;
+			}
+		
+		#NavHeader #NavExpand
+			{
+				font-family: "Courier New", Courier, monospace;
+				font-weight: bold;
+				text-align: center;
+				margin: -1px;
+				padding-left: 0.25em;
+				padding-right: 0.25em;
+				border-width: 1px;
+				border-color: #F7CD30;
+				border-style: solid;
+			}
+		
+		#NavHeader #NavMenu
+			{
+				position: relative;
+				z-index: 0;
+			}
+
+		#NavHeader #logo
 			{
 				font-weight: bold;
 				font-size: 1.2em;
 				text-transform: uppercase;
+				padding-left: 0.25em;
 			}
 		
-		#logo span
+		#NavHeader #logo span
 			{
 				padding-top: 0.1em;
 				padding-bottom: 0.1em;
@@ -52,9 +137,22 @@
 				border-radius: 0.5em;
 				margin-right: 0.05em;
 			}
-		 #logo span:not(:first-child)
+		 #NavHeader #logo span:not(:first-child)
 		 	{
 				margin-left: 0.3em;
+			}
+	
+	/* #map_canvas */
+	
+		#map_canvas.Normal
+			{
+				width: 300px;
+				height: 300px;
+			}
+
+		#map_canvas.FullScreen
+			{
+				height: 100%;
 			}
 
 /* Specific IDs */
@@ -68,6 +166,90 @@
 	
 
 /* Class Groups */
+
+	/* .button */
+
+		.buttonEffect
+			{
+				font-weight: bold;
+				background-color: #F7CD30;
+				font-size: 1.5em;
+				position: relative;
+				border: 1px solid white;
+			}
+		
+		.buttonEffectPadding
+			{
+				padding-top: 0.25em;
+				padding-bottom: 0.25em;
+				padding-left: 0.5em;
+				padding-right: 0.5em;
+			}
+
+		.buttonEffectRoundedAll
+			{
+				border-radius: 0.75em;
+			}
+
+		.buttonEffectRoundedTLTRBL
+			{
+				border-top-left-radius: 0.75em;
+				border-top-right-radius: 0.75em;
+				border-bottom-left-radius: 0.75em;
+			}
+		
+		.buttonEffectRoundedTLBL
+			{
+				border-top-left-radius: 0.75em;
+				border-bottom-left-radius: 0.75em;
+			}
+		
+		.buttonEffectRoundedTRBLBR
+			{
+				border-top-right-radius: 0.75em;
+				border-bottom-left-radius: 0.75em;
+				border-bottom-right-radius: 0.75em;
+			}
+		
+		.buttonEffectRoundedTRBR
+			{
+				border-top-right-radius: 0.75em;
+				border-bottom-right-radius: 0.75em;
+			}
+		
+		.buttonMenu
+			{
+				top: -1px;
+				background-color: #F7CD30;
+				border: 1px solid white;
+				z-index: 1;
+			}
+		
+		.buttonFlyout
+			{
+				position: absolute;
+			}
+		
+		.buttonMenuItem
+			{
+				padding: 0.25em;
+				text-align: left;
+			}
+	
+		.buttonMenuItem:not(:last-child)
+			{
+				border-bottom: 1px solid white;
+			}
+		
+		.buttonMenuItem:hover, .buttonEffect:hover
+			{
+				cursor: pointer;
+			}
+		
+		.buttonEffect:hover .buttonItem a, .buttonMenuItem:hover a
+			{
+				color: #3E78DA;
+			}
 
 	/* .RouteList */
 
@@ -119,6 +301,36 @@
 				text-align: center;
 				font-size: 0.8em;
 				font-weight: bold;
+			}
+
+	/* .countdownTimer */
+	
+		.countdownTimer
+			{
+				width: 300px;
+			}
+		
+		.countdownTimer #CountdownTimerRefresh
+			{
+				position: relative;
+				left: 0;
+				top: 0;
+				width: 220px;
+				background-color: #EA7D09;
+				border-radius: 0.75em;
+				margin-top: -0.25em;
+				margin-bottom: -0.25em;
+				margin-left: -0.5em;
+				margin-right: -0.5em;
+				padding-top: 0.25em;
+				padding-bottom: 0.25em;
+				padding-left: 0.5em;
+				padding-right: 0.5em;
+			}
+		
+		.countdownTimer a, .countdownTimer span
+			{
+				white-space: nowrap;
 			}
 
 	/* .offset */
@@ -178,69 +390,6 @@
 				color: gray;
 			}
 	
-	/* .button */
-
-		.buttonEffect
-			{
-				font-weight: bold;
-				background-color: #F7CD30;
-				padding-top: 0.25em;
-				padding-bottom: 0.25em;
-				padding-left: 0.5em;
-				padding-right: 0.5em;
-				font-size: 1.5em;
-				position: relative;
-			}
-
-		.buttonEffectMinimized
-			{
-				border-radius: 0.75em;
-				border: 1px solid white;
-			}
-
-		.buttonEffectExpanded
-			{
-				border-top-left-radius: 0.75em;
-				border-bottom-left-radius: 0.75em;
-				border-top: 1px solid white;
-				border-left: 1px solid white;
-				border-bottom: 1px solid white;
-				border-right: 1px solid black;
-			}
-		
-		.buttonMenu
-			{
-				position: absolute;
-				top: -1px;
-				background-color: #F7CD30;
-				border-top-right-radius: 0.75em;
-				border-bottom-right-radius: 0.75em;
-				border-bottom-left-radius: 0.75em;
-				border: 1px solid white;
-				z-index: 1;
-			}
-		
-		.buttonMenuItem
-			{
-				padding: 0.25em;
-				text-align: left;
-			}
-	
-		.buttonMenuItem:not(:last-child)
-			{
-				border-bottom: 1px solid white;
-			}
-		
-		.buttonMenuItem:hover, .buttonEffect:hover
-			{
-				cursor: pointer;
-			}
-		
-		.buttonEffect:hover .buttonItem a, .buttonMenuItem:hover a
-			{
-				color: #3E78DA;
-			}
-
 /* General Classes in Specific Circumstances */
 
 	.duplicateName
@@ -256,6 +405,11 @@
 	.GridTable td, .GridTable th
 		{
 			border: 1px solid black;
+		}
+	
+	body.FullScreen
+		{
+			margin: 0;
 		}
 
 /* General Classes in Broad Circumstances */
