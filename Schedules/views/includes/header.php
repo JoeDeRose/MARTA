@@ -1,8 +1,3 @@
-<script>
-	function ButtonClick( ButtonTarget ) {
-		window.location.href = ButtonTarget;
-	}
-</script>
 <?php
 global $FullScreen, $MenuItems;
 
@@ -34,7 +29,7 @@ require_once('views/images/logo.svg');
 <?php
 if ( strpos( $data["MenuItems"], "(main)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="ButtonClick( '/' );">
+			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '/' );">
 				<a href="#" onclick="return false;">Main Menu</a>
 			</div>
 <?php
@@ -43,7 +38,7 @@ endif;
 <?php
 if ( strpos( $data["MenuItems"], "(routes)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="ButtonClick( '?action=routes' );">
+			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '?action=routes' );">
 				<a href="#" onclick="return false;">Route List</a>
 			</div>
 <?php
@@ -52,7 +47,7 @@ endif;
 <?php
 if ( strpos( $data["MenuItems"], "(fullscreen)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="ButtonClick( '?action=currentinfo&route=<?=$data["validated_route"]?>&fullscreen' );">
+			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '?action=currentinfo&route=<?=$data["validated_route"]?>&fullscreen' );">
 				<a href="#" onclick="return false;">View Map Full Screen</a>
 			</div>
 <?php
@@ -61,7 +56,7 @@ endif;
 <?php
 if ( strpos( $data["MenuItems"], "(currentinfo)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="ButtonClick( '?action=currentinfo&route=<?=$data["validated_route"]?>' );">
+			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '?action=currentinfo&route=<?=$data["validated_route"]?>' );">
 				<a href="#" onclick="return false;">Current Information for This Route</a>
 			</div>
 <?php
@@ -70,7 +65,7 @@ endif;
 <?php
 if ( strpos( $data["MenuItems"], "(map)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="ButtonClick( '?action=map&route=<?=$data["validated_route"]?>' );">
+			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '?action=map&route=<?=$data["validated_route"]?>' );">
 				<a href="#" onclick="return false;">Thumbnail Map for This Route</a>
 			</div>
 <?php

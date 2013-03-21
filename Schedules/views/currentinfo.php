@@ -1,4 +1,8 @@
 <?php
+// Constants, This Page
+$CountdownTimerTotalSeconds = 15;
+$CountdownTimerUpdateFrequencySeconds = .25;
+
 // Retrieve contents from $data.
 $validated_route = $data["validated_route"];
 
@@ -99,60 +103,64 @@ endif;
 		{
 			"Northbound" :
 				{
-					"ColorName" : "fuchsia",
-					"RGB" : "FF00FF"
+					"ColorName" : "violet",
+					"RGB" : "EE82EE"			// Polyline can't accept color names.
 				},
 			"Southbound" :
 				{
 					"ColorName" : "turquoise",
-					"RGB" : "40E0D0"
+					"RGB" : "40E0D0"			// Polyline can't accept color names.
 				},
 			"Westbound" :
 				{
-					"ColorName" : "fuchsia",
-					"RGB" : "FF00FF"
+					"ColorName" : "violet",
+					"RGB" : "EE82EE"			// Polyline can't accept color names.
 				},
 			"Eastbound" :
 				{
 					"ColorName" : "turquoise",
-					"RGB" : "40E0D0"
+					"RGB" : "40E0D0"			// Polyline can't accept color names.
 				}
 		};
 
 	imgDirection =
 		{
-			"Northbound" :	{
-								path: 'm -7,0 7,-7 7,7 0,7 -14,0 z',
-								fillColor: DirectionColors["Northbound"]["ColorName"],
-								strokeColor: "black",
-								fillOpacity: 1.0,
-								scale: 1,
-								strokeWeight: 2
-							},
-			"Southbound" :	{
-								path: 'm 7,0 -7,7 -7,-7 0,-7 14,0 z',
-								fillColor: DirectionColors["Southbound"]["ColorName"],
-								strokeColor: "black",
-								fillOpacity: 1.0,
-								scale: 1,
-								strokeWeight: 2
-							},
-			"Westbound" :	{
-								path: 'm -7,7 -7,-7 7,-7 7,0 0,14 z',
-								fillColor: DirectionColors["Westbound"]["ColorName"],
-								strokeColor: "black",
-								fillOpacity: 1.0,
-								scale: 1,
-								strokeWeight: 2
-							},
-			"Eastbound" :	{
-								path: 'm 7,-7 7,7 -7,7 -7,0 0,-14 z',
-								fillColor: DirectionColors["Eastbound"]["ColorName"],
-								strokeColor: "black",
-								fillOpacity: 1.0,
-								scale: 1,
-								strokeWeight: 2
-							}
+			"Northbound" :
+				{
+					path: 'm -7,0 7,-7 7,7 0,7 -14,0 z',
+					fillColor: DirectionColors["Northbound"]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: 1,
+					strokeWeight: 2
+				},
+			"Southbound" :
+				{
+					path: 'm 7,0 -7,7 -7,-7 0,-7 14,0 z',
+					fillColor: DirectionColors["Southbound"]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: 1,
+					strokeWeight: 2
+				},
+			"Westbound" :
+				{
+					path: 'm -7,7 -7,-7 7,-7 7,0 0,14 z',
+					fillColor: DirectionColors["Westbound"]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: 1,
+					strokeWeight: 2
+				},
+			"Eastbound" :
+				{
+					path: 'm 7,-7 7,7 -7,7 -7,0 0,-14 z',
+					fillColor: DirectionColors["Eastbound"]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: 1,
+					strokeWeight: 2
+				}
 		}
 	markersArray = new Array();
 
@@ -283,8 +291,8 @@ foreach ( $shape["shape_info"] as $key => $value ):
 endforeach;
 ?>
 		CountdownTimerRemaining = 0;
-		CountdownTimerTotalSeconds = 30;
-		CountdownTimerUpdateFrequencySeconds = .25;
+		CountdownTimerTotalSeconds = <?=$CountdownTimerTotalSeconds?>;
+		CountdownTimerUpdateFrequencySeconds = <?=$CountdownTimerUpdateFrequencySeconds?>;
 		CountdownTimerRefreshInProgress = false;
 		setInterval(
 			function() {
@@ -296,12 +304,12 @@ endforeach;
 	
 	function ShowMarker( Latitude, Longitude, Direction, BusID, Adherence, MessageAge, Headsign, PredictionLatitude, PredictionLongitude, NearestStopSequence, PredictionSequence ) {
 		// Draw the prediction line first, so it will be behind the marker.
+		// This prediction line doesn't seem to be necessary.
+		/*
 		PredicationLineCoordinates = [
 			new google.maps.LatLng( Latitude, Longitude ),
 			new google.maps.LatLng( PredictionLatitude, PredictionLongitude )
 		];
-		// This prediction line doesn't seem to be necessary.
-		/*
 		if ( PredictionSequence > NearestStopSequence ) {
 			PredicationLine = new google.maps.Polyline(
 				{
@@ -453,4 +461,58 @@ endforeach;
 			}
 		} );
 	}
+
+	TestRotationArrowMarkerN = new google.maps.Marker( {
+		position: new google.maps.LatLng( 33.758755,-84.368045 ),
+		map: map,
+		icon: {
+			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+			fillColor: DirectionColors["Northbound"]["ColorName"],
+			strokeColor: "black",
+			fillOpacity: 1.0,
+			scale: 3.5,
+			rotation: 0,
+			strokeWeight: 2
+		}
+	} );
+	TestRotationArrowMarkerE = new google.maps.Marker( {
+		position: new google.maps.LatLng( 33.758755,-84.368045 ),
+		map: map,
+		icon: {
+			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+			fillColor: DirectionColors["Eastbound"]["ColorName"],
+			strokeColor: "black",
+			fillOpacity: 1.0,
+			scale: 3.5,
+			rotation: 90,
+			strokeWeight: 2
+		}
+	} );
+	TestRotationArrowMarkerS = new google.maps.Marker( {
+		position: new google.maps.LatLng( 33.758755,-84.368045 ),
+		map: map,
+		icon: {
+			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+			fillColor: DirectionColors["Southbound"]["ColorName"],
+			strokeColor: "red",
+			fillOpacity: 1.0,
+			scale: 3.5,
+			rotation: 180,
+			strokeWeight: 2
+		}
+	} );
+	TestRotationArrowMarkerW = new google.maps.Marker( {
+		position: new google.maps.LatLng( 33.758755,-84.368045 ),
+		map: map,
+		icon: {
+			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+			fillColor: DirectionColors["Westbound"]["ColorName"],
+			strokeColor: "red",
+			fillOpacity: 1.0,
+			scale: 3.5,
+			rotation: -90,
+			strokeWeight: 2
+		}
+	} );
+
 </script>
