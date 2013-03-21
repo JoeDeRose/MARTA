@@ -35,16 +35,27 @@ if ( isset( $_GET["fullscreen"] ) ) {
 
 <!-- Icons -->
 <link rel="shortcut icon" href="favicon.ico" />
+<!-- Proper Configuration
 <link rel="apple-touch-icon" sizes="57x57" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="72x72" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon-72x72.png" />
 <link rel="apple-touch-icon" sizes="114x114" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon-114x114.png" />
 <link rel="apple-touch-icon" sizes="144x144" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon-144x144.png" />
+-->
+<!-- High-Resolution Only (works better on Android) -->
+<link rel="apple-touch-icon" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon-144x144.png" />
 
 <style></style>
 
 </head>
 
 <body class="<?=$FullScreenClass?>">
+
+<div id="loading">
+	<div>
+		Page<br />
+		Loading
+	</div>
+</div>
 
 <!-- Google Analytics -->
 <script type="text/javascript">

@@ -26,18 +26,6 @@ $RouteList = get_routes();
 		$( "#button" + Route + " .buttonMenu" ).hide();
 	}
 	
-	function openCurrentInfo( Route ) {
-		window.location.href = "?action=currentinfo&route=" + Route;
-	}
-	
-	function openFavorites( FavoriteAction, Route ) {
-		window.location.href = "?action=favorites&favoriteaction=" + FavoriteAction + "&route=" + Route;
-	}
-	
-	function openMap( Route ) {
-		window.location.href = "?action=map&route=" + Route;
-	}
-	
 </script>
 
 <?php
@@ -52,13 +40,13 @@ while ( $row = $RouteList->fetch_assoc() ):
 		<th onmouseover="ExpandButtonMenu( '[RouteShortName][FavoriteFlag]' );" onmouseout="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' );" >
 			<div id="button[RouteShortName][FavoriteFlag]" class="buttonEffect buttonEffectPadding buttonEffectRoundedAll" >
 				<div class="buttonMenu buttonFlyout buttonEffectRoundedTRBLBR noWrap" style="display: none;">
-					<div class="buttonMenuItem" onclick="openCurrentInfo( '[RouteShortName]' );" >
+					<div class="buttonMenuItem" onclick="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' ); ButtonClick( '?action=currentinfo&route=[RouteShortName]' );" >
 						<a href="#" onclick="return false;">Current Information</a>
 					</div>
-					<div class="buttonMenuItem" onclick="openFavorites( '[FavoriteAction]', '[RouteShortName]' );" >
+					<div class="buttonMenuItem" onclick="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' ); ButtonClick( '?action=favorites&favoriteaction=[FavoriteAction]&route=[RouteShortName]' );" >
 						<a href="#" onclick="return false;">[FavoriteText] Favorites</a>
 					</div>
-					<div class="buttonMenuItem" onclick="openMap( '[RouteShortName]' );" >
+					<div class="buttonMenuItem" onclick="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' ); ButtonClick( '?action=map&route=[RouteShortName]' );" >
 						<a href="#" onclick="return false;">Thumbnail Map</a>
 					</div>
 				</div>

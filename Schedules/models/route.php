@@ -1,4 +1,15 @@
 <?php
+function update_URL( $removeRegEx, $addString ) {
+	$thisURL = $_SERVER["REQUEST_URI"];
+	if ( $removeRegEx != "" ) {
+		$thisURL = preg_replace( "/&" . $removeRegEx . "/", "", $thisURL );
+	}
+	if ( $addString != "" ) {
+		$thisURL = $thisURL . "&" . $addString;
+	}
+	return $thisURL;
+}
+
 function get_shape( $data ) {
 	
 	global $mysqli, $middle, $factor, $avg_y, $avg_x, $haversineratio;

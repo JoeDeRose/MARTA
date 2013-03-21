@@ -155,6 +155,31 @@
 				height: 100%;
 			}
 
+	/* #loading */
+
+		div#loading
+			{
+				position: fixed;
+				left: 50%;
+				top: 40%;
+				display: none;
+				z-index: 5;
+			}
+
+		div#loading div
+			{
+				position: relative;
+				left: -50%;
+				top: -50%;
+				text-align: center;
+				background-color: #3E78DA;
+				color: white;
+				border-radius: 1em;
+				font-size: 2em;
+				padding: 0.5em;
+				opacity: 0.9;
+			}
+
 /* Specific IDs */
 
 	#map_canvas
@@ -223,6 +248,7 @@
 				background-color: #F7CD30;
 				border: 1px solid white;
 				z-index: 1;
+				display: inline-block;
 			}
 		
 		.buttonFlyout

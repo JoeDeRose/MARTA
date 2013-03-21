@@ -9,3 +9,8 @@ function NavHeaderToggle() {
 		$( "#NavExpand a" ).html( "+" );
 	}
 }
+
+function ButtonClick( ButtonTarget ) {
+	$( "#loading" ).show();
+	window.location.href = ButtonTarget;
+}
