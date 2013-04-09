@@ -6,7 +6,7 @@ if ( $FullScreen == false ) :
 <div id="NavHeader">
 	<div class="VerticalGroup">
 		<div id="NavExpandHolder">
-			<div id="NavExpand" class="buttonEffect NavMinimized"><a href="#" onclick="NavHeaderToggle(); return false;">+</a></div>
+			<div id="NavExpand" class="buttonEffect NavMinimized NavHeaderToggleListener">+</div>
 		</div>
 		<div id="LogoMenuHolder">
 			<div id="LogoHolder">
@@ -29,45 +29,35 @@ require_once('views/images/logo.svg');
 <?php
 if ( strpos( $data["MenuItems"], "(main)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '/' );">
-				<a href="#" onclick="return false;">Main Menu</a>
-			</div>
+			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="/" >Main Menu</div>
 <?php
 endif;
 ?>
 <?php
 if ( strpos( $data["MenuItems"], "(routes)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '?action=routes' );">
-				<a href="#" onclick="return false;">Route List</a>
-			</div>
+			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=routes" >Route List</div>
 <?php
 endif;
 ?>
 <?php
 if ( strpos( $data["MenuItems"], "(fullscreen)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '?action=currentinfo&route=<?=$data["validated_route"]?>&fullscreen' );">
-				<a href="#" onclick="return false;">View Map Full Screen</a>
-			</div>
+			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=currentinfo&route=<?=$data["validated_route"]?>&fullscreen" >Full Screen Map</div>
 <?php
 endif;
 ?>
 <?php
 if ( strpos( $data["MenuItems"], "(currentinfo)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '?action=currentinfo&route=<?=$data["validated_route"]?>' );">
-				<a href="#" onclick="return false;">Current Information for This Route</a>
-			</div>
+			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=currentinfo&route=<?=$data["validated_route"]?>" >Current Information for This Route</div>
 <?php
 endif;
 ?>
 <?php
 if ( strpos( $data["MenuItems"], "(map)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem" onclick="NavHeaderToggle(); ButtonClick( '?action=map&route=<?=$data["validated_route"]?>' );">
-				<a href="#" onclick="return false;">Thumbnail Map for This Route</a>
-			</div>
+			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=map&route=<?=$data["validated_route"]?>" >Thumbnail Map for This Route</div>
 <?php
 endif;
 ?>

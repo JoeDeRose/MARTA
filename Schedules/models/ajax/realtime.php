@@ -15,17 +15,17 @@ require_once('../includes/validate.php');
 $RouteSelected = _validate( "route" );
 $ServiceID = _getServiceID();
 $qTimePredictions = "";
+$VehiclesWithMissingTripID = 0;
 
 $RealTimeJSON = file_get_contents( "http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetBusByRoute/" . $RouteSelected );
 $RealTimeResult = json_decode( $RealTimeJSON );
 
 foreach( $RealTimeResult as $arraykey => $arrayvalue ):
 
-	try {
+	if ( $RealTimeResult[$arraykey] -> TRIPID != "" ) {
 
 		$RealTimeResult[$arraykey] -> COORDINDATES = $RealTimeResult[$arraykey] -> LATITUDE . ',' . $RealTimeResult[$arraykey] -> LONGITUDE;
-		// Sometimes TRIPID is blank; recover gracefully when this happens.
-		$ThisTripID = ( $RealTimeResult[$arraykey] -> TRIPID == "" ) ? 0 : $RealTimeResult[$arraykey] -> TRIPID;
+		$ThisTripID = $RealTimeResult[$arraykey] -> TRIPID;
 
 // HEREDOC ------------------------------------------------------------------------
 	$qClosestStop = <<<Q_CLOSEST_STOP
@@ -76,10 +76,10 @@ Q_CLOSEST_STOP;
 		$NowDateTime = new DateTime();
 		$NowDateTimeValue = $NowDateTime -> format( "G:i:s" );
 		$RealTimeResult[$arraykey] -> NOW = $NowDateTimeValue;
-		$MessageAge = $MessageTime -> diff( $NowDateTime );
-		$MessageAgeText = $MessageAge -> i;
-		$RealTimeResult[$arraykey] -> MESSAGE_AGE = $MessageAgeText;
-		$MessageAgeDiff = $MessageAgeText * 100;
+//		$MessageAge = $MessageTime -> diff( $NowDateTime );
+//		$MessageAgeText = $MessageAge -> i;
+//		$RealTimeResult[$arraykey] -> MESSAGE_AGE = $MessageAgeText;
+//		$MessageAgeDiff = $MessageAgeText * 100;
 
 // The Following prediction content was based on the (incorrect) assumption that the MSGTIME value
 // in the MARTA JSON response was the time that the bus location was last updated.
@@ -121,6 +121,7 @@ Q_PREDICTION_STOP;
 
 // The Following prediction content is based on the (revised) understanding that the MSGTIME value
 // in the MARTA JSON response is the time that the bus last reached a timepoint stop.
+/*
 // HEREDOC ------------------------------------------------------------------------
 	$qPredictionStop = <<<Q_PREDICTION_STOP
 
@@ -169,6 +170,55 @@ Q_PREDICTION_STOP;
 		$RealTimeResult[$arraykey] -> PREDICTION_CODE = $row1["stop_code"];
 		$RealTimeResult[$arraykey] -> PREDICTION_NAME = $row1["stop_name"];
 		$RealTimeResult[$arraykey] -> PREDICTION_SEQUENCE = $row1["stop_sequence"];
+*/
+
+// HEREDOC ------------------------------------------------------------------------
+	$qNextStop = <<<Q_NEXT_STOP
+
+SELECT *
+FROM
+  (
+    SELECT
+      ST.stop_sequence,
+      S.stop_code,
+      S.stop_name,
+      S.stop_lat,
+      S.stop_lon
+    FROM trips T
+      INNER JOIN stop_times ST
+        ON T.trip_id = ST.trip_id
+      INNER JOIN stops S
+        ON ST.stop_id = S.stop_id
+    WHERE
+      T.trip_id = {$RealTimeResult[$arraykey] -> TRIPID}
+      AND ST.stop_sequence >= {$RealTimeResult[$arraykey] -> NEAREST_STOP_SEQUENCE}
+    ORDER BY ST.stop_sequence
+    LIMIT 2
+  ) Q1
+ORDER BY stop_sequence DESC
+LIMIT 1;
+
+Q_NEXT_STOP;
+// --------------------------------------------------------------------------------
+		$NextStop = $mysqli -> query( $qNextStop );
+		$row2 = $NextStop -> fetch_assoc();	// One-row query, so I don't need a while(){} construct.
+		$RealTimeResult[$arraykey] -> NEXT_STOP_SEQUENCE = $row2["stop_sequence"];
+		$RealTimeResult[$arraykey] -> NEXT_STOP_CODE = $row2["stop_code"];
+		$RealTimeResult[$arraykey] -> NEXT_STOP_NAME = $row2["stop_name"];
+		$RealTimeResult[$arraykey] -> NEXT_STOP_LATITUDE = $row2["stop_lat"];
+		$RealTimeResult[$arraykey] -> NEXT_STOP_LONGITUDE = $row2["stop_lon"];
+		if ( $RealTimeResult[$arraykey] -> NEXT_STOP_SEQUENCE == $RealTimeResult[$arraykey] -> NEAREST_STOP_SEQUENCE ) {
+			$RealTimeResult[$arraykey] -> BUS_BEARING_END_OF_LINE = "Y";
+			$RealTimeResult[$arraykey] -> BUS_BEARING_ANGLE = 0;
+		} else {
+			$BearingLatitudeDifference = ( $RealTimeResult[$arraykey] -> NEAREST_STOP_LATITUDE - $row2["stop_lat"] ) * $haversineratio;
+			$BearingAdjacentAngle = $row2["stop_lat"] - $RealTimeResult[$arraykey] -> NEAREST_STOP_LATITUDE;
+			$BearingHypotenuse = sqrt( pow( $row2["stop_lat"] - $RealTimeResult[$arraykey] -> NEAREST_STOP_LATITUDE, 2 ) + pow( ( $row2["stop_lon"] - $RealTimeResult[$arraykey] -> NEAREST_STOP_LONGITITUDE ) * $haversineratio, 2 ) );
+			$BearingSign = ( $row2["stop_lon"] - $RealTimeResult[$arraykey] -> NEAREST_STOP_LONGITITUDE < 0 ? -1 : 1 );
+			$BearingAngle = rad2deg( acos( $BearingAdjacentAngle / $BearingHypotenuse ) ) * $BearingSign;
+			$RealTimeResult[$arraykey] -> BUS_BEARING_END_OF_LINE = "N";
+			$RealTimeResult[$arraykey] -> BUS_BEARING_ANGLE = $BearingAngle;
+		}
 
 // HEREDOC ------------------------------------------------------------------------
 		$qTimePredictionsInsert = <<<Q_TIMEPREDICTIONSINSERT
@@ -196,8 +246,8 @@ Q_TIMEPREDICTIONSINSERT;
 			$qTimePredictions .= $qTimePredictionsInsert;
 		}
 
-	} catch ( Exception $e ) {
-		// Just move forward gracefully without crashing the program.
+	} else {
+		$VehiclesWithMissingTripID++;
 	}
 
 endforeach;
@@ -242,11 +292,12 @@ endif;
 	"Vehicles" :
 		{
 <?php
-$NumberOfVehicles = count( $RealTimeResult );
+$NumberOfVehicles = count( $RealTimeResult ) - $VehiclesWithMissingTripID;
 $ThisVehicle = 0;
 foreach( $RealTimeResult as $key => $value ):
-	$ThisVehicle++;
-	$Comma = ( $ThisVehicle == $NumberOfVehicles ) ? "" : ",";
+	if ( $value -> TRIPID != "" ) :
+		$ThisVehicle++;
+		$Comma = ( $ThisVehicle == $NumberOfVehicles ) ? "" : ",";
 ?>
 			"<?=$value -> VEHICLE?>" :
 				{
@@ -255,12 +306,12 @@ foreach( $RealTimeResult as $key => $value ):
 					"LATITUDE" : "<?=$value -> LATITUDE?>",
 					"LONGITUDE" : "<?=$value -> LONGITUDE?>",
 					"MSGTIME" : "<?=$value -> MSGTIME?>",
-					"MESSAGE_AGE" : "<?=$value -> MESSAGE_AGE?>",
-					"PREDICTION_LATITUDE" : "<?=$value -> PREDICTION_LATITUDE?>",
-					"PREDICTION_LONGITUDE" : "<?=$value -> PREDICTION_LONGITUDE?>",
-					"HEADSIGN" : "<?=$value -> HEADSIGN?>"
+					"HEADSIGN" : "<?=$value -> HEADSIGN?>",
+					"BUS_BEARING_END_OF_LINE" : "<?=$value -> BUS_BEARING_END_OF_LINE?>",
+					"BUS_BEARING_ANGLE" : "<?=$value -> BUS_BEARING_ANGLE?>"
 				}<?=$Comma?> 
 <?php
+	endif;
 endforeach;
 ?>
 		},

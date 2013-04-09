@@ -5,10 +5,13 @@ Get and Prepare Data from MARTA
 (2) Save files into new folder (named after the date) in C:\Users\Joe Laptop\Documents\My Webs\Joe - Bluehost\MARTA\Data\GTFS.
 (3) Create new "upload" folder under the new date folder.
 (4) Copy files to that "upload" folder.
-(5) Rename them all to *.csv.
-(6) Open each one in Notepad++ and remove the field names at top (DO NOT delete the blank line at bottom).
+(5) Rename them all to *.csv ("ren *.txt *.csv").
+(6) Open each one in Notepad++ and remove the field names at top; NOTES:
+		DO NOT delete the blank line at bottom.
+		Look at field names in phpMyAdmin (see below) to make sure nothing has changed.
 (7) For any file larger than 20MiB, split it into 20MiB chunks.
-(8) Replace "" with \" (notably in routes, line should look like: 110,"Peachtree St./\"The Peach\"",,3,,808000,)
+(8) Replace "" with \"; NOTE:
+		In routes, line should look like: 110,"Peachtree St./\"The Peach\"",,3,,808000,
 
 Move the files to Bluehost
 (1) Open SSH Secure File Transfer.
@@ -20,4 +23,6 @@ Import the files.
 (2) Open phpMyAdmin (under Databases).
 (3) Log in using joederos and the main password.
 (4) Click on the joederos_main database.
-(5) For each table, empty the table and then import from the respective *.csv file.
+(5) For each table, empty the table (from list at joederos_main) and then import from the respective *.csv file.
+(6) Make sure number of records for each file (shown in the joederos_main page) matches the line count in Notepad++.
+(7) Delete files from "/home2/joederos/tmp".

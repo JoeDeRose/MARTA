@@ -1,3 +1,5 @@
+STANDARD BACKUP
+---------------
 cd "C:\Users\Joe Laptop\Documents\My Webs\Joe - Bluehost\MARTA"
 git add .
 git status
@@ -5,3 +7,8 @@ git commit -m "Description"
 git status
 git push -u origin master
 git status
+
+RESTORE
+-------
+cd "C:\Users\Joe Laptop\Documents\My Webs\Joe - Bluehost\MARTA"
+git checkout HEAD "subfolder\subfolder\subfolder\filename.ext"

@@ -9,12 +9,11 @@
 <body>
 
 <h1>MARTA Developer Resources</h1>
-<p>This is my attempt to catalog information related to the MARTA GTFS (General
-	Transit Feed Specification) feed -- both for my own use and for the benefit of
-	other programmers.</p>
+<p>This is my attempt to catalog information related to the MARTA's developer
+	feeds &ndash; both for my own use and for the benefit of other programmers.</p>
 <p>My personal opinion is that the community would be better served if this were
-	hosted on the MARTA website, so I will happily turn over these files -- at
-	no charge, of course -- if they
+	hosted on the MARTA website, so I will happily turn over these files &ndash; at
+	no charge, of course &ndash; if they
 	give MARTA a head start to hosting a more detailed set of developer pages.
 	(But I would appreciate attribution for my work.)</p>
 <h2>Contact</h2>
@@ -24,7 +23,125 @@
 <p>If you would like to contact me about this resource (and please feel welcome
 	to do so, especially if you find any errors I need to correct), my e-mail
 	address is <a href="mailto:joe@joederose.us">joe@joederose.us</a>.</p>
-<h2>Source Information</h2>
+<h2>Real-Time Data</h2>
+<p>MARTA has a real-time bus feed that provides data in XML (via a SOAP
+	call) and JSON (both via SOAP and via a direct URL call). MARTA wants to
+	be aware of any developers using the real-time feed, so I am not providing
+	links here to the real-time feed; instead, you will need to submit a request
+	on the MARTA developer page at <a href="http://www.itsmarta.com/brd-request-form.aspx">http://www.itsmarta.com/brd-request-form.aspx</a>. (If you don't get a reply, though, please
+	contact me at the e-mail address above and I'll try to reach out to my contacts
+at MARTA to see if your request has been lost.)</p>
+<p>All of the information here pertains to the JSON result through the direct
+	URL.</p>
+<p>Once you have the URL, you can append the following to it:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>URL</th>
+			<th>Result</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>http://.../GetAllBus</th>
+			<td>Get the results for all active buses on all routes</td>
+		</tr>
+		<tr>
+			<th>http://.../GetBusByRoute/___</th>
+			<td>Replace &quot;___&quot; with a route number (e.g., &quot;3&quot; or &quot;99&quot;). Get the results
+				for all buses
+			on the selected route.</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>This will return an array of JSON objects (one JSON object per bus), that looks like this:</p>
+
+<blockquote>
+	<code>
+		[{"ADHERENCE":"0","BLOCKID":"2","BLOCK_ABBR":"1-2","DIRECTION":"Southbound","LATITUDE":"33.7562339","LONGITUDE":"-84.3918858","MSGTIME":"4\/7\/2013 12:42:43 PM","ROUTE":"1","STOPID":"904680","TIMEPOINT":"Luckie St & North Ave.","TRIPID":"3698436","VEHICLE":"2981"},{"ADHERENCE":"-3","BLOCKID":"1","BLOCK_ABBR":"1-1","DIRECTION":"Northbound","LATITUDE":"33.7889023","LONGITUDE":"-84.4262254","MSGTIME":"4\/7\/2013 12:51:21 PM","ROUTE":"1","STOPID":"901556","TIMEPOINT":"Huff Rd & Howell Mill","TRIPID":"3713428","VEHICLE":"2853"}]
+	</code>
+</blockquote>
+
+<p>Following, as best I understand them, are the meanings for the field names:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>ADHERENCE</th>
+			<td>0 = on time; negative numbers show the number of minutes the bus is late;
+				positive numbers show the number of minutes the bus is early.</td>
+		</tr>
+		<tr>
+			<th>BLOCKID</th>
+			<td>(I don't yet know what this means.)</td>
+		</tr>
+		<tr>
+			<th>BLOCK_ABBR</th>
+			<td>(I don't yet know what this means.)</td>
+		</tr>
+		<tr>
+			<th>DIRECTION</th>
+			<td>Direction of the bus. This information is usually accurate &ndash; but it does
+				not match any field in the GTFS data (see below). this is less of a problem
+				than it used to be, as MARTA is now providing the TRIPID field in the real-time
+				data.</td>
+		</tr>
+		<tr>
+			<th>LATITUDE</th>
+			<td>Latitude in decimal WGS 84 format.</td>
+		</tr>
+		<tr>
+			<th>LONGITUDE</th>
+			<td>Latitude in decimal WGS 84 format.</td>
+		</tr>
+		<tr>
+			<th>MSGTIME</th>
+			<td>This is not the time that the bus most recently reported its location,
+				but rather the time that it most recent passed a time-point stop.
+				There is no information in the GTFS data (see below) about which
+				stops are time-point stops &ndash; but that information can be found on the
+				online bus schedules on the MARTA website.</td>
+		</tr>
+		<tr>
+			<th>ROUTE</th>
+			<td>The bus number. Correlates to <strong>stops.route_short_name</strong> in
+				the GTFS data (see below).</td>
+		</tr>
+		<tr>
+			<th>STOPID</th>
+			<td>The stop code for the most recent time-point stop. Correlates to <strong>stops.stop_code</strong> in
+				the GTFS data. (There is also a <strong>stops.stop_id</strong> field,
+				but this value does not correlate to it uniformly [although in
+				some cases <strong>stops.stop_code</strong> and <strong>stop.stop_id</strong> have
+				the same value, giving the appearance of correlation in such
+				examples].)</td>
+		</tr>
+		<tr>
+			<th>TIMEPOINT</th>
+			<td>Plain text giving the location of the most recent time-point stop.</td>
+		</tr>
+		<tr>
+			<th>TRIPID</th>
+			<td>Correlates to <strong>trips.trip_id</strong> in the GTFS data.</td>
+		</tr>
+		<tr>
+			<th>VEHICLE</th>
+			<td>The bus number. (Does not correlate to any field in the GTFS data, but
+				is nonetheless a useful value as it is visible to riders.)</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>GTFS (General Transit Feed Specification)</h2>
+<h3>Source Information</h3>
 
 <p>The MARTA GTFS feed is available on the
 	MARTA website at:<br />
@@ -33,16 +150,7 @@
 <p>This feed was designed for Google Transit, and meets Google's specifications
 	as outlined at<br />
 <a href="https://developers.google.com/transit/gtfs/reference">https://developers.google.com/transit/gtfs/reference</a></p>
-<p>MARTA also has a real-time bus feed that provides data in XML (via a SOAP
-	call) and JSON (both via SOAP and via a direct URL call). MARTA wants to
-	be aware of any developers using the real-time feed, so I am not providing
-	links here to the real-time feed; instead, you will need to submit a request
-	on the MARTA developer page linked above. (If you don't get a reply, though,
-	please contact me at the e-mail address above and I'll try to reach out to
-	my contacts at MARTA to see if your request
-	has been lost.)</p>
-
-<h2>UML</h2>
+<h3>UML</h3>
 <p>Following is a UML diagram of the table relationships
 	in MARTA's GTFS feed. I included <strong>calendar.txt</strong> and <strong>calendar_dates.txt</strong> on
 	this example to show the field relationship, but I think a query that incorporates
@@ -52,7 +160,7 @@
 	and simply pass in the resultant value as a parameter in the WHERE clause of
 	the query.</p>
 <p class="image"><img src="UML.jpg" alt="UML of table relationships" /></p>
-<h2>Tables (.txt Files)</h2>
+<h3>Tables (.txt Files)</h3>
 
 <p>Following are the tables provided in the MARTA GTFS feeds. Please note the
 	following:</p>
@@ -61,14 +169,14 @@
 	<li>Hyperlinks are to the Google table specifications.</li>
 	<li>Data type information is not specified by MARTA nor (for most fields) by Google. The types listed below reflect my best assumption regarding the most useful data type to apply.</li>
 	<li>The parenthetical numbers after &quot;text&quot; in the &quot;Data Type&quot;
-		column reflect the longest line in the current dataset -- not a prescribed
+		column reflect the longest line in the current dataset &ndash; not a prescribed
 			maximum length. For my own database design, I intend to pad those numbers
 			somewhat to allow for longer text in the future, and I recommend
 			that others do the same.</li>
-	<li>Notes are my own observations about the data (which I believe to be correct, of course -- but which may reflect misunderstandings on my part).</li>
+	<li>Notes are my own observations about the data (which I believe to be correct, of course &ndash; but which may reflect misunderstandings on my part).</li>
 </ul>
 
-<h2><a href="https://developers.google.com/transit/gtfs/reference#agency_fields" target="_blank">agency.txt</a></h2>
+<h3>Table: <a href="https://developers.google.com/transit/gtfs/reference#agency_fields" target="_blank">agency.txt</a></h3>
 
 <p>This table provides information about the transit agency (in our case, MARTA).</p>
 
@@ -114,7 +222,7 @@
 	</tbody>
 </table>
 
-<h3>Data Example</h3>
+<h4>Data Example</h4>
 
 <table class="DataExample">
 	<thead>
@@ -139,7 +247,7 @@
 	</tbody>
 </table>
 
-<h2><a href="https://developers.google.com/transit/gtfs/reference#stops_fields" target="_blank">stops.txt</a></h2>
+<h3>Table: <a href="https://developers.google.com/transit/gtfs/reference#stops_fields" target="_blank">stops.txt</a></h3>
 
 <p>This table provides information about specific transit stops and stations.</p>
 
@@ -204,7 +312,7 @@
 		</tr>
 	</tbody>
 </table>
-<h3>Data Example</h3>
+<h4>Data Example</h4>
 <table class="DataExample">
 	<thead>
 		<tr>
@@ -260,7 +368,7 @@
 	</tbody>
 </table>
 
-<h2><a href="https://developers.google.com/transit/gtfs/reference#routes_fields" target="_blank">routes.txt</a></h2>
+<h3>Table: <a href="https://developers.google.com/transit/gtfs/reference#routes_fields" target="_blank">routes.txt</a></h3>
 
 <p>This table provides information about specific transit stops and stations.</p>
 
@@ -278,13 +386,14 @@
 			<td>integer</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
+		<tr class="strike">
 			<th>agency_id</th>
 			<td>text</td>
-			<td>Probably intended to be an integer like the other &quot;_id&quot; fields, but assigned
-				a text value in <strong>agency.txt</strong>, so I made it a text value here even
-				though it is not used. Not used by MARTA in the current data
-				set.</td>
+			<td>Probably intended to be an integer like the other &quot;_id&quot; fields,
+				but assigned a text value in <strong>agency.txt</strong>, so I made it a
+				text value here even though it is not used. Not used by MARTA
+				in the current data set. Dropped by MARTA in the data feed of
+				March 19, 2013.</td>
 		</tr>
 		<tr>
 			<th>route_short_name</th>
@@ -328,7 +437,7 @@
 		</tr>
 	</tbody>
 </table>
-<h3>Data Example</h3>
+<h4>Data Example</h4>
 <table class="DataExample">
 	<thead>
 		<tr>
@@ -403,7 +512,7 @@
 </table>
 
 
-<h2><a href="https://developers.google.com/transit/gtfs/reference#trips_fields" target="_blank">trips.txt</a></h2>
+<h3>Table: <a href="https://developers.google.com/transit/gtfs/reference#trips_fields" target="_blank">trips.txt</a></h3>
 
 <p>This table provides information about specific transit trips (meaning from one end-point of a route to the other).</p>
 
@@ -455,7 +564,7 @@
 		</tr>
 	</tbody>
 </table>
-<h3>Data Example</h3>
+<h4>Data Example</h4>
 <table class="DataExample">
 	<thead>
 		<tr>
@@ -517,7 +626,7 @@
 	</tbody>
 </table>
 
-<h2><a href="https://developers.google.com/transit/gtfs/reference#stop_times_fields" target="_blank">stop_times.txt</a></h2>
+<h3>Table: <a href="https://developers.google.com/transit/gtfs/reference#stop_times_fields" target="_blank">stop_times.txt</a></h3>
 
 <p>This table provides information about stop times.</p>
 
@@ -595,7 +704,7 @@
 		</tr>
 	</tbody>
 </table>
-<h3>Data Example</h3>
+<h4>Data Example</h4>
 <table class="DataExample">
 	<thead>
 		<tr>
@@ -650,7 +759,7 @@
 	Applications) examples below illustrate a pretty common framework for parsing the
 	information in languages without support for regular expressions. These techniques
 	will return a text value; likely you'll want to convert it to a numerical value
-	using the appropriate function in the language you're using -- usually some
+	using the appropriate function in the language you're using &ndash; usually some
 	variation of <strong>val()</strong>, <strong>value()</strong>, <strong>Integer()</strong> or <strong>parseInt()</strong>.</p>
 <table class="DataExample">
 	<thead>
@@ -683,7 +792,7 @@
 	</tbody>
 </table>
 
-<h2><a href="https://developers.google.com/transit/gtfs/reference#calendar_fields" target="_blank">calendar.txt</a></h2>
+<h3>Table: <a href="https://developers.google.com/transit/gtfs/reference#calendar_fields" target="_blank">calendar.txt</a></h3>
 
 <p>This table provides information about the routine schedule.</p>
 
@@ -748,7 +857,7 @@
 		</tr>
 	</tbody>
 </table>
-<h3>Data Example</h3>
+<h4>Data Example</h4>
 <table class="DataExample">
 	<thead>
 		<tr>
@@ -804,7 +913,7 @@
 	</tbody>
 </table>
 
-<h2><a href="https://developers.google.com/transit/gtfs/reference#calendar_fields" target="_blank">calendar_dates.txt</a></h2>
+<h3>Table: <a href="https://developers.google.com/transit/gtfs/reference#calendar_fields" target="_blank">calendar_dates.txt</a></h3>
 
 <p>This table provides information about interruptions in the schedule (usually
 	for holiday service).</p>
@@ -839,7 +948,7 @@
 		</tr>
 	</tbody>
 </table>
-<h3>Data Example</h3>
+<h4>Data Example</h4>
 <table class="DataExample">
 	<thead>
 		<tr>
@@ -882,7 +991,7 @@
 	</tbody>
 </table>
 
-<h2><a href="https://developers.google.com/transit/gtfs/reference#shapes_fields" target="_blank">shapes.txt</a></h2>
+<h3>Table: <a href="https://developers.google.com/transit/gtfs/reference#shapes_fields" target="_blank">shapes.txt</a></h3>
 
 <p>This table provides information for drawing a map of a route.</p>
 
@@ -925,7 +1034,7 @@
 		</tr>
 	</tbody>
 </table>
-<h3>Data Example</h3>
+<h4>Data Example</h4>
 <table class="DataExample">
 	<thead>
 		<tr>

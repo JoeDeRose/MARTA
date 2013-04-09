@@ -267,7 +267,13 @@
 				border-bottom: 1px solid white;
 			}
 		
-		.buttonMenuItem:hover, .buttonEffect:hover
+		.buttonMenuItem:hover
+			{
+				cursor: pointer;
+				color: #3E78DA;
+			}
+		
+		.buttonEffect:hover
 			{
 				cursor: pointer;
 			}

@@ -39,10 +39,8 @@ if ( $FullScreen == false ) :
 </h1>
 
 <div class="countdownTimer buttonContainer" >
-	<div class="buttonEffect buttonEffectPadding buttonEffectRoundedAll" >
-		<div id="CountdownTimerRefresh" style="display: none;" onclick="RefreshNow();">
-			<a href="#" onclick="return false;">Refresh Now</a>
-		</div>
+	<div class="buttonEffect buttonEffectPadding buttonEffectRoundedAll refreshListener" >
+		<div id="CountdownTimerRefresh" style="display: none;" >Refresh&nbsp;Now</div>
 		<span id="CountdownTimerWaiting" >Waiting for Update</span>
 	</div>
 </div>
@@ -71,7 +69,7 @@ if ( $FullScreen == false ) :
 		}
 		$HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign for shape " . $value["shape_id"] . " missing in MARTA database)</i>" : $value["headsign"];
 ?>
-	<li class="<?=$RunTodayClass[$value["RunsToday"]]?>" id="HeadsignList<?=$key?>"><span onmouseover="HighlightRoute( '<?=$key?>' );" onmouseout="UnhighlightRoute( '<?=$key?>' );" onclick="TempHighlightRoute( '<?=$key?>' );"><?=$HeadsignDisplay?></span></li>
+	<li class="<?=$RunTodayClass[$value["RunsToday"]]?> HeadsignListListener" id="HeadsignList<?=$key?>" data-shapeID="<?=$key?>"><?=$HeadsignDisplay?></li>
 <?php
 	endforeach;
 ?>
@@ -302,7 +300,7 @@ endforeach;
 		);
 	}
 	
-	function ShowMarker( Latitude, Longitude, Direction, BusID, Adherence, MessageAge, Headsign, PredictionLatitude, PredictionLongitude, NearestStopSequence, PredictionSequence ) {
+	function ShowMarker( Latitude, Longitude, Direction, BusID, Adherence, Headsign, NearestStopSequence, EndOfLine, BearingAngle ) {
 		// Draw the prediction line first, so it will be behind the marker.
 		// This prediction line doesn't seem to be necessary.
 		/*
@@ -325,10 +323,26 @@ endforeach;
 		*/
 		// Then draw the marker.
 		var myLatLng = new google.maps.LatLng( Latitude, Longitude );
+		if ( EndOfLine == "Y" ) {
+			var thisIcon = google.maps.SymbolPath.CIRCLE;
+			var thisScale = 6;
+		} else {
+			var thisIcon = google.maps.SymbolPath.FORWARD_CLOSED_ARROW;
+			var thisScale = 4;
+		}
 		LocationMarker[BusID] = new google.maps.Marker( {
 			position: myLatLng,
 			map: map,
-			icon: imgDirection[Direction]
+			icon:
+				{
+					path: thisIcon,
+					fillColor: DirectionColors[Direction]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: thisScale,
+					rotation: BearingAngle,
+					strokeWeight: 2
+				}
 		} );
 		PopUpContent = "<div class=\"PopUpContent\">";
 		PopUpContent += "<strong>" + Headsign + "</strong><br />";
@@ -340,11 +354,6 @@ endforeach;
 			PopUpContent += "<strong>Running:</strong> " + Math.abs( Adherence ) + " min. late<br />";
 		} else {
 			PopUpContent += "<strong>Running:</strong> " + Math.abs( Adherence ) + " min. early<br />";
-		}
-		if ( MessageAge == 0 ) {
-			PopUpContent += "<strong>Updated:</strong> Just now";
-		} else {
-			PopUpContent += "<strong>Updated:</strong> " + MessageAge + " min. ago";
 		}
 		PopUpContent += "</div>";
 		popup[BusID] = PopUpContent;
@@ -377,7 +386,34 @@ endforeach;
 		}
 		markersArray.length = 0;
 	}
-	
+
+	$( document ).on(
+		"mouseover",
+		".HeadsignListListener",
+		function() {
+			ShapeID = $( this ).attr( "data-shapeID" );
+			HighlightRoute( ShapeID );
+		}
+	);
+
+	$( document ).on(
+		"mouseout",
+		".HeadsignListListener",
+		function() {
+			ShapeID = $( this ).attr( "data-shapeID" );
+			UnhighlightRoute( ShapeID );
+		}
+	);
+
+	$( document ).on(
+		"click",
+		".HeadsignListListener",
+		function() {
+			ShapeID = $( this ).attr( "data-shapeID" );
+			TempHighlightRoute( ShapeID );
+		}
+	);
+
 	function HighlightRoute( ShapeID ) {
 		shapeNormal[ ShapeID ].setMap( null );
 		shapeHighlight[ ShapeID ].setMap( map );
@@ -400,14 +436,14 @@ endforeach;
 		HighlightRoute( ShapeID );
 	}
 
-	function RefreshNow() {
-		CountdownTimerRemaining = 0;
-		$( "#CountdownTimerRefresh" ).hide();
-		$( "#CountdownTimerWaiting" ).show();
-		CountdownTimerRefreshInProgress = true;
-		GetRealtime();
-	}
-
+	$( document ).on(
+		"click",
+		".refreshListener",
+		function() {
+			RefreshNow();
+		}
+	);
+	
 	function CountdownTimer() {
 		CountdownTimerRemaining = CountdownTimerRemaining - CountdownTimerUpdateFrequencySeconds;
 		if ( CountdownTimerRemaining <= 0 ) {
@@ -420,6 +456,14 @@ endforeach;
 			$( "#CountdownTimerWaiting" ).hide();
 		}
 		$( "#showCountdown" ).html( ( ( CountdownTimerRemaining / CountdownTimerTotalSeconds ) * 100 ) + "%" );
+	}
+
+	function RefreshNow() {
+		CountdownTimerRemaining = 0;
+		$( "#CountdownTimerRefresh" ).hide();
+		$( "#CountdownTimerWaiting" ).show();
+		CountdownTimerRefreshInProgress = true;
+		GetRealtime();
 	}
 
 	function GetRealtime() {
@@ -440,12 +484,10 @@ endforeach;
 							VehicleList[key]["DIRECTION"],
 							key,
 							VehicleList[key]["ADHERENCE"],
-							VehicleList[key]["MESSAGE_AGE"],
 							VehicleList[key]["HEADSIGN"],
-							VehicleList[key]["PREDICTION_LATITUDE"],
-							VehicleList[key]["PREDICTION_LONGITUDE"],
 							VehicleList[key]["NEAREST_STOP_SEQUENCE"],
-							VehicleList[key]["PREDICTION_SEQUENCE"]
+							VehicleList[key]["BUS_BEARING_END_OF_LINE"],
+							VehicleList[key]["BUS_BEARING_ANGLE"]
 						);
 					}
 				}
@@ -461,58 +503,5 @@ endforeach;
 			}
 		} );
 	}
-
-	TestRotationArrowMarkerN = new google.maps.Marker( {
-		position: new google.maps.LatLng( 33.758755,-84.368045 ),
-		map: map,
-		icon: {
-			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-			fillColor: DirectionColors["Northbound"]["ColorName"],
-			strokeColor: "black",
-			fillOpacity: 1.0,
-			scale: 3.5,
-			rotation: 0,
-			strokeWeight: 2
-		}
-	} );
-	TestRotationArrowMarkerE = new google.maps.Marker( {
-		position: new google.maps.LatLng( 33.758755,-84.368045 ),
-		map: map,
-		icon: {
-			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-			fillColor: DirectionColors["Eastbound"]["ColorName"],
-			strokeColor: "black",
-			fillOpacity: 1.0,
-			scale: 3.5,
-			rotation: 90,
-			strokeWeight: 2
-		}
-	} );
-	TestRotationArrowMarkerS = new google.maps.Marker( {
-		position: new google.maps.LatLng( 33.758755,-84.368045 ),
-		map: map,
-		icon: {
-			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-			fillColor: DirectionColors["Southbound"]["ColorName"],
-			strokeColor: "red",
-			fillOpacity: 1.0,
-			scale: 3.5,
-			rotation: 180,
-			strokeWeight: 2
-		}
-	} );
-	TestRotationArrowMarkerW = new google.maps.Marker( {
-		position: new google.maps.LatLng( 33.758755,-84.368045 ),
-		map: map,
-		icon: {
-			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-			fillColor: DirectionColors["Westbound"]["ColorName"],
-			strokeColor: "red",
-			fillOpacity: 1.0,
-			scale: 3.5,
-			rotation: -90,
-			strokeWeight: 2
-		}
-	} );
 
 </script>
