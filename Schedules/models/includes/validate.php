@@ -1,4 +1,18 @@
 <?php
+// Constants
+$haversineratio = 0.83;
+/*
+	Atlanta is at approximately the following coordinates: 33.7°N, 84.2°W (= -84.2°).
+	"Haversine ratio" is not (to my knowledge) a real scientific term. I am using it to describe the (approximate) ratio between:
+	(1) The 0.2° longitudinal distance across Atlanta between 33.6°N and 33.8°N along the 84.2°W longitude line that bisects Atlanta (= 22.24 km);
+	(2) The 0.2° latitudinal distance across Atlanta between 84.3°W and 84.1°W along the 33.7°N latitude line that bisects Atlanta (= 18.5 km).
+	Thus, I am using a ratio of 0.83 (18.5 / 22.24 = 0.83) to compress horizontal distances, to make the maps seem less distorted.
+	A perfect implementation would use the haversine formula (see http://en.wikipedia.org/wiki/Haversine_formula) to calculate the
+	distance perfectly at every degree of latitude -- but the variation was so trivial across the footprint of the MARTA system
+	that I judged this not to be worth the processing time.
+*/
+
+
 function _validate( $key ) {
 	global $mysqli;
 	switch ( $key ) {

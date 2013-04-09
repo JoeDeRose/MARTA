@@ -1,16 +1,26 @@
-function NavHeaderToggle() {
-	if ( $( "#NavExpand a" ).html() == "+" ) {
-		$( "#NavExpandHolder" ).addClass( "buttonEffect" );
-		$( "#NavHeaderMenu" ).show();
-		$( "#NavExpand a" ).html( "&ndash;" );
-	} else {
-		$( "#NavExpandHolder" ).removeClass( "buttonEffect" );
-		$( "#NavHeaderMenu" ).hide();
-		$( "#NavExpand a" ).html( "+" );
+$( document ).on(
+	"click",
+	".NavHeaderToggleListener",
+	function() {
+		if ( $( "#NavExpand" ).html() == "+" ) {
+			$( "#NavExpandHolder" ).addClass( "buttonEffect" );
+			$( "#NavHeaderMenu" ).show();
+			$( "#NavExpand" ).html( "&ndash;" );
+		} else {
+			$( "#NavExpandHolder" ).removeClass( "buttonEffect" );
+			$( "#NavHeaderMenu" ).hide();
+			$( "#NavExpand" ).html( "+" );
+		}
 	}
-}
+);
 
-function ButtonClick( ButtonTarget ) {
-	$( "#loading" ).show();
-	window.location.href = ButtonTarget;
-}
+$( document ).on(
+	"click",
+	".buttonMenuItemListener",
+	function() {
+		buttonTarget = $( this ).attr( "data-buttonTarget" );
+		$( "#loading" ).show();
+		window.location.href = buttonTarget;
+	}
+);
+

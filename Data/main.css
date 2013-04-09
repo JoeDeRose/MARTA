@@ -13,6 +13,12 @@ h2
 		color: crimson;
 	}
 
+h3
+	{
+		font-size: 1.5em;
+		color: chocolate;
+	}
+
 table
 	{
 		border-collapse: collapse;

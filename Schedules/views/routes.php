@@ -14,17 +14,44 @@ $RouteList = get_routes();
 	}
 
 	function ExpandButtonMenu( Route ) {
-		$( "#button" + Route ).addClass( "buttonEffectRoundedTLBL" );
-		$( "#button" + Route ).removeClass( "buttonEffectRoundedAll" );
-		$( "#button" + Route + " .buttonMenu" ).css( "left", ( $( "#button" + Route ).outerWidth() - 2 ) + "px" );
-		$( "#button" + Route + " .buttonMenu" ).show();
+		$( "#" + Route ).addClass( "buttonEffectRoundedTLBL" );
+		$( "#" + Route ).removeClass( "buttonEffectRoundedAll" );
+		$( "#" + Route + " .buttonMenu" ).css( "left", ( $( "#" + Route ).outerWidth() - 2 ) + "px" );
+		$( "#" + Route + " .buttonMenu" ).show();
 	}
 	
 	function MinimizeButtonMenu( Route ) {
-		$( "#button" + Route ).addClass( "buttonEffectRoundedAll" );
-		$( "#button" + Route ).removeClass( "buttonEffectRoundedTLBL" );
-		$( "#button" + Route + " .buttonMenu" ).hide();
+		$( "#" + Route ).addClass( "buttonEffectRoundedAll" );
+		$( "#" + Route ).removeClass( "buttonEffectRoundedTLBL" );
+		$( "#" + Route + " .buttonMenu" ).hide();
 	}
+	
+	$( document ).on(
+		"mouseover",
+		".RouteNumExpandListener",
+		function() {
+			routeNumID = $( this ).children( ".RouteNumMainDiv" ).attr( "id" );
+			ExpandButtonMenu( routeNumID );
+		}
+	);
+	
+	$( document ).on(
+		"mouseout",
+		".RouteNumExpandListener",
+		function() {
+			routeNumID = $( this ).children( ".RouteNumMainDiv" ).attr( "id" );
+			MinimizeButtonMenu( routeNumID );
+		}
+	);
+	
+	$( document ).on(
+		"click",
+		"table.RouteList div.buttonMenuItemListener",
+		function() {
+			routeNumID = $( this ).parents( ".RouteNumMainDiv" ).attr( "id" );
+			MinimizeButtonMenu( routeNumID );
+		}
+	);
 	
 </script>
 
@@ -37,21 +64,24 @@ while ( $row = $RouteList->fetch_assoc() ):
 
 	$RouteRow = <<<ROUTE_ROW
 	<tr>
-		<th onmouseover="ExpandButtonMenu( '[RouteShortName][FavoriteFlag]' );" onmouseout="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' );" >
-			<div id="button[RouteShortName][FavoriteFlag]" class="buttonEffect buttonEffectPadding buttonEffectRoundedAll" >
+		<th class="RouteNumExpandListener" >
+			<div id="button[RouteShortName][FavoriteFlag]" class="RouteNumMainDiv buttonEffect buttonEffectPadding buttonEffectRoundedAll" >
 				<div class="buttonMenu buttonFlyout buttonEffectRoundedTRBLBR noWrap" style="display: none;">
-					<div class="buttonMenuItem" onclick="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' ); ButtonClick( '?action=currentinfo&route=[RouteShortName]' );" >
-						<a href="#" onclick="return false;">Current Information</a>
+					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=currentinfo&route=[RouteShortName]" >
+						Current Information
 					</div>
-					<div class="buttonMenuItem" onclick="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' ); ButtonClick( '?action=favorites&favoriteaction=[FavoriteAction]&route=[RouteShortName]' );" >
-						<a href="#" onclick="return false;">[FavoriteText] Favorites</a>
+					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=currentinfo&fullscreen&route=[RouteShortName]" >
+						Full Screen Map
 					</div>
-					<div class="buttonMenuItem" onclick="MinimizeButtonMenu( '[RouteShortName][FavoriteFlag]' ); ButtonClick( '?action=map&route=[RouteShortName]' );" >
-						<a href="#" onclick="return false;">Thumbnail Map</a>
+					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=favorites&favoriteaction=[FavoriteAction]&route=[RouteShortName]" >
+						[FavoriteText] Favorites
+					</div>
+					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=map&route=[RouteShortName]" >
+						Thumbnail Map
 					</div>
 				</div>
 				<div class="buttonItem" >
-					<a href="#" onclick="return false;">[RouteShortName]</a>
+					[RouteShortName]
 				</div>
 			</div>
 		</th>

@@ -37,27 +37,19 @@ $pre_display = preg_replace( "/>/", "&gt;", $pre_display );
 	<?
 		$thisAction = update_URL( "scope=[^&]+", "scope=route" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Zoom to Route (default)</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Zoom to Route (default)</div>
 	<?
 		$thisAction = update_URL( "scope=[^&]+", "scope=FP" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Keep Five Points Station in Frame</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Keep Five Points Station in Frame</div>
 	<?
 		$thisAction = update_URL( "scope=[^&]+", "scope=rail" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Keep Rail System in Frame</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Keep Rail System in Frame</div>
 	<?
 		$thisAction = update_URL( "scope=[^&]+", "scope=all" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Keep Entire System in Frame</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Keep Entire System in Frame</div>
 </div>
 
 <h2>Size</h2>
@@ -66,27 +58,19 @@ $pre_display = preg_replace( "/>/", "&gt;", $pre_display );
 	<?
 		$thisAction = update_URL( "size=\d+", "size=200" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">200 pixels&#x00B2;</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >200 pixels&#x00B2;</div>
 	<?
 		$thisAction = update_URL( "size=\d+", "size=300" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">300 pixels&#x00B2; (default)</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >300 pixels&#x00B2; (default)</div>
 	<?
 		$thisAction = update_URL( "size=\d+", "size=600" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">600 pixels&#x00B2;</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >600 pixels&#x00B2;</div>
 	<?
 		$thisAction = update_URL( "size=\d+", "size=900" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">900 pixels&#x00B2;</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >900 pixels&#x00B2;</div>
 </div>
 
 <h2>Bus Stops</h2>
@@ -95,15 +79,11 @@ $pre_display = preg_replace( "/>/", "&gt;", $pre_display );
 	<?
 		$thisAction = update_URL( "showstops", "showstops" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Show Bus Stops</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Show Bus Stops</div>
 	<?
 		$thisAction = update_URL( "showstops", "" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Hide Bus Stops (default)</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Hide Bus Stops (default)</div>
 </div>
 
 <h2>Rail System</h2>
@@ -112,15 +92,11 @@ $pre_display = preg_replace( "/>/", "&gt;", $pre_display );
 	<?
 		$thisAction = update_URL( "norail", "" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Show Rail System (default)</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Show Rail System (default)</div>
 	<?
 		$thisAction = update_URL( "norail", "norail" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Hide Rail System</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Hide Rail System</div>
 </div>
 
 <h2>Highways</h2>
@@ -129,15 +105,11 @@ $pre_display = preg_replace( "/>/", "&gt;", $pre_display );
 	<?
 		$thisAction = update_URL( "highway", "highway" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Show Highways</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Show Highways</div>
 	<?
 		$thisAction = update_URL( "highway", "" )
 	?>
-		<div class="buttonMenuItem" onclick="ButtonClick( '<?=$thisAction?>' );">
-			<a href="#" onclick="return false;">Hide Highways (default)</a>
-		</div>
+		<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="<?=$thisAction?>" >Hide Highways (default)</div>
 </div>
 
 <h1>SVG Code</h1>
