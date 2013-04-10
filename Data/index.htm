@@ -25,15 +25,23 @@
 	address is <a href="mailto:joe@joederose.us">joe@joederose.us</a>.</p>
 <h2>Real-Time Data</h2>
 <p>MARTA has a real-time bus feed that provides data in XML (via a SOAP
-	call) and JSON (both via SOAP and via a direct URL call). MARTA wants to
-	be aware of any developers using the real-time feed, so I am not providing
-	links here to the real-time feed; instead, you will need to submit a request
-	on the MARTA developer page at <a href="http://www.itsmarta.com/brd-request-form.aspx">http://www.itsmarta.com/brd-request-form.aspx</a>. (If you don't get a reply, though, please
-	contact me at the e-mail address above and I'll try to reach out to my contacts
-at MARTA to see if your request has been lost.)</p>
-<p>All of the information here pertains to the JSON result through the direct
-	URL.</p>
-<p>Once you have the URL, you can append the following to it:</p>
+	call) and JSON (both via SOAP and via a RESTful call). MARTA wants to
+	be aware of any developers using the real-time feed, so I am <em>not</em> providing
+	links to it here; instead, you will need to submit
+	a request on the MARTA developer page at <a href="http://www.itsmarta.com/brd-request-form.aspx">http://www.itsmarta.com/brd-request-form.aspx</a>.
+	After you submit that form, you will immediately be taken to a page with instructions
+	on using the system. Since those instructions are a bit overwhelming on the
+	first visit, here's what it boils down to for access to the (easier and more
+	complete) RESTful feed:</p>
+<ul>
+	<li>Click on the link immediately below the heading, &quot;MARTA Bus Real-time Data
+	RESTful Web Service&quot; (near the top of the page).</li>
+	<li>On the next page, click on both (&quot;GetAllBus&quot; and
+		&quot;GetBusByRoute/{Route}&quot;) of the &quot;GET&quot; links in the &quot;Method&quot;
+		column of the table.</li>
+	<li>Take note of the URL near the top of the respective pages for those options.</li>
+</ul>
+<p>Once you have the URL, you can retrieve information as follows:</p>
 
 <table>
 	<thead>
@@ -45,12 +53,12 @@ at MARTA to see if your request has been lost.)</p>
 	<tbody>
 		<tr>
 			<th>http://.../GetAllBus</th>
-			<td>Get the results for all active buses on all routes</td>
+			<td>Gets the results for all active buses on all routes</td>
 		</tr>
 		<tr>
-			<th>http://.../GetBusByRoute/___</th>
-			<td>Replace &quot;___&quot; with a route number (e.g., &quot;3&quot; or &quot;99&quot;). Get the results
-				for all buses
+			<th>http://.../GetBusByRoute/{Route}</th>
+			<td>Replace &quot;{Route}&quot; with a route number (e.g., &quot;3&quot; or &quot;99&quot;).
+				Gets the results for all buses
 			on the selected route.</td>
 		</tr>
 	</tbody>
