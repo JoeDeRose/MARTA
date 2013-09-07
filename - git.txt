@@ -8,6 +8,10 @@ git status
 git push -u origin master
 git status
 
+IF FILES HAVE BEEN DELETED WITHOUT USING GIT
+--------------------------------------------
+git add -u
+
 RESTORE
 -------
 cd "C:\Users\Joe Laptop\Documents\My Webs\Joe - Bluehost\MARTA"

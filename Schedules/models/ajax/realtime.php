@@ -271,6 +271,9 @@ if ( $qTimePredictions != "" ) {
 
 if ( $DiagnosticMode == true ) :
 ?>
+<h1>Source JSON</h1>
+<p><a href="http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetBusByRoute/<?=$RouteSelected?>">Route <?=$RouteSelected?></a></p>
+<p><a href="http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetAllBus">All Routes</a></p>
 <h1>JSON from MARTA</h1>
 <?=$RealTimeJSON?>
 <h1><code>$qTimePredictions</code> Query (Dynamically-Built Query for Prediction of Arrival Times on Active Runs)</h1>

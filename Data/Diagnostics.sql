@@ -10,6 +10,7 @@ FROM trips T1
       (
         T1.route_id = T2.route_id
         AND T1.trip_headsign = T2.trip_headsign
+        AND trim( T1.trip_headsign ) <> ''
         AND T2.direction_id = 1
       )
   INNER JOIN routes R
@@ -24,7 +25,7 @@ FROM trips T
   INNER JOIN routes R
     ON T.route_id = R.route_id
 WHERE
-  TRIM(T.trip_headsign) = "";
+  TRIM(T.trip_headsign) = '';
 
 -- Find instances where a date appears only once in calendar_dates.
 SELECT
@@ -73,8 +74,8 @@ FROM calendar;
 -- Fix the bad calendar records:
 UPDATE calendar
 SET
-  start_date = :Correct_start_date,
-  end_date = :Correct_end_date;
+  start_date = :Correct_start_date_YYYYMMDD,
+  end_date = :Correct_end_date_YYYYMMDD;
 
 -- Find instances where the arrival_time field in stop_times uses the format #:##:##
 -- rather than the standard ##:##:## (i.e., omits the leading zero).
@@ -86,3 +87,5 @@ WHERE LENGTH( arrival_time ) = 7;
 UPDATE stop_times
 SET arrival_time = CONCAT( '0', arrival_time )
 WHERE LENGTH( arrival_time ) = 7;
+
+COMMIT;

@@ -79,6 +79,9 @@ while ( $row = $RouteList->fetch_assoc() ):
 					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=map&route=[RouteShortName]" >
 						Thumbnail Map
 					</div>
+					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="models/ajax/realtime.php?route=[RouteShortName]&diagnostics" >
+						Diagnostics
+					</div>
 				</div>
 				<div class="buttonItem" >
 					[RouteShortName]
