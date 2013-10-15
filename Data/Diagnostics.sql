@@ -77,6 +77,8 @@ SET
   start_date = :Correct_start_date_YYYYMMDD,
   end_date = :Correct_end_date_YYYYMMDD;
 
+COMMIT;
+
 -- Find instances where the arrival_time field in stop_times uses the format #:##:##
 -- rather than the standard ##:##:## (i.e., omits the leading zero).
 SELECT *
@@ -87,5 +89,65 @@ WHERE LENGTH( arrival_time ) = 7;
 UPDATE stop_times
 SET arrival_time = CONCAT( '0', arrival_time )
 WHERE LENGTH( arrival_time ) = 7;
+
+COMMIT;
+
+-- Populate J_rail_stations with new data:
+
+INSERT INTO J_rail_stations
+SELECT DISTINCT
+  R.route_short_name,
+  S.stop_code,
+  ST.stop_sequence
+FROM routes R
+  INNER JOIN trips T
+    ON R.route_id = T.route_id
+  INNER JOIN stop_times ST
+    ON T.trip_id = ST.trip_id
+  INNER JOIN stops S
+    ON ST.stop_id = S.stop_id
+WHERE T.shape_id IN
+  (
+    SELECT Q2.shape_id
+    FROM
+      (
+        SELECT
+          R1.route_short_name,
+          MAX( ST1.stop_sequence ) AS longest
+        FROM routes R1
+          INNER JOIN trips T1
+            ON R1.route_id = T1.route_id
+          INNER JOIN stop_times ST1
+            ON T1.trip_id = ST1.trip_id
+        WHERE
+          R1.route_short_name in ( 'BLUE', 'GOLD', 'GREEN', 'RED' )
+          AND T1.direction_id = 0
+        GROUP BY
+          R1.route_short_name
+      ) Q1
+      INNER JOIN
+        (
+          SELECT DISTINCT
+            R2.route_short_name,
+            T2.shape_id,
+            ST2.stop_sequence
+          FROM routes R2
+            INNER JOIN trips T2
+              ON R2.route_id = T2.route_id
+            INNER JOIN stop_times ST2
+              ON T2.trip_id = ST2.trip_id
+          WHERE
+            R2.route_short_name in ( 'BLUE', 'GOLD', 'GREEN', 'RED' )
+            AND T2.direction_id = 0
+        ) Q2
+        ON
+          (
+            Q1.route_short_name = Q2.route_short_name
+            AND Q1.longest = Q2.stop_sequence
+          )
+  )
+ORDER BY
+  R.route_short_name,
+  ST.stop_sequence;
 
 COMMIT;
