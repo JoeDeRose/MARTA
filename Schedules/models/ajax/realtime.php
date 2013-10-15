@@ -271,7 +271,13 @@ if ( $qTimePredictions != "" ) {
 
 if ( $DiagnosticMode == true ) :
 ?>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
 <h1>Source JSON</h1>
+<p><a href="http://www.joederose.us/MARTA/Data/">MARTA Developer Resources</a></p>
 <p><a href="http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetBusByRoute/<?=$RouteSelected?>">Route <?=$RouteSelected?></a></p>
 <p><a href="http://developer.itsmarta.com/BRDRestService/BRDRestService.svc/GetAllBus">All Routes</a></p>
 <h1>JSON from MARTA</h1>
@@ -342,6 +348,8 @@ endif;
 if ( $DiagnosticMode == true ) :
 ?>
 <pre>
+</body>
+</html>
 <?php
 endif;
 ?>
