@@ -40,7 +40,7 @@ FROM routes R
 WHERE R.route_short_name = '{$validated_route}'
 
 QUERY_ROUTE_FRAME;
-	// --------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------
 	$route_frame = $mysqli -> query( $query_route_frame );
 	$row = $route_frame -> fetch_assoc();	// One-row query, so I don't need a while(){} construct.
 	$route_min_lat = $row["MIN_LAT"];

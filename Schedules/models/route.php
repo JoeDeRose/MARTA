@@ -183,7 +183,7 @@ SELECT
 	stop_lat,
 	stop_lon
 FROM stops
-WHERE stop_code = 908986
+WHERE stop_code = 797
 
 QUERY_SPAN_FP;
 // --------------------------------------------------------------------------------
@@ -303,7 +303,7 @@ QUERY_HIGHWAY_SHAPES;
 		}
 		array_push( $railpolylines, $thispolyline );
 	}
-	
+
 	$busstoplocations = array();
 	while ( $row = $stopids -> fetch_assoc() ) {
 		$thiscoordinates = calculate_coordinates( $row["stop_lon"], $row["stop_lat"] );

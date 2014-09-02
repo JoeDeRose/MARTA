@@ -1,3 +1,5 @@
+-- Execute individually with F5; then commit.
+
 TRUNCATE agency;
 
 TRUNCATE calendar;
