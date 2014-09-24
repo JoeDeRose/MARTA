@@ -1,7 +1,7 @@
 STANDARD BACKUP
 ---------------
-cd "C:\Users\Joe Laptop\Documents\My Webs\Joe - Bluehost\MARTA"
-git add .
+cd "C:\Users\\Joe DeRose\Documents\My Webs\Joe - Bluehost\MARTA"
+git add --all
 git status
 git commit -m "Description"
 git status

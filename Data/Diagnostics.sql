@@ -176,7 +176,7 @@ ORDER BY
 
 COMMIT;
 
--- Find stop code for Five Points Station and use it to populate "MARTA\Schedules\modesls\route.php", line 186.
+-- Find stop code for Five Points Station and use it to populate "MARTA\Schedules\models\route.php", line 186.
 -- Execute in Toad with F9
 --REGION
 SELECT
