@@ -340,7 +340,7 @@ endforeach;
 					strokeColor: "black",
 					fillOpacity: 1.0,
 					scale: thisScale,
-					rotation: BearingAngle,
+					rotation: parseFloat( BearingAngle ),
 					strokeWeight: 2
 				}
 		} );
