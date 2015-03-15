@@ -4,6 +4,8 @@ cd "C:\Users\\Joe DeRose\Documents\My Webs\Joe - Bluehost\MARTA"
 git add --all
 git status
 git commit -m "Description"
+# If necessary to change the commit message (i.e., to add a body):
+git commit --amend 
 git status
 git push -u origin master
 git status
