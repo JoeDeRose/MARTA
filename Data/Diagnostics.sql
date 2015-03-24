@@ -46,6 +46,7 @@ HAVING COUNT(*) < 2;
 
 -- Find instances where calendar dates are outside the expected range.
 -- Execute in Toad with F9
+-- DO NO EXECUTE UNLESS THERE IS A PUBLISHED END DATE TO THE SCHEDULE
 --REGION
 SELECT
   start_date,
@@ -86,6 +87,7 @@ FROM calendar;
 
 -- Fix the bad calendar records:
 -- Execute in Toad with F5
+-- DO NO EXECUTE UNLESS THERE IS A PUBLISHED END DATE TO THE SCHEDULE
 --REGION
 UPDATE calendar
 SET
