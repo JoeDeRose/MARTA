@@ -97,11 +97,11 @@ SET
 
 COMMIT;
 
--- Find instances where the arrival_time field in stop_times uses the format #:##:##
+-- Find number of instances where the arrival_time field in stop_times uses the format #:##:##
 -- rather than the standard ##:##:## (i.e., omits the leading zero).
 -- Execute in Toad with F9
 --REGION
-SELECT *
+SELECT COUNT( * ) AS "records in which arrival_time omits the leading zero"
 FROM stop_times
 WHERE LENGTH( arrival_time ) = 7;
 --ENDREGION
@@ -115,6 +115,14 @@ WHERE LENGTH( arrival_time ) = 7;
 --ENDREGION
 
 COMMIT;
+
+-- Confirm that there are now 0 records with arrival_time values in the wrong format.
+-- Execute in Toad with F9
+--REGION
+SELECT COUNT( * ) AS "records in which arrival_time omits the leading zero"
+FROM stop_times
+WHERE LENGTH( arrival_time ) = 7;
+--ENDREGION
 
 -- Populate J_rail_stations with new data:
 -- Execute in Toad with F5
@@ -178,7 +186,10 @@ ORDER BY
 
 COMMIT;
 
--- Find stop code for Five Points Station and use it to populate "MARTA\Schedules\models\route.php", line 186.
+-- Find stop code for Five Points Station.
+-- Most recent value is 908986; if changed:
+--   (1) Update the most recent value in the line above;
+--   (2) Use the new value to populate "MARTA\Schedules\models\route.php", line 186.
 -- Execute in Toad with F9
 --REGION
 SELECT
@@ -191,3 +202,6 @@ INNER JOIN stops s
 WHERE UCASE( s.stop_name = 'FIVE POINTS STATION' )
 ORDER BY s.stop_code;
 --ENDREGION
+
+
+
