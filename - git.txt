@@ -3,12 +3,13 @@ STANDARD BACKUP
 cd "C:\Users\\Joe DeRose\Documents\My Webs\Joe - Bluehost\MARTA"
 git add --all
 git status
-# Opens prompt for description (on first line)
-git commit
+git commit -m "chore: GTFS Update of __________"
 # If necessary to change the commit message:
-git commit --amend 
+  git commit --amend
 git status
 git push -u origin master
+# If the process fails with "fatal: The remote end hung up unexpectedly", use:
+  git config https.postBuffer 524288000
 git status
 
 IF FILES HAVE BEEN DELETED WITHOUT USING GIT
