@@ -183,7 +183,7 @@ SELECT
 	stop_lat,
 	stop_lon
 FROM stops
-WHERE stop_code = 908986
+WHERE stop_code = 797
 
 QUERY_SPAN_FP;
 // --------------------------------------------------------------------------------
