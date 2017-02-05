@@ -1,6 +1,23 @@
 -- Execute in Toad with F5
 SET SQL_BIG_SELECTS = 1;
 
+-- Optimize tables
+-- Execute in Toad with F9
+-- REGION
+OPTIMIZE TABLE
+  agency,
+  calendar,
+  calendar_dates,
+  J_directions,
+  J_highways,
+  J_rail_stations,
+  routes,
+  shapes,
+  stops,
+  stop_times,
+  trips;
+-- ENDREGION
+
 -- Find instances where the same headsign is used for opposite directions.
 -- Execute in Toad with F9
 -- REGION
@@ -188,9 +205,9 @@ ORDER BY
 COMMIT;
 
 -- Find stop code for Five Points Station.
--- Most recent value is 797; if changed:
+-- Most recent value is 908981; if changed:
 --   (1) Update the most recent value in the line above;
---   (2) Use the new value to populate "MARTA\Schedules\models\route.php", line 186.
+--   (2) Use the new value to populate "C:\Users\Joe DeRose\Documents\My Webs\Joe - Bluehost\MARTA\Schedules\models\route.php", line 186.
 -- Execute in Toad with F9
 --REGION
 SELECT
