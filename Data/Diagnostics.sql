@@ -18,6 +18,57 @@ OPTIMIZE TABLE
   trips;
 -- ENDREGION
 
+-- Confirm record counts
+-- REGION
+SELECT
+  'agency.txt' AS file,
+  COUNT( * ) AS Records,
+  COUNT( * ) + 1 AS "Rows in Table"
+FROM agency
+UNION
+SELECT
+  'calendar.txt' AS file,
+  COUNT( * ) AS Records,
+  COUNT( * ) + 1 AS "Rows in Table"
+FROM calendar
+UNION
+SELECT
+  'calendar_dates.txt' AS file,
+  COUNT( * ) AS Records,
+  COUNT( * ) + 1 AS "Rows in Table"
+FROM calendar_dates
+UNION
+SELECT
+  'routes.txt' AS file,
+  COUNT( * ) AS Records,
+  COUNT( * ) + 1 AS "Rows in Table"
+FROM routes
+UNION
+SELECT
+  'shapes.txt' AS file,
+  COUNT( * ) AS Records,
+  COUNT( * ) + 1 AS "Rows in Table"
+FROM shapes
+UNION
+SELECT
+  'stop_times.txt' AS file,
+  COUNT( * ) AS Records,
+  COUNT( * ) + 1 AS "Rows in Table"
+FROM stop_times
+UNION
+SELECT
+  'stops.txt' AS file,
+  COUNT( * ) AS Records,
+  COUNT( * ) + 1 AS "Rows in Table"
+FROM stops
+UNION
+SELECT
+  'trips.txt' AS file,
+  COUNT( * ) AS Records,
+  COUNT( * ) + 1 AS "Rows in Table"
+FROM trips;
+-- ENDREGION
+
 -- Find instances where the same headsign is used for opposite directions.
 -- Execute in Toad with F9
 -- REGION
