@@ -1,232 +1,499 @@
 <?php
-global $header_find, $header_replace;
+// Constants, This Page
+$CountdownTimerTotalSeconds = 15;
+$CountdownTimerUpdateFrequencySeconds = .25;
+
+// Retrieve contents from $data.
+$validated_route = $data["validated_route"];
+
+// Load model components.
+_load_model( 'shape', $data );
+$shape = get_shape( $data );		// Uses same data content as that which was passed in.
+
+// Fix the title to show (for example) "MARTA Route 1" or "MARTA Blue Line".
+global $header_find, $header_replace, $FullScreen, $FullScreenClass;
 $header_find["title"] = "/<title>.*?<\/title>/";
-if ( is_numeric( $data["route"] ) ) {
-	$route_title = "MARTA Route " . $data["route"];
+if ( is_numeric( $validated_route ) ) {
+	$route_title = "Route " . $validated_route;
 } else {
-	$route_title = "MARTA " . $data["route"] . " Line";
+	$route_title = $data["route"] . " Line";
 }
-$header_replace["title"] = "<title>" . $route_title . "</title>";
+$header_replace["title"] = "<title>MARTA " . $route_title . "</title>";
 
-require( 'includes/busmap.php' );
+// Calculate the zoom
+if ( max( $shape["route_span_lat"], $shape["route_span_lon"] ) <= 0.04 ) {
+	$zoom = 13;
+} else if ( max( $shape["route_span_lat"], $shape["route_span_lon"] ) <= 0.09 ) {
+	$zoom = 12;
+} else if ( max( $shape["route_span_lat"], $shape["route_span_lon"] ) <= 0.16 ) {
+	$zoom = 11;
+} else {
+	$zoom = 10;		// default
+}
+?>
+<h1>
+	<?=$route_title?> [<?=_MARTA_time()?>][<?=_getServiceID()?>]<br />
+	<?=$shape["route_long_name"]?>
+</h1>
 
-$route = $data["route"];
-$display = show_map( $data );
+<div class="countdownTimer buttonContainer" >
+	<div class="buttonEffect buttonEffectPadding buttonEffectRoundedAll refreshListener" >
+		<div id="CountdownTimerRefresh" style="display: none;" >Refresh&nbsp;Now</div>
+		<span id="CountdownTimerWaiting" >Waiting for Update</span>
+	</div>
+</div>
+<!-- Deleting the following <div> causes a JavaScript error. Figure this out later. -->
+<div id="map_canvas" class="<?=$FullScreenClass?>" style="display: none;" ></div>
+<p id="NoRealTimeAlert" class="alert" style="display:none;" ><strong>Alert:</strong> MARTA is not currently providing real-time data for this route.</p>
 
-$nearby_schedule = get_nearby_schedule( $route );
-?>
-<h1><?=$route_title?></h1>
-<?=$display["svg"]?>
+<h2>Bus Headsigns on This Route</h2>
+<p>Hover over (or tap) a headsign to see the portion and direction it describes.</p>
+<ul class="HeadsignList">
+<?php
+$RunTodayClass["0"] = "RunsTodayNo";
+$RunTodayClass["1"] = "RunsTodayEarlier";
+$RunTodayClass["2"] = "RunsTodayYes";
 
-<!-- BEGIN DIAGNOSTICS -->
-<script>
-$.ajax( {
-	dataType: "json",
-	url: "models/ajax/realtime.php?route=<?=$route?>",
-	success: function(data) {
-		var realtimeoutput = "";
-		var objDirections = {
-			"Eastbound" : {},
-			"Westbound" : {},
-			"Northbound" : {},
-			"Southbound" : {}
-		};
-		for ( var i = 0; i < data.length; i++ ) {
-			realtimeoutput += "<p>";
-			var tripinfo = data[i];
-			for ( var key in tripinfo ) {
-				if ( tripinfo.hasOwnProperty(key) ) {
-					realtimeoutput += key + ": " + tripinfo[key] + "<br />";
-				}
-// This is overwriting existing values. Consider an array.
-			objDirections[tripinfo["DIRECTION"]]["Adherence"] = tripinfo["ADHERENCE"];
-			objDirections[tripinfo["DIRECTION"]]["Latitude"] = tripinfo["LATITUDE"];
-			objDirections[tripinfo["DIRECTION"]]["Longitude"] = tripinfo["LONGITUDE"];
-			objDirections[tripinfo["DIRECTION"]]["MessageDateTime"] = tripinfo["MSGTIME"];
-			objDirections[tripinfo["DIRECTION"]]["NextTimePoint"] = tripinfo["STOPID"];
-			objDirections[tripinfo["DIRECTION"]]["Vehicle"] = tripinfo["VEHICLE"];
-			}
-			realtimeoutput += "Location: " + tripinfo["LATITUDE"] + " " + tripinfo["LONGITUDE"] + "<br />";
-			var ScheduleDateTimeValues = {
-				"month": parseInt( tripinfo["MSGTIME"].replace( /(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([AP]M)/, "$1" ) ),
-				"date": parseInt( tripinfo["MSGTIME"].replace( /(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([AP]M)/, "$2" ) ),
-				"year": parseInt( tripinfo["MSGTIME"].replace( /(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([AP]M)/, "$3" ) ),
-				"hour": parseInt( tripinfo["MSGTIME"].replace( /(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([AP]M)/, "$4" ) ),
-				"minute": parseInt( tripinfo["MSGTIME"].replace( /(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([AP]M)/, "$5" ) ),
-				"second": parseInt( tripinfo["MSGTIME"].replace( /(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([AP]M)/, "$6" ) ),
-				"meridian": parseInt( tripinfo["MSGTIME"].replace( /(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([AP]M)/, "$7" ) )
-			};
-			if ( ScheduleDateTimeValues["meridian"] == "PM" && ScheduleDateTimeValues["hour"] != 12 ) {
-				ScheduleDateTimeValues["hour"] = ScheduleDateTimeValues["hour"] + 12;
-			}
-			ScheduleDateTimeValues["month"] = ScheduleDateTimeValues["month"] - 1;
-			ScheduleDateTimeValues["minute"] = ScheduleDateTimeValues["minute"] + parseInt( tripinfo["ADHERENCE"] );
-			ScheduleDateTime = new Date( ScheduleDateTimeValues["year"], ScheduleDateTimeValues["month"], ScheduleDateTimeValues["date"], ScheduleDateTimeValues["hour"], ScheduleDateTimeValues["minute"], ScheduleDateTimeValues["second"], 0 );
-			ScheduleDateTimeText = ScheduleDateTime.getFullYear() + "/" + ( ScheduleDateTime.getMonth() + 1 ) + "/" + ScheduleDateTime.getDate() + " " + ScheduleDateTime.getHours() + ":" + ScheduleDateTime.getMinutes() + ":" + ScheduleDateTime.getSeconds();
-			realtimeoutput += "Scheduled Time: " + ScheduleDateTimeText + "<br />";
-			realtimeoutput += "</p>";
-		}
-		for ( var key in objDirections ) {
-			if ( objDirections.hasOwnProperty(key) ) {
-				realtimeoutput += "<p>";
-				for ( var key1 in objDirections[key] ) {
-					if ( objDirections[key].hasOwnProperty(key1) ) {
-						realtimeoutput += objDirections[key][key1] + "|";
-					}
-				}
-				realtimeoutput += "</p>";
-			}
-		}
-		$( "#realtimeoutput" ).html( realtimeoutput );
-	}
-} );
-</script>
-<div id="realtimeoutput"></div>
-<p>Service ID: <?=_getServiceID()?></p>
-<!-- END DIAGNOSTICS -->
+$AllRoutesRunToday = true;
 
-<?php
-foreach( $nearby_schedule["nearbyarray"] as $direction_key => $direction_value ):
+foreach ( $shape["shape_info"] as $key => $value ):
+    if ( $value["RunsToday"] == 0 ) {
+        $AllRoutesRunToday = false;
+    }
+    $HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign for shape " . $value["shape_id"] . " missing in MARTA database)</i>" : $value["headsign"];
 ?>
-<h2><?=$direction_value["Direction"]?></h2>
-<?php
-	foreach( $nearby_schedule["nearbyarray"][$direction_key]["Shapes"] as $shape_key => $shape_value ):
-		$headsign = $shape_value["Headsign"];
-		$headsign = preg_replace( "/\)\(/", "<br />", $headsign );
-		$headsign = preg_replace( "/^\(|\)$/", "", $headsign );
-?>
-<h3><?=$headsign?></h3>
-<table>
-	<thead>
-		<tr>
-			<th class="noBorder noShade noBold alignRight">Vehicle ID</th>
-<?php
-		$this_offset = -1;
-		foreach( $nearby_schedule["nearbyarray"][$direction_key]["Shapes"][$shape_key]["Trips"] as $trip_key => $trip_value ):
-			$this_offset = -$this_offset;
-			$this_offset_class = "";
-			if ( $this_offset == 1 ) {
-				$this_offset_class = "offset";
-			}
-?>
-			<th id="Vehicle_<?=$trip_value?>" class="<?=$this_offset_class?>" colspan="2">&nbsp;</th>
-<?php
-		endforeach;
-?>
-		</tr>
-		<tr>
-			<th class="noBorder noShade noBold alignRight">Most Recent Vehicle Update</th>
-<?php
-		$this_offset = -1;
-		foreach( $nearby_schedule["nearbyarray"][$direction_key]["Shapes"][$shape_key]["Trips"] as $trip_key => $trip_value ):
-			$this_offset = -$this_offset;
-			$this_offset_class = "";
-			if ( $this_offset == 1 ) {
-				$this_offset_class = "offset";
-			}
-?>
-			<th id="Update_<?=$trip_value?>" class="<?=$this_offset_class?>" colspan="2">&nbsp;</th>
-<?php
-		endforeach;
-?>
-		</tr>
-		<tr>
-			<th class="noBorder noShade noBold alignRight">Minutes Late/Early</th>
-<?php
-		$this_offset = -1;
-		foreach( $nearby_schedule["nearbyarray"][$direction_key]["Shapes"][$shape_key]["Trips"] as $trip_key => $trip_value ):
-			$this_offset = -$this_offset;
-			$this_offset_class = "";
-			if ( $this_offset == 1 ) {
-				$this_offset_class = "offset";
-			}
-?>
-			<th id="Adherence_<?=$trip_value?>" class="<?=$this_offset_class?>" colspan="2">&nbsp;</th>
-<?php
-		endforeach;
-?>
-		</tr>
-		<tr>
-			<th>Stop</th>
-<?php
-		$this_offset = -1;
-		foreach( $nearby_schedule["nearbyarray"][$direction_key]["Shapes"][$shape_key]["Trips"] as $trip_key => $trip_value ):
-			$this_offset = -$this_offset;
-			$this_offset_class = "";
-			if ( $this_offset == 1 ) {
-				$this_offset_class = "offset";
-			}
-?>
-			<th class="<?=$this_offset_class?>">Sched.</th>
-			<th class="<?=$this_offset_class?>">Actual</th>
-<?php
-		endforeach;
-?>
-		</tr>
-	</thead>
-	<tbody>
-<?php
-		$prev_modified_name_1 = "";
-		foreach( $nearby_schedule["nearbyarray"][$direction_key]["Shapes"][$shape_key]["Stops"] as $stop_key => $stop_value ):
-			$modified_name = $stop_value["Name"];
-			$modified_name = preg_replace( "/\s+[NS][EW]?\s*@/", "@", $modified_name );
-			$modified_name = preg_replace( "/\s+[NS][EW]?\s*$/", "", $modified_name );
-			$modified_name = preg_replace( "/\s*@\s*/", "@", $modified_name );
-			if ( strpos( $modified_name, "@" ) === false ) {
-				$modified_name_1 = $modified_name;
-				$modified_name_2 = "";
-			} else {
-				$modified_name_1 = preg_replace( "/@.*$/", "", $modified_name );
-				$modified_name_2 = preg_replace( "/^.*@/", "", $modified_name );
-			}
-			$modified_name_1 = _capitalize_street_name( $modified_name_1 );
-			if ( $modified_name_2 != "" ) {
-				$modified_name_2 = "@" . _capitalize_street_name( $modified_name_2 );
-			}
-			$modified_class_1 = "";
-			if ( $modified_name_1 == $prev_modified_name_1 ) {
-				$modified_class_1 = "duplicateName";
-			}
-			$prev_modified_name_1 = $modified_name_1;
-?>
-		<tr>
-			<td class="alignLeft"><strong><span class="<?=$modified_class_1?>"><?=$modified_name_1?></span></strong><?=$modified_name_2?></td>
-<?php
-			$this_offset = -1;
-			foreach( $nearby_schedule["nearbyarray"][$direction_key]["Shapes"][$shape_key]["Trips"] as $trip_key => $trip_value ):
-				$this_offset = -$this_offset;
-				$this_offset_class = "";
-				if ( $this_offset == 1 ) {
-					$this_offset_class = "offset";
-				}
-				$this_stop_trip = $stop_value["Code"] . "-" . $trip_value;
-				if ( isset( $nearby_schedule["stoparray"][$this_stop_trip] ) ) {
-					$this_arrival_time = $nearby_schedule["stoparray"][$this_stop_trip];
-					$this_arrival_time = _convert_time_from_Gis( $this_arrival_time );
-				} else {
-					$this_arrival_time = "&nbsp;";
-				}
-?>
-			<td class="<?=$this_offset_class?>"><?=$this_arrival_time?></td>
-			<td id="RT-<?=$this_stop_trip?>" class="RT <?=$this_offset_class?>">&nbsp;</td>
-<?php
-			endforeach;
-?>
-		</tr>
-<?php
-		endforeach;
-?>
-	</tbody>
-</table>
-<?php
-	endforeach;
-?>
+	<li class="<?=$RunTodayClass[$value["RunsToday"]]?> HeadsignListListener" id="HeadsignList<?=$key?>" data-shapeID="<?=$key?>"><?=$HeadsignDisplay?></li>
 <?php
 endforeach;
 ?>
-
-<pre>
+</ul>
 <?php
-print_r ( $nearby_schedule );
+if ( $AllRoutesRunToday == false ) :
 ?>
-</pre>
+<p>Black lines show active routes today; routes for other days are shown by gray lines.</p>
+<?php
+endif;
+?>
+<script type="text/javascript">
+	$( document ).ready( initialize() );
+	
+	var LocationMarker = {};
+	var popup = {};
+	var activepopup = null;
+	
+	// The following variables are assigned at the end of the initialize() function; it didn't work to assign values here.
+	var CountdownTimerRemaining;
+	var CountdownTimerTotalSeconds;
+	var CountdownTimerUpdateFrequencySeconds;
+	var CountdownTimerCSSWidth;
+	var CountdownTimerRefreshInProgress;
+	
+	DirectionColors = 
+		{
+			"Northbound" :
+				{
+					"ColorName" : "violet",
+					"RGB" : "EE82EE"			// Polyline can't accept color names.
+				},
+			"Southbound" :
+				{
+					"ColorName" : "turquoise",
+					"RGB" : "40E0D0"			// Polyline can't accept color names.
+				},
+			"Westbound" :
+				{
+					"ColorName" : "violet",
+					"RGB" : "EE82EE"			// Polyline can't accept color names.
+				},
+			"Eastbound" :
+				{
+					"ColorName" : "turquoise",
+					"RGB" : "40E0D0"			// Polyline can't accept color names.
+				}
+		};
+
+	imgDirection =
+		{
+			"Northbound" :
+				{
+					path: 'm -7,0 7,-7 7,7 0,7 -14,0 z',
+					fillColor: DirectionColors["Northbound"]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: 1,
+					strokeWeight: 2
+				},
+			"Southbound" :
+				{
+					path: 'm 7,0 -7,7 -7,-7 0,-7 14,0 z',
+					fillColor: DirectionColors["Southbound"]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: 1,
+					strokeWeight: 2
+				},
+			"Westbound" :
+				{
+					path: 'm -7,7 -7,-7 7,-7 7,0 0,14 z',
+					fillColor: DirectionColors["Westbound"]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: 1,
+					strokeWeight: 2
+				},
+			"Eastbound" :
+				{
+					path: 'm 7,-7 7,7 -7,7 -7,0 0,-14 z',
+					fillColor: DirectionColors["Eastbound"]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: 1,
+					strokeWeight: 2
+				}
+		}
+	markersArray = new Array();
+
+	function initialize() {
+		mapOptions = {
+			center: new google.maps.LatLng( <?=$shape["route_avg_lat"]?>, <?=$shape["route_avg_lon"]?> ),
+			zoom: <?=$zoom?>,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		// Some zoom level must be provided, but it must be expanded or contracted to display the optimum size for the selected route.
+		map = new google.maps.Map( document.getElementById( "map_canvas" ), mapOptions );
+		shapeNormal = {};
+		shapeHighlight = {};
+		
+<?php
+// RunsTodayNo
+foreach ( $shape["shape_info"] as $key => $value ):
+	if ( $value["RunsToday"] == 0 ):
+		$coordinates = implode( ",", $value["coordinates"] );
+?>
+		shape<?=$key?>Coordinates = [ <?=$coordinates?> ];
+		shapeNormal["<?=$key?>"] = new google.maps.Polyline(
+			{
+				path: shape<?=$key?>Coordinates,
+				strokeColor: "#999",
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			}
+		);
+		shapeHighlight["<?=$key?>"] = new google.maps.Polyline(
+			{
+				path: shape<?=$key?>Coordinates,
+				strokeColor: "#F00",
+				strokeOpacity: 1.0,
+				strokeWeight: 2,
+				icons:
+					[
+						{
+							repeat: '20px', //CHANGE THIS VALUE TO CHANGE THE DISTANCE BETWEEN ARROWS
+							icon: 
+								{
+									path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+								},
+							offset: '100%'
+						}
+					]
+			}
+		);
+		shapeNormal["<?=$key?>"].setMap( map );
+<?php
+	endif;
+endforeach;
+
+// RunsTodayEarlier
+foreach ( $shape["shape_info"] as $key => $value ):
+	if ( $value["RunsToday"] == 1 ):
+		$coordinates = implode( ",", $value["coordinates"] );
+?>
+		shape<?=$key?>Coordinates = [ <?=$coordinates?> ];
+		shapeNormal["<?=$key?>"] = new google.maps.Polyline(
+			{
+				path: shape<?=$key?>Coordinates,
+				strokeColor: "#999",
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			}
+		);
+		shapeHighlight["<?=$key?>"] = new google.maps.Polyline(
+			{
+				path: shape<?=$key?>Coordinates,
+				strokeColor: "#F00",
+				strokeOpacity: 1.0,
+				strokeWeight: 2,
+				icons:
+					[
+						{
+							repeat: '20px', //CHANGE THIS VALUE TO CHANGE THE DISTANCE BETWEEN ARROWS
+							icon: 
+								{
+									path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+								},
+							offset: '100%'
+						}
+					]
+			}
+		);
+		shapeNormal["<?=$key?>"].setMap( map );
+<?php
+	endif;
+endforeach;
+
+// RunsTodayYes
+foreach ( $shape["shape_info"] as $key => $value ):
+	if ( $value["RunsToday"] == 2 ):
+		$coordinates = implode( ",", $value["coordinates"] );
+?>
+		shape<?=$key?>Coordinates = [ <?=$coordinates?> ];
+		shapeNormal["<?=$key?>"] = new google.maps.Polyline(
+			{
+				path: shape<?=$key?>Coordinates,
+				strokeColor: "#000",
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			}
+		);
+		shapeHighlight["<?=$key?>"] = new google.maps.Polyline(
+			{
+				path: shape<?=$key?>Coordinates,
+				strokeColor: "#F00",
+				strokeOpacity: 1.0,
+				strokeWeight: 2,
+				icons:
+					[
+						{
+							repeat: '20px', //CHANGE THIS VALUE TO CHANGE THE DISTANCE BETWEEN ARROWS
+							icon: 
+								{
+									path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+								},
+							offset: '100%'
+						}
+					]
+			}
+		);
+		shapeNormal["<?=$key?>"].setMap( map );
+<?php
+	endif;
+endforeach;
+?>
+		CountdownTimerRemaining = 0;
+		CountdownTimerTotalSeconds = <?=$CountdownTimerTotalSeconds?>;
+		CountdownTimerUpdateFrequencySeconds = <?=$CountdownTimerUpdateFrequencySeconds?>;
+		CountdownTimerRefreshInProgress = false;
+		setInterval(
+			function() {
+				CountdownTimer();
+			},
+			CountdownTimerUpdateFrequencySeconds * 1000
+		);
+	}
+	
+	function ShowMarker( Latitude, Longitude, Direction, BusID, Adherence, Headsign, NearestStopSequence, EndOfLine, BearingAngle ) {
+		// Draw the prediction line first, so it will be behind the marker.
+		// This prediction line doesn't seem to be necessary.
+		/*
+		PredicationLineCoordinates = [
+			new google.maps.LatLng( Latitude, Longitude ),
+			new google.maps.LatLng( PredictionLatitude, PredictionLongitude )
+		];
+		if ( PredictionSequence > NearestStopSequence ) {
+			PredicationLine = new google.maps.Polyline(
+				{
+					path: PredicationLineCoordinates,
+					strokeColor: DirectionColors[Direction]["RGB"],
+					strokeOpacity: 0.6,
+					strokeWeight: 6
+				}
+			);
+			PredicationLine.setMap( map );
+			markersArray.push( PredicationLine );
+		}
+		*/
+		// Then draw the marker.
+		var myLatLng = new google.maps.LatLng( Latitude, Longitude );
+		if ( EndOfLine == "Y" ) {
+			var thisIcon = google.maps.SymbolPath.CIRCLE;
+			var thisScale = 6;
+		} else {
+			var thisIcon = google.maps.SymbolPath.FORWARD_CLOSED_ARROW;
+			var thisScale = 4;
+		}
+		LocationMarker[BusID] = new google.maps.Marker( {
+			position: myLatLng,
+			map: map,
+			icon:
+				{
+					path: thisIcon,
+					fillColor: DirectionColors[Direction]["ColorName"],
+					strokeColor: "black",
+					fillOpacity: 1.0,
+					scale: thisScale,
+					rotation: parseFloat( BearingAngle ),
+					strokeWeight: 2
+				}
+		} );
+		PopUpContent = "<div class=\"PopUpContent\">";
+		PopUpContent += "<strong>" + Headsign + "</strong><br />";
+		PopUpContent += "<strong>Bus:</strong> " + BusID + "<br />";
+		PopUpContent += "<strong>Direction:</strong> " + Direction + "<br />";
+		if ( Adherence == 0 ) {
+			PopUpContent += "<strong>Running:</strong> On time<br />";
+		} else if ( Adherence < 0 ) {
+			PopUpContent += "<strong>Running:</strong> " + Math.abs( Adherence ) + " min. late<br />";
+		} else {
+			PopUpContent += "<strong>Running:</strong> " + Math.abs( Adherence ) + " min. early<br />";
+		}
+		PopUpContent += "</div>";
+		popup[BusID] = PopUpContent;
+		google.maps.event.addListener(
+			LocationMarker[BusID],
+			'click',
+			function() {
+				ShowPopUp( BusID );
+			}
+		);
+		markersArray.push( LocationMarker[BusID] );
+	}
+	
+	function ShowPopUp( BusID ) {
+		// This doesn't work.
+		if ( activepopup ) {
+			activepopup.close();
+		}
+		activepopup = new google.maps.InfoWindow(
+			{
+				content: popup[BusID]
+			}
+		);
+		activepopup.open( map, LocationMarker[BusID] );
+	}
+	
+	function RemoveMarkers() {
+		for (i=0; i < markersArray.length; i++) {
+			markersArray[i].setMap(null);
+		}
+		markersArray.length = 0;
+	}
+
+	$( document ).on(
+		"mouseover",
+		".HeadsignListListener",
+		function() {
+			ShapeID = $( this ).attr( "data-shapeID" );
+			HighlightRoute( ShapeID );
+		}
+	);
+
+	$( document ).on(
+		"mouseout",
+		".HeadsignListListener",
+		function() {
+			ShapeID = $( this ).attr( "data-shapeID" );
+			UnhighlightRoute( ShapeID );
+		}
+	);
+
+	$( document ).on(
+		"click",
+		".HeadsignListListener",
+		function() {
+			ShapeID = $( this ).attr( "data-shapeID" );
+			TempHighlightRoute( ShapeID );
+		}
+	);
+
+	function HighlightRoute( ShapeID ) {
+		shapeNormal[ ShapeID ].setMap( null );
+		shapeHighlight[ ShapeID ].setMap( map );
+		$( "#HeadsignList" + ShapeID ).addClass( "HighlightYellow" );
+	}
+	
+	function UnhighlightRoute( ShapeID ) {
+		shapeHighlight[ ShapeID ].setMap( null );
+		shapeNormal[ ShapeID ].setMap( map );
+		$( "#HeadsignList" + ShapeID ).removeClass( "HighlightYellow" );
+	}
+	
+	function TempHighlightRoute( ShapeID ) {
+		setTimeout(
+			function() {
+				UnhighlightRoute( ShapeID );
+			},
+			3000
+		);
+		HighlightRoute( ShapeID );
+	}
+
+	$( document ).on(
+		"click",
+		".refreshListener",
+		function() {
+			RefreshNow();
+		}
+	);
+	
+	function CountdownTimer() {
+        console.log( CountdownTimerRemaining );
+		CountdownTimerRemaining = CountdownTimerRemaining - CountdownTimerUpdateFrequencySeconds;
+		if ( CountdownTimerRemaining <= 0 ) {
+			if ( CountdownTimerRefreshInProgress == false ) {
+				RefreshNow();
+			}
+		} else {
+			$( "#CountdownTimerRefresh" ).css( "width", ( ( CountdownTimerRemaining / CountdownTimerTotalSeconds ) * 100 ) + "%" );
+			$( "#CountdownTimerRefresh" ).show();
+			$( "#CountdownTimerWaiting" ).hide();
+		}
+		$( "#showCountdown" ).html( ( ( CountdownTimerRemaining / CountdownTimerTotalSeconds ) * 100 ) + "%" );
+	}
+
+	function RefreshNow() {
+		CountdownTimerRemaining = 0;
+		$( "#CountdownTimerRefresh" ).hide();
+		$( "#CountdownTimerWaiting" ).show();
+		CountdownTimerRefreshInProgress = true;
+		GetRealtime();
+	}
+
+	function GetRealtime() {
+		$.ajax( {
+			dataType: "json",
+			url: "models/ajax/realtime.php?route=<?=$validated_route?>",
+			success: function( data ) {
+				showData = JSON.stringify( data );	// Use only for diagnostics.
+				RemoveMarkers();
+				Count = 0;
+				VehicleList = data["Vehicles"];
+				for ( var key in VehicleList ) {
+					if ( VehicleList.hasOwnProperty( key ) ) {
+						Count++;
+						ShowMarker(
+							VehicleList[key]["LATITUDE"],
+							VehicleList[key]["LONGITUDE"],
+							VehicleList[key]["DIRECTION"],
+							key,
+							VehicleList[key]["ADHERENCE"],
+							VehicleList[key]["HEADSIGN"],
+							VehicleList[key]["NEAREST_STOP_SEQUENCE"],
+							VehicleList[key]["BUS_BEARING_END_OF_LINE"],
+							VehicleList[key]["BUS_BEARING_ANGLE"]
+						);
+					}
+				}
+				if ( Count == 0 ) {
+					$( "#NoRealTimeAlert" ).show();
+				} else {
+					$( "#NoRealTimeAlert" ).hide();
+				}
+				CountdownTimerRemaining = CountdownTimerTotalSeconds;
+				$( "#CountdownTimerRefresh" ).css( "width", "100%" );
+				CountdownTimerRefreshInProgress = false;
+				CountdownTimer();
+			}
+		} );
+	}
+
+</script>

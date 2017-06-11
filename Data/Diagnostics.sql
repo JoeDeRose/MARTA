@@ -19,6 +19,7 @@ OPTIMIZE TABLE
 -- ENDREGION
 
 -- Confirm record counts
+-- Execute in Toad with F9
 -- REGION
 SELECT
   'agency.txt' AS file,
@@ -81,7 +82,7 @@ FROM trips T1
       (
         T1.route_id = T2.route_id
         AND T1.trip_headsign = T2.trip_headsign
-        AND trim( T1.trip_headsign ) <> ''
+        AND ( trim( T1.trip_headsign ) <> '' OR T1.trip_headsign IS NOT NULL )
         AND T2.direction_id = 1
       )
   INNER JOIN routes R
@@ -99,7 +100,8 @@ FROM trips T
   INNER JOIN routes R
     ON T.route_id = R.route_id
 WHERE
-  TRIM(T.trip_headsign) = '';
+  TRIM(T.trip_headsign) = ''
+  OR TRIM(T.trip_headsign) IS NULL;
 --ENDREGION
 
 -- Find instances where a date appears only once in calendar_dates.
@@ -195,6 +197,8 @@ WHERE LENGTH( arrival_time ) = 7;
 -- Populate J_rail_stations with new data:
 -- Should create 61 records.
 -- Execute in Toad with F5
+TRUNCATE J_rail_stations;
+
 --REGION
 INSERT INTO J_rail_stations
 SELECT DISTINCT
