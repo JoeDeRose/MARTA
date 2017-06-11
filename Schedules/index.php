@@ -86,6 +86,7 @@ if ( isset( $_GET["fullscreen"] ) ) {
 	}
 </script>
 <?php
+// Default action = "routes"
 $action = isset( $_GET['action'] ) ? $_GET['action'] : "routes" ;
 
 function _load_view( $viewname, $data = null ) {
@@ -103,17 +104,10 @@ function routes() {
 }
 
 function route() {
-	// This page needs to be dropped or completely rewritten; not currently used.
 	$data = array();
-	$data["route"] = _validate( "route" );
-	$data["scope"] = _validate( "scope" );
-	$data["size"] = _validate( "size" );
-	$data["showstops"] = _validate( "showstops" );
-	$data["highway"] = _validate( "highway" );
-	$data["norail"] = _validate( "norail" );
-	$data["MenuItems"] = "(main)";
-	_load_model( 'route' );
-	_load_view( 'route', get_shape( $data ) ); 
+	$data["validated_route"] = _validate( "route" );
+	$data["MenuItems"] = "(main)(routes)(fullscreen)(map)";
+	_load_view( 'route', $data ); 
 }
 
 function map() {
