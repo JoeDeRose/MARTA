@@ -29,35 +29,55 @@ require_once('views/images/logo.svg');
 <?php
 if ( strpos( $data["MenuItems"], "(main)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="/" >Main Menu</div>
+			<div class="buttonMenuItem" >
+                <a class="buttonMenuItemListener" href="/" >
+                    Main Menu
+                </a>
+            </div>
 <?php
 endif;
 ?>
 <?php
 if ( strpos( $data["MenuItems"], "(routes)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=routes" >Route List</div>
+			<div class="buttonMenuItem" >
+                <a class="buttonMenuItemListener" href="?action=routes" >
+                    Route List
+                </a>
+            </div>
 <?php
 endif;
 ?>
 <?php
 if ( strpos( $data["MenuItems"], "(fullscreen)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=currentinfo&route=<?=$data["validated_route"]?>&fullscreen" >Full Screen Map</div>
+			<div class="buttonMenuItem" >
+                <a class="buttonMenuItemListener" href="?action=currentinfo&route=<?=$data["validated_route"]?>&fullscreen" >
+                    Full Screen Map
+                </a>
+            </div>
 <?php
 endif;
 ?>
 <?php
 if ( strpos( $data["MenuItems"], "(currentinfo)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=currentinfo&route=<?=$data["validated_route"]?>" >Current Information for This Route</div>
+			<div class="buttonMenuItem" >
+                <a class="buttonMenuItemListener" href="?action=currentinfo&route=<?=$data["validated_route"]?>" >
+                    Current Information for This Route
+                </a>
+            </div>
 <?php
 endif;
 ?>
 <?php
 if ( strpos( $data["MenuItems"], "(map)" ) !== false ) :
 ?>
-			<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=map&route=<?=$data["validated_route"]?>" >Thumbnail Map for This Route</div>
+			<div class="buttonMenuItem" data-buttonTarget="" >
+                <a class="buttonMenuItemListener" href="?action=map&route=<?=$data["validated_route"]?>" >
+                    Thumbnail Map for This Route
+                </a>
+            </div>
 <?php
 endif;
 ?>

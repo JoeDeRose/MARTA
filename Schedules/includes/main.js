@@ -18,9 +18,7 @@ $( document ).on(
 	"click",
 	".buttonMenuItemListener",
 	function() {
-		buttonTarget = $( this ).attr( "data-buttonTarget" );
 		$( "#loading" ).show();
-		window.location.href = buttonTarget;
 	}
 );
 

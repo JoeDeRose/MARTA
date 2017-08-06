@@ -17,9 +17,10 @@
 	body
 		{
 			font-family: Arial, Helvetica, sans-serif;
-			font-size: 1em;
+			font-size: 1rem;
 			height: 100%;
 			padding: 0;
+            margin-bottom: 5rem;
 		}
 	
 	table
@@ -31,11 +32,12 @@
 		{
 			color: black;
 			text-decoration: none;
+            display: block;
 		}
 	
 	a:hover
 		{
-			color: #3E78DA;
+			color: #EA7D09;
 			text-decoration: none;
 		}
 
@@ -69,16 +71,16 @@
 				position: relative;
 				top: -2px;
 				border: 1px solid #F7CD30;
-				border-bottom-left-radius: 1em;
+				border-bottom-left-radius: 1rem;
 			}
 	
 		#NavHeader #NavExpandHolder
 			{
-				font-size: 1.75em;
+				font-size: 1.75rem;
 				vertical-align: top;
 				display: table-cell;
-				border-top-left-radius: 1em;
-				border-top-right-radius: 1em;
+				border-top-left-radius: 1rem;
+				border-top-right-radius: 1rem;
 				border-width: 1px;
 				border-color: #F7CD30;
 				position: relative;
@@ -87,7 +89,7 @@
 		
 		#NavHeader #NavExpand.NavMinimized
 			{
-				border-radius: 1em;
+				border-radius: 1rem;
 			}
 
 		#NavHeader #LogoMenuHolder
@@ -97,8 +99,8 @@
 	
 		#NavHeader #LogoHolder
 			{
-				padding-left: 0.25em;
-				padding-bottom: .5em;
+				padding-left: 0.25rem;
+				padding-bottom: .5rem;
 			}
 		
 		#NavHeader #NavExpand
@@ -107,8 +109,8 @@
 				font-weight: bold;
 				text-align: center;
 				margin: -1px;
-				padding-left: 0.25em;
-				padding-right: 0.25em;
+				padding-left: 0.25rem;
+				padding-right: 0.25rem;
 				border-width: 1px;
 				border-color: #F7CD30;
 				border-style: solid;
@@ -123,23 +125,23 @@
 		#NavHeader #logo
 			{
 				font-weight: bold;
-				font-size: 1.2em;
+				font-size: 1.2rem;
 				text-transform: uppercase;
-				padding-left: 0.25em;
+				padding-left: 0.25rem;
 			}
 		
 		#NavHeader #logo span
 			{
-				padding-top: 0.1em;
-				padding-bottom: 0.1em;
-				padding-left: 0.25em;
-				padding-right: 0.25em;
-				border-radius: 0.5em;
-				margin-right: 0.05em;
+				padding-top: 0.1rem;
+				padding-bottom: 0.1rem;
+				padding-left: 0.25rem;
+				padding-right: 0.25rem;
+				border-radius: 0.5rem;
+				margin-right: 0.05rem;
 			}
 		 #NavHeader #logo span:not(:first-child)
 		 	{
-				margin-left: 0.3em;
+				margin-left: 0.3rem;
 			}
 	
 	/* #map_canvas */
@@ -174,9 +176,9 @@
 				text-align: center;
 				background-color: #3E78DA;
 				color: white;
-				border-radius: 1em;
-				font-size: 2em;
-				padding: 0.5em;
+				border-radius: 1rem;
+				font-size: 2rem;
+				padding: 0.5rem;
 				opacity: 0.9;
 			}
 
@@ -198,54 +200,91 @@
 			{
 				font-weight: bold;
 				background-color: #F7CD30;
-				font-size: 1.5em;
+				font-size: 1.5rem;
 				position: relative;
 				border: 1px solid white;
 			}
 		
 		.buttonEffectPadding
 			{
-				padding-top: 0.25em;
-				padding-bottom: 0.25em;
-				padding-left: 0.5em;
-				padding-right: 0.5em;
+				padding-top: 0.25rem;
+				padding-bottom: 0.25rem;
+				padding-left: 0.5rem;
+				padding-right: 0.5rem;
 			}
 
 		.buttonEffectRoundedAll
 			{
-				border-radius: 0.75em;
+				border-radius: 0.75rem;
 			}
 
 		.buttonEffectRoundedTLTRBL
 			{
-				border-top-left-radius: 0.75em;
-				border-top-right-radius: 0.75em;
-				border-bottom-left-radius: 0.75em;
+				border-top-left-radius: 0.75rem;
+				border-top-right-radius: 0.75rem;
+				border-bottom-left-radius: 0.75rem;
 			}
 		
 		.buttonEffectRoundedTLBL
 			{
-				border-top-left-radius: 0.75em;
-				border-bottom-left-radius: 0.75em;
+				border-top-left-radius: 0.75rem;
+				border-bottom-left-radius: 0.75rem;
 			}
 		
 		.buttonEffectRoundedTRBLBR
 			{
-				border-top-right-radius: 0.75em;
-				border-bottom-left-radius: 0.75em;
-				border-bottom-right-radius: 0.75em;
+				border-top-right-radius: 0.75rem;
+				border-bottom-left-radius: 0.75rem;
+				border-bottom-right-radius: 0.75rem;
 			}
 		
 		.buttonEffectRoundedTRBR
 			{
-				border-top-right-radius: 0.75em;
-				border-bottom-right-radius: 0.75em;
+				border-top-right-radius: 0.75rem;
+				border-bottom-right-radius: 0.75rem;
+			}
+		
+		.buttonEffectGroup
+			{
+				font-weight: bold;
+				font-size: 1.5rem;
+				position: relative;
+			}
+		
+		.buttonEffectItem
+			{
+				background-color: #F7CD30;
+				border-right: 1px solid white;
+				border-bottom: 1px solid white;
+			}
+        
+        .buttonEffectSpacer
+			{
+				background-color: #F7CD30;
+                width: 6rem;
+				border-top-right-radius: 0.75rem;
+				border-right: 1px solid white;
+				border-bottom: 1px solid white;
+                position: relative;
+                top: 0;
+                left: 0;
+			}
+        
+        .buttonEffectGroup.DivTable .DivTableRow:first-of-type .buttonEffectItem.DivTableCell
+			{
+				border-top-left-radius: 0.75rem;
+				border-top-right-radius: 0.75rem;
+			}
+		
+        .buttonEffectGroup.DivTable .DivTableRow:last-of-type .buttonEffectItem.DivTableCell
+			{
+				border-bottom-left-radius: 0.75rem;
+				border-bottom-right-radius: 0.75rem;
 			}
 		
 		.buttonMenu
 			{
 				top: -1px;
-				background-color: #F7CD30;
 				border: 1px solid white;
 				z-index: 1;
 				display: inline-block;
@@ -256,21 +295,67 @@
 				position: absolute;
 			}
 		
-		.buttonMenuItem
+		.buttonFlyoutRight
 			{
-				padding: 0.25em;
+				font-weight: bold;
+				background-color: #F7CD30;
+				position: absolute;
+				top: 0;
+                right: 0;
+				z-index: 1;
+				display: inline-block;
+			}
+		
+		.buttonFlyoutRight .buttonMenuItem
+            {
+				border-bottom: 1px solid white;
+                text-align: right;
+            }
+        
+        .buttonMenuItem
+			{
+				padding: 0.25rem;
 				text-align: left;
+			}
+	
+		.buttonMenuHeader, .buttonEffectHeader
+			{
+				padding: 0.25rem;
+				text-align: left;
+                background-color: dimgray;
+                color: #F7CD30;
+                font-size: 0.7rem;
+                cursor: default;
+			}
+	
+		.buttonMenuHeader:first-child
+			{
+                background-color: dimgray;
+				border-top-right-radius: 0.75rem;
+				border-top-left-radius: 0.75rem;
+			}
+	
+		.buttonMenuHeader:last-child
+			{
+                background-color: dimgray;
+				border-bottom-right-radius: 0.75rem;
+				border-bottom-left-radius: 0.75rem;
 			}
 	
 		.buttonMenuItem:not(:last-child)
 			{
 				border-bottom: 1px solid white;
 			}
+            
+        .ButtonMenuIndent
+            {
+                padding-left: 2rem;
+            }
 		
 		.buttonMenuItem:hover
 			{
 				cursor: pointer;
-				color: #3E78DA;
+				color: #EA7D09;
 			}
 		
 		.buttonEffect:hover
@@ -280,8 +365,29 @@
 		
 		.buttonEffect:hover .buttonItem a, .buttonMenuItem:hover a
 			{
-				color: #3E78DA;
+				color: #EA7D09;
 			}
+        
+        .buttonArrivalSpacer
+            {
+                width: 1.5rem;
+            }
+
+        .buttonArrivalCell
+            {
+                padding-right: 0.5rem;
+            }
+            
+        .DivTableRow .buttonArrivalCell, .DivTableRow .buttonArrivalSpacer
+            {
+                padding: 0.25rem;
+                border-bottom: 1px solid white;
+            }
+
+        .buttonArrivalAlert
+            {
+                font-size: 0.8rem;
+            }
 
 	/* .RouteList */
 
@@ -304,7 +410,7 @@
 				background-color: yellow;
 				vertical-align: middle;
 				text-align: center;
-				font-size: 0.8em;
+				font-size: 0.8rem;
 				font-weight: bold;
 			}
 
@@ -313,7 +419,7 @@
 				background-color: limegreen;
 				vertical-align: middle;
 				text-align: center;
-				font-size: 0.8em;
+				font-size: 0.8rem;
 				font-weight: bold;
 			}
 
@@ -322,7 +428,7 @@
 				background-color: red;
 				vertical-align: middle;
 				text-align: center;
-				font-size: 0.8em;
+				font-size: 0.8rem;
 				font-weight: bold;
 			}
 
@@ -331,7 +437,7 @@
 				background-color: darkgray;
 				vertical-align: middle;
 				text-align: center;
-				font-size: 0.8em;
+				font-size: 0.8rem;
 				font-weight: bold;
 			}
 
@@ -349,15 +455,15 @@
 				top: 0;
 				width: 220px;
 				background-color: #EA7D09;
-				border-radius: 0.75em;
-				margin-top: -0.25em;
-				margin-bottom: -0.25em;
-				margin-left: -0.5em;
-				margin-right: -0.5em;
-				padding-top: 0.25em;
-				padding-bottom: 0.25em;
-				padding-left: 0.5em;
-				padding-right: 0.5em;
+				border-radius: 0.75rem;
+				margin-top: -0.25rem;
+				margin-bottom: -0.25rem;
+				margin-left: -0.5rem;
+				margin-right: -0.5rem;
+				padding-top: 0.25rem;
+				padding-bottom: 0.25rem;
+				padding-left: 0.5rem;
+				padding-right: 0.5rem;
 			}
 		
 		.countdownTimer a, .countdownTimer span
@@ -384,8 +490,8 @@
 				text-align: left;
 				vertical-align: top;
 				border: 1px solid black;
-				padding-left: 0.25em;
-				padding-right: 0.25em;
+				padding-left: 0.25rem;
+				padding-right: 0.25rem;
 			}
 
 	/* HeadsignList */
@@ -398,8 +504,8 @@
 		ul.HeadsignList li
 			{
 				list-style-type: none;
-				padding-left: 2em;
-				text-indent: -2em;
+				padding-left: 2rem;
+				text-indent: -2rem;
 			}
 
 	/* .RunsToday__ */
@@ -422,6 +528,33 @@
 				color: gray;
 			}
 	
+		#SchedulesForBusStops .RunsTodayNo
+            {
+                cursor: default;
+            }
+        
+		#SchedulesForBusStops .RunsTodayNo:hover
+            {
+				color: gray;
+            }
+        
+	/* .RunsToday__ */
+
+        .DivTable
+            {
+                display: table;
+            }
+
+        .DivTableRow
+            {
+                display: table-row;
+            }
+
+        .DivTableCell
+            {
+                display: table-cell;
+            }
+
 /* General Classes in Specific Circumstances */
 
 	.duplicateName
@@ -431,7 +564,7 @@
 	
 	.PopUpContent
 		{
-			font-size: 0.8em;
+			font-size: 0.8rem;
 		}
 	
 	.GridTable td, .GridTable th
@@ -439,11 +572,21 @@
 			border: 1px solid black;
 		}
 	
-	body.FullScreen
+	.HideOnLoad
+        {
+            display: none;
+        }
+    
+    .WhitespaceAtBottom
+        {
+            height: 5rem;
+        }
+    
+    body.FullScreen
 		{
 			margin: 0;
 		}
-
+    
 /* General Classes in Broad Circumstances */
 
 	.noBorder
@@ -470,6 +613,11 @@
 		{
 			background-color: yellow;
 		}
+    
+    .smaller
+        {
+            font-size: 0.7em;
+        }
 	
 	.alignLeft
 		{

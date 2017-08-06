@@ -55,7 +55,7 @@ if ( $FullScreen == false ) :
 
 <h2>Bus Headsigns on This Route</h2>
 <p>Hover over (or tap) a headsign to see the portion and direction it describes.</p>
-<ul class="HeadsignList">
+<div class="buttonEffect buttonMenu buttonEffectRoundedAll">
 <?php
 	$RunTodayClass["0"] = "RunsTodayNo";
 	$RunTodayClass["1"] = "RunsTodayEarlier";
@@ -67,13 +67,13 @@ if ( $FullScreen == false ) :
 		if ( $value["RunsToday"] == 0 ) {
 			$AllRoutesRunToday = false;
 		}
-		$HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign for shape " . $value["shape_id"] . " missing in MARTA database)</i>" : $value["headsign"];
+		$HeadsignDisplay = _trim_headsign( $value["headsign"] );
 ?>
-	<li class="<?=$RunTodayClass[$value["RunsToday"]]?> HeadsignListListener" id="HeadsignList<?=$key?>" data-shapeID="<?=$key?>"><?=$HeadsignDisplay?></li>
+	<div class="buttonMenuItem <?=$RunTodayClass[$value["RunsToday"]]?> HeadsignListListener" data-shapeID="<?=$key?>" ><?=$HeadsignDisplay?></div>
 <?php
 	endforeach;
 ?>
-</ul>
+</div>
 <?php
 	if ( $AllRoutesRunToday == false ) :
 ?>

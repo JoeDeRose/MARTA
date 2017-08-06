@@ -1,6 +1,8 @@
 <?php
 // Constants
 $haversineratio = 0.83;
+// $TimeZoneOffset = New DateInterval( "PT2H" );      // 2-hour offset from Mountain Time (location of server) to Easter Time (Atlanta)
+$TimeZoneOffset = "2 hours";        // 2-hour offset from Mountain Time (location of server) to Easter Time (Atlanta)
 /*
 	Atlanta is at approximately the following coordinates: 33.7°N, 84.2°W (= -84.2°).
 	"Haversine ratio" is not (to my knowledge) a real scientific term. I am using it to describe the (approximate) ratio between:
@@ -36,6 +38,13 @@ QUERY;
 				exit( "Not a valid route." );
 			} else {
 				return $route_selected;
+			}
+			break;
+		case "stopid":
+			if ( isset(  $_GET["stopid"] ) && is_numeric( $_GET["stopid"] ) ) {
+				return $_GET["stopid"];
+			} else {
+				exit( "Not a valid stop." );
 			}
 			break;
 		case "size":
@@ -85,7 +94,10 @@ QUERY;
 
 function _getServiceDate() {
 
-	$now = new DateTime();
+	global $TimeZoneOffset;
+    
+    $now = new DateTime();
+    $now -> modify( $TimeZoneOffset );
 	
 	$serviceDateArray = array();
 
@@ -207,11 +219,68 @@ function _convert_time_from_Gis( $time_string ) {
 }
 
 function _MARTA_time() {
-	$NowHour = date( 'G' );
-	$NowMinuteSecond = date( 'i:s' );
-	$NowHour = $NowHour + ( $NowHour >= 3 ? 0 : 24 ) ;
-	$Result = $NowHour . ":" . $NowMinuteSecond;
+
+	$now = _getServiceDate();
+    
+    $Result = $now["G"] . ":" . $now["i"] . ":" . $now["s"];
 	$Result = ( ( strlen( $Result ) == 7 ) ? "0" : "" ) . $Result ;
+
 	return $Result;
+
+}
+
+function _trim_headsign( $orig_headsign ) {
+    $trimmed = $orig_headsign;
+    $trimmed = preg_replace( "/ +/", " ", $trimmed );
+    $trimmed = preg_replace( "/^Route /", "", $trimmed );
+    $trimmed = preg_replace( "/(\d+[A-Za-z]?) \- (.+)/", "$1 $2", $trimmed );
+    
+    return $trimmed;
+}
+
+function _parse_timestamp( $orig_timestamp, $content = "all12" ) {
+    $timestamp_array = explode( ":", $orig_timestamp );
+    $hour_num = intval( $timestamp_array[0] );
+    $hour24_num = $hour_num;
+    $minute_num = intval( $timestamp_array[0] );
+    if ( $hour_num < 12 ) {
+        $hour12_num = $hour_num;
+        $meridian = "AM";
+    } elseif ( $hour_num == 12 ) {
+        $hour12_num = 12;
+        if ( $minute_num == "00" ) {
+            $meridian = "N";
+        } else {    
+            $meridian = "PM";
+        }
+    } elseif ( $hour_num < 24 ) {
+        $hour12_num = $hour_num - 12;
+        $meridian = "PM";
+    } elseif ( $hour_num == 24 ) {
+        $hour12_num = 12;
+        $hour24_num = 0;
+        if ( $minute_num == "00" ) {
+            $meridian = "M";
+        } else {    
+            $meridian = "AM";
+        }
+    } else {
+        $hour12_num = $hour_num - 24;
+        $hour24_num = $hour_num - 24;
+        $meridian = "AM";
+    }
+    
+    switch( $content ) {
+        case "time12":
+            return $hour12_num. ":" . $minute_num;
+            break;
+        case "time24":
+            return $hour24_num. ":" . $minute_num;
+            break;
+        case "meridian":
+            return $meridian;
+            break;
+    }
+    return $hour12_num. ":" . $minute_num . " " . $meridian;
 }
 ?>

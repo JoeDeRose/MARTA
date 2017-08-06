@@ -381,7 +381,7 @@ SELECT
   T.direction_id,
   JD.direction,
   T.shape_id,
-  T.trip_headsign,
+  IFNULL( T.trip_headsign, CONCAT( 'Route ', R.route_short_name, ' ', R.route_long_name ) ) AS trip_headsign,
   ST.arrival_time,
   ST.stop_sequence,
   S.stop_code,

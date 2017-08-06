@@ -23,13 +23,13 @@ function show_map( $shapeinfo ) {
     .routeline
         {
             fill: none;
-            stroke: #{$route_color};
+            stroke: #EA7D09;
             stroke-width: {$stroke_width_route}px;
         }
 	.busstop
 		{
-			fill: red;
-			stroke: red;
+			fill: #3E78DA;
+			stroke: #3E78DA;
 			stroke-width: 1px;
 		}
 

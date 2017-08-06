@@ -1,12 +1,12 @@
 <?php
 if ( isset( $_GET["diagnostics"] ) ) {
-	$DiagnosticMode = true;
+    $DiagnosticMode = true;
 } else {
-	$DiagnosticMode = false;
+    $DiagnosticMode = false;
 }
 
 if ( $DiagnosticMode == false ) {
-	header('Content-type: application/json');
+    header('Content-type: application/json');
 }
 
 require_once('../includes/main.php');
@@ -22,19 +22,19 @@ $RealTimeResult = json_decode( $RealTimeJSON );
 
 foreach( $RealTimeResult as $arraykey => $arrayvalue ):
 
-	if ( $arrayvalue -> TRIPID != "" && $arrayvalue -> TRIPID != "0" ) {
+    if ( $arrayvalue -> TRIPID != "" && $arrayvalue -> TRIPID != "0" ) {
 
-		$arrayvalue -> COORDINDATES = $arrayvalue -> LATITUDE . ',' . $arrayvalue -> LONGITUDE;
-		$ThisTripID = $arrayvalue -> TRIPID;
+        $arrayvalue -> COORDINDATES = $arrayvalue -> LATITUDE . ',' . $arrayvalue -> LONGITUDE;
+        $ThisTripID = $arrayvalue -> TRIPID;
 
 // HEREDOC ------------------------------------------------------------------------
-	$qClosestStop = <<<Q_CLOSEST_STOP
+    $qClosestStop = <<<Q_CLOSEST_STOP
 
 SELECT Q1.*
 FROM
   (
     SELECT DISTINCT
-      T.trip_headsign,
+      IFNULL( T.trip_headsign, CONCAT( 'Route ', R.route_short_name, ' ', R.route_long_name ) ) AS trip_headsign,
       T.direction_id,
       T.shape_id,
       ST.stop_sequence,
@@ -60,25 +60,25 @@ LIMIT 1;
 Q_CLOSEST_STOP;
 // --------------------------------------------------------------------------------
 
-		$ClosestStop = $mysqli -> query( $qClosestStop );
-		$row = $ClosestStop -> fetch_assoc();	// One-row query, so I don't need a while(){} construct.
-		$arrayvalue -> HEADSIGN = $row["trip_headsign"];
-		$arrayvalue -> NEAREST_STOP_CODE = $row["stop_code"];
-		$arrayvalue -> NEAREST_STOP_NAME = $row["stop_name"];
-		$arrayvalue -> NEAREST_STOP_SEQUENCE = $row["stop_sequence"];
-		$arrayvalue -> NEAREST_STOP_LATITUDE = $row["stop_lat"];
-		$arrayvalue -> NEAREST_STOP_LONGITITUDE = $row["stop_lon"];
-		$arrayvalue -> NEAREST_STOP_DIRECTIONID = $row["direction_id"];
-	
-		$AdherenceValue = intval( $arrayvalue -> ADHERENCE );
-		$MessageTime = DateTime::createFromFormat( 'n/j/Y g:i:s a', $arrayvalue -> MSGTIME );
-		$arrayvalue -> NEAREST_STOP_SCHEDULED_TIME = $row["arrival_time"];
-		$NowDateTime = new DateTime();
-		$NowDateTimeValue = $NowDateTime -> format( "G:i:s" );
-		$arrayvalue -> NOW = $NowDateTimeValue;
+        $ClosestStop = $mysqli -> query( $qClosestStop );
+        $row = $ClosestStop -> fetch_assoc();    // One-row query, so I don't need a while(){} construct.
+        $arrayvalue -> HEADSIGN = $row["trip_headsign"];
+        $arrayvalue -> NEAREST_STOP_CODE = $row["stop_code"];
+        $arrayvalue -> NEAREST_STOP_NAME = $row["stop_name"];
+        $arrayvalue -> NEAREST_STOP_SEQUENCE = $row["stop_sequence"];
+        $arrayvalue -> NEAREST_STOP_LATITUDE = $row["stop_lat"];
+        $arrayvalue -> NEAREST_STOP_LONGITITUDE = $row["stop_lon"];
+        $arrayvalue -> NEAREST_STOP_DIRECTIONID = $row["direction_id"];
+    
+        $AdherenceValue = intval( $arrayvalue -> ADHERENCE );
+        $MessageTime = DateTime::createFromFormat( 'n/j/Y g:i:s a', $arrayvalue -> MSGTIME );
+        $arrayvalue -> NEAREST_STOP_SCHEDULED_TIME = $row["arrival_time"];
+        $NowDateTime = new DateTime();
+        $NowDateTimeValue = $NowDateTime -> format( "G:i:s" );
+        $arrayvalue -> NOW = $NowDateTimeValue;
 
 // HEREDOC ------------------------------------------------------------------------
-	$qNextStop = <<<Q_NEXT_STOP
+    $qNextStop = <<<Q_NEXT_STOP
 
 SELECT *
 FROM
@@ -105,28 +105,30 @@ LIMIT 1;
 
 Q_NEXT_STOP;
 // --------------------------------------------------------------------------------
-		$NextStop = $mysqli -> query( $qNextStop );
-		$row2 = $NextStop -> fetch_assoc();	// One-row query, so I don't need a while(){} construct.
-		$arrayvalue -> NEXT_STOP_SEQUENCE = $row2["stop_sequence"];
-		$arrayvalue -> NEXT_STOP_CODE = $row2["stop_code"];
-		$arrayvalue -> NEXT_STOP_NAME = $row2["stop_name"];
-		$arrayvalue -> NEXT_STOP_LATITUDE = $row2["stop_lat"];
-		$arrayvalue -> NEXT_STOP_LONGITUDE = $row2["stop_lon"];
-		if ( $arrayvalue -> NEXT_STOP_SEQUENCE == $arrayvalue -> NEAREST_STOP_SEQUENCE ) {
-			$arrayvalue -> BUS_BEARING_END_OF_LINE = "Y";
-			$arrayvalue -> BUS_BEARING_ANGLE = 0;
-		} else {
-			$BearingLatitudeDifference = ( $arrayvalue -> NEAREST_STOP_LATITUDE - $row2["stop_lat"] ) * $haversineratio;
-			$BearingAdjacentAngle = $row2["stop_lat"] - $arrayvalue -> NEAREST_STOP_LATITUDE;
-			$BearingHypotenuse = sqrt( pow( $row2["stop_lat"] - $arrayvalue -> NEAREST_STOP_LATITUDE, 2 ) + pow( ( $row2["stop_lon"] - $arrayvalue -> NEAREST_STOP_LONGITITUDE ) * $haversineratio, 2 ) );
-			$BearingSign = ( $row2["stop_lon"] - $arrayvalue -> NEAREST_STOP_LONGITITUDE < 0 ? -1 : 1 );
-			$BearingAngle = rad2deg( acos( $BearingAdjacentAngle / $BearingHypotenuse ) ) * $BearingSign;
-			$arrayvalue -> BUS_BEARING_END_OF_LINE = "N";
-			$arrayvalue -> BUS_BEARING_ANGLE = $BearingAngle;
-		}
+        $NextStop = $mysqli -> query( $qNextStop );
+        if ( $NextStop ) {
+            $row2 = $NextStop -> fetch_assoc();    // One-row query, so I don't need a while(){} construct.
+            $arrayvalue -> NEXT_STOP_SEQUENCE = $row2["stop_sequence"];
+            $arrayvalue -> NEXT_STOP_CODE = $row2["stop_code"];
+            $arrayvalue -> NEXT_STOP_NAME = $row2["stop_name"];
+            $arrayvalue -> NEXT_STOP_LATITUDE = $row2["stop_lat"];
+            $arrayvalue -> NEXT_STOP_LONGITUDE = $row2["stop_lon"];
+            if ( $arrayvalue -> NEXT_STOP_SEQUENCE == $arrayvalue -> NEAREST_STOP_SEQUENCE ) {
+                $arrayvalue -> BUS_BEARING_END_OF_LINE = "Y";
+                $arrayvalue -> BUS_BEARING_ANGLE = 0;
+            } else {
+                $BearingLatitudeDifference = ( $arrayvalue -> NEAREST_STOP_LATITUDE - $row2["stop_lat"] ) * $haversineratio;
+                $BearingAdjacentAngle = $row2["stop_lat"] - $arrayvalue -> NEAREST_STOP_LATITUDE;
+                $BearingHypotenuse = sqrt( pow( $row2["stop_lat"] - $arrayvalue -> NEAREST_STOP_LATITUDE, 2 ) + pow( ( $row2["stop_lon"] - $arrayvalue -> NEAREST_STOP_LONGITITUDE ) * $haversineratio, 2 ) );
+                $BearingSign = ( $row2["stop_lon"] - $arrayvalue -> NEAREST_STOP_LONGITITUDE < 0 ? -1 : 1 );
+                $BearingAngle = rad2deg( acos( $BearingAdjacentAngle / $BearingHypotenuse ) ) * $BearingSign;
+                $arrayvalue -> BUS_BEARING_END_OF_LINE = "N";
+                $arrayvalue -> BUS_BEARING_ANGLE = $BearingAngle;
+            }
+        }
 
 // HEREDOC ------------------------------------------------------------------------
-		$qTimePredictionsInsert = <<<Q_TIMEPREDICTIONSINSERT
+        $qTimePredictionsInsert = <<<Q_TIMEPREDICTIONSINSERT
 UNION SELECT
   T.trip_id,
   T.direction_id,
@@ -147,13 +149,13 @@ WHERE
 Q_TIMEPREDICTIONSINSERT;
 // --------------------------------------------------------------------------------
 
-		if ( $row["direction_id"] != "" && trim($row["stop_code"] ) != "" ) {
-			$qTimePredictions .= $qTimePredictionsInsert;
-		}
+        if ( $row["direction_id"] != "" && trim($row["stop_code"] ) != "" ) {
+            $qTimePredictions .= $qTimePredictionsInsert;
+        }
 
-	} else {
-		$VehiclesWithMissingTripID++;
-	}
+    } else {
+        $VehiclesWithMissingTripID++;
+    }
 
 endforeach;
 
@@ -162,7 +164,7 @@ $weekday = strtolower( $date -> format( "l" ) );
 $datecode = $date -> format( "Ymd" );
 
 // HEREDOC ------------------------------------------------------------------------
-	$qTimePredictionsInsert = <<<Q_TIMEPREDICTIONSINSERT
+    $qTimePredictionsInsert = <<<Q_TIMEPREDICTIONSINSERT
 ORDER BY
   trip_id,
   stop_sequence
@@ -170,8 +172,8 @@ ORDER BY
 Q_TIMEPREDICTIONSINSERT;
 // --------------------------------------------------------------------------------
 if ( $qTimePredictions != "" ) {
-	$qTimePredictions = preg_replace( "/^UNION /", "", $qTimePredictions );
-	$qTimePredictions .= $qTimePredictionsInsert;
+    $qTimePredictions = preg_replace( "/^UNION /", "", $qTimePredictions );
+    $qTimePredictions .= $qTimePredictionsInsert;
 }
 
 if ( $DiagnosticMode == true ) :
@@ -203,51 +205,62 @@ print_r( $RealTimeResult );
 endif;
 ?>
 {
-	"Vehicles" :
-		{
+    "Vehicles" :
+        {
 <?php
 $NumberOfVehicles = count( $RealTimeResult ) - $VehiclesWithMissingTripID;
 $ThisVehicle = 0;
 foreach( $RealTimeResult as $key => $value ):
-	if ( $value -> TRIPID != "" && $value -> TRIPID != "0" ) :
-		$ThisVehicle++;
-		$Comma = ( $ThisVehicle == $NumberOfVehicles ) ? "" : ",";
+    if ( $value -> TRIPID != "" && $value -> TRIPID != "0" ) :
+        $ThisVehicle++;
+        $Comma = ( $ThisVehicle == $NumberOfVehicles ) ? "" : ",";
+        $ThisVehicleID = $value -> VEHICLE;
+        if ( property_exists( $value, "BUS_BEARING_END_OF_LINE" ) )  {
+            $ThisBusBearingEndOfLine = $value -> BUS_BEARING_END_OF_LINE;
+        } else {
+            $ThisBusBearingEndOfLine = "<span style=\"color: red; font-weight: bold;\" >TRIPID Not Found</span>";
+        }
+        if ( property_exists( $value, "BUS_BEARING_ANGLE" ) )  {
+            $ThisBusBearingAngle = $value -> BUS_BEARING_ANGLE;
+        } else {
+            $ThisBusBearingAngle = "<span style=\"color: red; font-weight: bold;\" >TRIPID Not Found</span>";
+        }
 ?>
-			"<?=$value -> VEHICLE?>" :
-				{
-					"ADHERENCE" : "<?=$value -> ADHERENCE?>",
-					"DIRECTION" : "<?=$value -> DIRECTION?>",
-					"LATITUDE" : "<?=$value -> LATITUDE?>",
-					"LONGITUDE" : "<?=$value -> LONGITUDE?>",
-					"MSGTIME" : "<?=$value -> MSGTIME?>",
-					"HEADSIGN" : "<?=$value -> HEADSIGN?>",
-					"BUS_BEARING_END_OF_LINE" : "<?=$value -> BUS_BEARING_END_OF_LINE?>",
-					"BUS_BEARING_ANGLE" : "<?=$value -> BUS_BEARING_ANGLE?>"
-				}<?=$Comma?> 
+            "<?=$ThisVehicleID?>" :
+                {
+                    "ADHERENCE" : "<?=$value -> ADHERENCE?>",
+                    "DIRECTION" : "<?=$value -> DIRECTION?>",
+                    "LATITUDE" : "<?=$value -> LATITUDE?>",
+                    "LONGITUDE" : "<?=$value -> LONGITUDE?>",
+                    "MSGTIME" : "<?=$value -> MSGTIME?>",
+                    "HEADSIGN" : "<?=$value -> HEADSIGN?>",
+                    "BUS_BEARING_END_OF_LINE" : "<?=$ThisBusBearingEndOfLine?>",
+                    "BUS_BEARING_ANGLE" : "<?=$ThisBusBearingAngle?>"
+                }<?=$Comma?> 
 <?php
-	endif;
+    endif;
 endforeach;
 ?>
-		},
-	"Predictions" :
-		{
+        },
+    "Predictions" :
+        {
 <?php
 if ( $qTimePredictions != "" ):
-	$TimePredictions = $mysqli -> query( $qTimePredictions );
-	$NumberOfRows = $TimePredictions -> num_rows;
-	$ThisRow = 0;
-	while ( $row = $TimePredictions -> fetch_assoc() ) :
-		$ThisRow++;
-		$ThisStopTrip = $row["stop_code"] . "-" . $row["trip_id"];
-		$ThisMinsToArrival = preg_replace( "/(\d+:\d+):\d+/", "$1", $row["MINSTOARRIVAL"] );
-		$Comma = ( $ThisRow == $NumberOfRows ) ? "" : ",";
+    $TimePredictions = $mysqli -> query( $qTimePredictions );
+    $NumberOfRows = $TimePredictions -> num_rows;
+    $ThisRow = 0;
+    while ( $row = $TimePredictions -> fetch_assoc() ) :
+        $ThisRow++;
+        $ThisStopTrip = $row["stop_code"] . "-" . $row["trip_id"];
+        $ThisMinsToArrival = preg_replace( "/(\d+:\d+):\d+/", "$1", $row["MINSTOARRIVAL"] );
+        $Comma = ( $ThisRow == $NumberOfRows ) ? "" : ",";
 ?>
-			"<?=$ThisStopTrip?>" : "<?=$ThisMinsToArrival?>"<?=$Comma?> 
+            "<?=$ThisStopTrip?>" : "<?=$ThisMinsToArrival?>"<?=$Comma?> 
 <?php
-	endwhile;
+    endwhile;
 endif;
 ?>
-		}
+        }
 }
 <?php
 if ( $DiagnosticMode == true ) :
