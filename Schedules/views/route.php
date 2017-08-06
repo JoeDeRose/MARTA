@@ -1,7 +1,5 @@
 <?php
 // Constants, This Page
-$CountdownTimerTotalSeconds = 15;
-$CountdownTimerUpdateFrequencySeconds = .25;
 
 // Retrieve contents from $data.
 $validated_route = $data["validated_route"];
@@ -32,61 +30,87 @@ if ( max( $shape["route_span_lat"], $shape["route_span_lon"] ) <= 0.04 ) {
 }
 ?>
 <h1>
-	<?=$route_title?> [<?=_MARTA_time()?>][<?=_getServiceID()?>]<br />
+	<?=$route_title?><br />
 	<?=$shape["route_long_name"]?>
 </h1>
 
-<div class="countdownTimer buttonContainer" >
-	<div class="buttonEffect buttonEffectPadding buttonEffectRoundedAll refreshListener" >
-		<div id="CountdownTimerRefresh" style="display: none;" >Refresh&nbsp;Now</div>
-		<span id="CountdownTimerWaiting" >Waiting for Update</span>
-	</div>
-</div>
 <!-- Deleting the following <div> causes a JavaScript error. Figure this out later. -->
-<div id="map_canvas" class="<?=$FullScreenClass?>" style="display: none;" ></div>
-<p id="NoRealTimeAlert" class="alert" style="display:none;" ><strong>Alert:</strong> MARTA is not currently providing real-time data for this route.</p>
+<div id="map_canvas" class="<?=$FullScreenClass?>" ></div>
 
 <h2>Bus Headsigns on This Route</h2>
-<p>Hover over (or tap) a headsign to see the portion and direction it describes.</p>
-<ul class="HeadsignList">
+
+<div class="buttonEffect buttonMenu buttonEffectRoundedAll">
 <?php
-$RunTodayClass["0"] = "RunsTodayNo";
-$RunTodayClass["1"] = "RunsTodayEarlier";
-$RunTodayClass["2"] = "RunsTodayYes";
-
-$AllRoutesRunToday = true;
-
 foreach ( $shape["shape_info"] as $key => $value ):
-    if ( $value["RunsToday"] == 0 ) {
-        $AllRoutesRunToday = false;
-    }
-    $HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign for shape " . $value["shape_id"] . " missing in MARTA database)</i>" : $value["headsign"];
+    $HeadsignDisplay = _trim_headsign( $value["headsign"] );
 ?>
-	<li class="<?=$RunTodayClass[$value["RunsToday"]]?> HeadsignListListener" id="HeadsignList<?=$key?>" data-shapeID="<?=$key?>"><?=$HeadsignDisplay?></li>
+	<div class="buttonMenuItem HeadsignListListener" data-shapeID="<?=$key?>" ><?=$HeadsignDisplay?></div>
 <?php
 endforeach;
 ?>
-</ul>
+</div>
+
 <?php
-if ( $AllRoutesRunToday == false ) :
+foreach ( $shape["shape_info"] as $key => $value ):
+    $HeadsignDisplay = ( $value["headsign"] == "" ) ? "<i>(Headsign for shape " . $value["shape_id"] . " missing in MARTA database)</i>" : $value["headsign"];
 ?>
-<p>Black lines show active routes today; routes for other days are shown by gray lines.</p>
+	<div id="ListOfStopsForShape<?=$key?>" class="ListOfStops HideOnLoad" >
+        <h1 id="h1_<?=$key?>" ><?=$HeadsignDisplay?></h1>
+        <div class="buttonEffect buttonMenu buttonEffectRoundedAll">
 <?php
-endif;
+    $PrevDisplayStopA = "";
+    foreach ( $shape["stops_by_shape"][$key]["stops"] as $key1 => $value1 ):
+        $DisplayValue = $value1["StopName"];
+        $DisplayValue = preg_replace( "/\s*@\s*/", " @ ", $DisplayValue );
+        $DisplayValue = preg_replace( "/\s+/", " ", $DisplayValue );
+        $DisplayValue = preg_replace( "/ (NE|NW|SE|SW) @/", " @", $DisplayValue );
+        $DisplayValue = preg_replace( "/ (NE|NW|SE|SW) ?$/", "", $DisplayValue );
+        $StopID = $value1["StopID"];
+        if ( strpos( $DisplayValue, " @ " ) === false ) :
+            $PrevDisplayStopA = "";
 ?>
+            <div class="buttonMenuItem" >
+                <a class="buttonMenuItemListener" href="?action=stop&stopid=<?=$StopID?>" >
+                    <?=$DisplayValue?>
+                </a>
+            </div>
+<?php
+        else :
+            $DisplayStopA = preg_replace( "/(.* @ )(.*)/", "$1", $DisplayValue );
+            $DisplayStopB = preg_replace( "/(.* @ )(.*)/", "$2", $DisplayValue );
+            if ( $DisplayStopA != $PrevDisplayStopA ) :
+                $PrevDisplayStopA = $DisplayStopA;
+?>
+            <div class="buttonMenuHeader" ><?=$DisplayStopA?></div>
+<?php
+            endif;
+?>
+            <div class="buttonMenuItem ButtonMenuIndent" >
+                <a class="buttonMenuItemListener" href="?action=stop&stopid=<?=$StopID?>" >
+                    <?=$DisplayStopB?>
+                </a>
+            </div>
+<?php
+        endif;
+?>
+<?php
+    endforeach;
+?>
+        </div>
+    </div>
+<?php
+endforeach;
+?>
+
 <script type="text/javascript">
 	$( document ).ready( initialize() );
 	
 	var LocationMarker = {};
 	var popup = {};
 	var activepopup = null;
+    var ShapeSelected = "";
 	
 	// The following variables are assigned at the end of the initialize() function; it didn't work to assign values here.
-	var CountdownTimerRemaining;
-	var CountdownTimerTotalSeconds;
-	var CountdownTimerUpdateFrequencySeconds;
-	var CountdownTimerCSSWidth;
-	var CountdownTimerRefreshInProgress;
 	
 	DirectionColors = 
 		{
@@ -165,85 +189,7 @@ endif;
 		shapeHighlight = {};
 		
 <?php
-// RunsTodayNo
 foreach ( $shape["shape_info"] as $key => $value ):
-	if ( $value["RunsToday"] == 0 ):
-		$coordinates = implode( ",", $value["coordinates"] );
-?>
-		shape<?=$key?>Coordinates = [ <?=$coordinates?> ];
-		shapeNormal["<?=$key?>"] = new google.maps.Polyline(
-			{
-				path: shape<?=$key?>Coordinates,
-				strokeColor: "#999",
-				strokeOpacity: 1.0,
-				strokeWeight: 2
-			}
-		);
-		shapeHighlight["<?=$key?>"] = new google.maps.Polyline(
-			{
-				path: shape<?=$key?>Coordinates,
-				strokeColor: "#F00",
-				strokeOpacity: 1.0,
-				strokeWeight: 2,
-				icons:
-					[
-						{
-							repeat: '20px', //CHANGE THIS VALUE TO CHANGE THE DISTANCE BETWEEN ARROWS
-							icon: 
-								{
-									path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-								},
-							offset: '100%'
-						}
-					]
-			}
-		);
-		shapeNormal["<?=$key?>"].setMap( map );
-<?php
-	endif;
-endforeach;
-
-// RunsTodayEarlier
-foreach ( $shape["shape_info"] as $key => $value ):
-	if ( $value["RunsToday"] == 1 ):
-		$coordinates = implode( ",", $value["coordinates"] );
-?>
-		shape<?=$key?>Coordinates = [ <?=$coordinates?> ];
-		shapeNormal["<?=$key?>"] = new google.maps.Polyline(
-			{
-				path: shape<?=$key?>Coordinates,
-				strokeColor: "#999",
-				strokeOpacity: 1.0,
-				strokeWeight: 2
-			}
-		);
-		shapeHighlight["<?=$key?>"] = new google.maps.Polyline(
-			{
-				path: shape<?=$key?>Coordinates,
-				strokeColor: "#F00",
-				strokeOpacity: 1.0,
-				strokeWeight: 2,
-				icons:
-					[
-						{
-							repeat: '20px', //CHANGE THIS VALUE TO CHANGE THE DISTANCE BETWEEN ARROWS
-							icon: 
-								{
-									path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-								},
-							offset: '100%'
-						}
-					]
-			}
-		);
-		shapeNormal["<?=$key?>"].setMap( map );
-<?php
-	endif;
-endforeach;
-
-// RunsTodayYes
-foreach ( $shape["shape_info"] as $key => $value ):
-	if ( $value["RunsToday"] == 2 ):
 		$coordinates = implode( ",", $value["coordinates"] );
 ?>
 		shape<?=$key?>Coordinates = [ <?=$coordinates?> ];
@@ -276,19 +222,8 @@ foreach ( $shape["shape_info"] as $key => $value ):
 		);
 		shapeNormal["<?=$key?>"].setMap( map );
 <?php
-	endif;
 endforeach;
 ?>
-		CountdownTimerRemaining = 0;
-		CountdownTimerTotalSeconds = <?=$CountdownTimerTotalSeconds?>;
-		CountdownTimerUpdateFrequencySeconds = <?=$CountdownTimerUpdateFrequencySeconds?>;
-		CountdownTimerRefreshInProgress = false;
-		setInterval(
-			function() {
-				CountdownTimer();
-			},
-			CountdownTimerUpdateFrequencySeconds * 1000
-		);
 	}
 	
 	function ShowMarker( Latitude, Longitude, Direction, BusID, Adherence, Headsign, NearestStopSequence, EndOfLine, BearingAngle ) {
@@ -382,8 +317,9 @@ endforeach;
 		"mouseover",
 		".HeadsignListListener",
 		function() {
-			ShapeID = $( this ).attr( "data-shapeID" );
-			HighlightRoute( ShapeID );
+            ShapeID = $( this ).attr( "data-shapeID" );
+            UnhighlightAllRoutes();
+            HighlightRoute( ShapeID );
 		}
 	);
 
@@ -391,8 +327,11 @@ endforeach;
 		"mouseout",
 		".HeadsignListListener",
 		function() {
-			ShapeID = $( this ).attr( "data-shapeID" );
-			UnhighlightRoute( ShapeID );
+            ShapeID = $( this ).attr( "data-shapeID" );
+            UnhighlightAllRoutes();
+            if ( ShapeSelected != "" ) {
+                HighlightRoute( ShapeSelected );
+            }
 		}
 	);
 
@@ -401,26 +340,34 @@ endforeach;
 		".HeadsignListListener",
 		function() {
 			ShapeID = $( this ).attr( "data-shapeID" );
-			TempHighlightRoute( ShapeID );
+            UnhighlightAllRoutes();
+			HighlightRoute( ShapeID );
+            ShapeSelected = ShapeID;
+            $( ".ListOfStops" ).hide();
+            $( "#ListOfStopsForShape" + ShapeID ).show();
 		}
 	);
 
 	function HighlightRoute( ShapeID ) {
 		shapeNormal[ ShapeID ].setMap( null );
 		shapeHighlight[ ShapeID ].setMap( map );
-		$( "#HeadsignList" + ShapeID ).addClass( "HighlightYellow" );
 	}
 	
-	function UnhighlightRoute( ShapeID ) {
-		shapeHighlight[ ShapeID ].setMap( null );
-		shapeNormal[ ShapeID ].setMap( map );
-		$( "#HeadsignList" + ShapeID ).removeClass( "HighlightYellow" );
+	function UnhighlightAllRoutes() {
+<?php
+foreach ( $shape["shape_info"] as $key => $value ):
+?>
+		shapeHighlight[ "<?=$key?>" ].setMap( null );
+		shapeNormal[ "<?=$key?>" ].setMap( map );
+<?php
+endforeach;
+?>
 	}
 	
 	function TempHighlightRoute( ShapeID ) {
 		setTimeout(
 			function() {
-				UnhighlightRoute( ShapeID );
+				UnhighlightAllRoutes();
 			},
 			3000
 		);
@@ -435,65 +382,4 @@ endforeach;
 		}
 	);
 	
-	function CountdownTimer() {
-        console.log( CountdownTimerRemaining );
-		CountdownTimerRemaining = CountdownTimerRemaining - CountdownTimerUpdateFrequencySeconds;
-		if ( CountdownTimerRemaining <= 0 ) {
-			if ( CountdownTimerRefreshInProgress == false ) {
-				RefreshNow();
-			}
-		} else {
-			$( "#CountdownTimerRefresh" ).css( "width", ( ( CountdownTimerRemaining / CountdownTimerTotalSeconds ) * 100 ) + "%" );
-			$( "#CountdownTimerRefresh" ).show();
-			$( "#CountdownTimerWaiting" ).hide();
-		}
-		$( "#showCountdown" ).html( ( ( CountdownTimerRemaining / CountdownTimerTotalSeconds ) * 100 ) + "%" );
-	}
-
-	function RefreshNow() {
-		CountdownTimerRemaining = 0;
-		$( "#CountdownTimerRefresh" ).hide();
-		$( "#CountdownTimerWaiting" ).show();
-		CountdownTimerRefreshInProgress = true;
-		GetRealtime();
-	}
-
-	function GetRealtime() {
-		$.ajax( {
-			dataType: "json",
-			url: "models/ajax/realtime.php?route=<?=$validated_route?>",
-			success: function( data ) {
-				showData = JSON.stringify( data );	// Use only for diagnostics.
-				RemoveMarkers();
-				Count = 0;
-				VehicleList = data["Vehicles"];
-				for ( var key in VehicleList ) {
-					if ( VehicleList.hasOwnProperty( key ) ) {
-						Count++;
-						ShowMarker(
-							VehicleList[key]["LATITUDE"],
-							VehicleList[key]["LONGITUDE"],
-							VehicleList[key]["DIRECTION"],
-							key,
-							VehicleList[key]["ADHERENCE"],
-							VehicleList[key]["HEADSIGN"],
-							VehicleList[key]["NEAREST_STOP_SEQUENCE"],
-							VehicleList[key]["BUS_BEARING_END_OF_LINE"],
-							VehicleList[key]["BUS_BEARING_ANGLE"]
-						);
-					}
-				}
-				if ( Count == 0 ) {
-					$( "#NoRealTimeAlert" ).show();
-				} else {
-					$( "#NoRealTimeAlert" ).hide();
-				}
-				CountdownTimerRemaining = CountdownTimerTotalSeconds;
-				$( "#CountdownTimerRefresh" ).css( "width", "100%" );
-				CountdownTimerRefreshInProgress = false;
-				CountdownTimer();
-			}
-		} );
-	}
-
 </script>

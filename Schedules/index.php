@@ -31,7 +31,7 @@ if ( isset( $_GET["fullscreen"] ) ) {
 <title>MARTA At Your Fingertips</title>
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" media="all" href="includes/main.css" />
+<link rel="stylesheet" type="text/css" media="all" href="includes/main.css?version=20170709" />
 
 <!-- Icons -->
 <link rel="shortcut icon" href="favicon.ico" />
@@ -43,8 +43,6 @@ if ( isset( $_GET["fullscreen"] ) ) {
 -->
 <!-- High-Resolution Only (works better on Android) -->
 <link rel="apple-touch-icon" href="http://marta-ayf.com/views/images/unprotected/apple-touch-icon-144x144.png" />
-
-<style></style>
 
 </head>
 
@@ -72,7 +70,7 @@ if ( isset( $_GET["fullscreen"] ) ) {
 </script>
 
 <!-- Google Maps -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCF2hkVUVY70uZdaxiQfYwlh7f3P4CNVKw&sensor=false"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCF2hkVUVY70uZdaxiQfYwlh7f3P4CNVKw"></script>
 
 <!-- jQuery -->
 <script src="includes/jquery-min.js"></script>
@@ -130,6 +128,13 @@ function currentinfo() {
 	_load_view( 'currentinfo', $data ); 
 }
 
+function stop() {
+	$data = array();
+	$data["stopid"] = _validate( "stopid" );
+	$data["MenuItems"] = "(main)(routes)";
+	_load_view( 'stop', $data ); 
+}
+
 function diagnostics() {
 	_load_view( 'diagnostics' ); 
 }
@@ -154,6 +159,7 @@ if( function_exists($action) == 1 && substr( $action, 0, 1 ) != "_" ) {
 }
 
 ?>
+<p class="WhitespaceAtBottom" >&nbsp;</p>
 </body>
 </html>
 <?php

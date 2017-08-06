@@ -66,21 +66,36 @@ while ( $row = $RouteList->fetch_assoc() ):
 	<tr>
 		<th class="RouteNumExpandListener" >
 			<div id="button[RouteShortName][FavoriteFlag]" class="RouteNumMainDiv buttonEffect buttonEffectPadding buttonEffectRoundedAll" >
-				<div class="buttonMenu buttonFlyout buttonEffectRoundedTRBLBR noWrap" style="display: none;">
-					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=currentinfo&route=[RouteShortName]" >
-						Current Information
+				<div class="buttonEffectItem buttonMenu buttonFlyout buttonEffectRoundedTRBLBR noWrap" style="display: none;">
+					<div class="buttonMenuItem" >
+						<a class="buttonMenuItemListener" href="?action=currentinfo&route=[RouteShortName]" >
+                            Current Information
+                        </a>
 					</div>
-					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=currentinfo&fullscreen&route=[RouteShortName]" >
-						Full Screen Map
+					<div class="buttonMenuItem" >
+                        <a class="buttonMenuItemListener" href="?action=currentinfo&fullscreen&route=[RouteShortName]" >
+                            Full Screen Map
+                        </a>
 					</div>
-					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=favorites&favoriteaction=[FavoriteAction]&route=[RouteShortName]" >
-						[FavoriteText] Favorites
+					<div class="buttonMenuItem" >
+                        <a class="buttonMenuItemListener" href="?action=favorites&favoriteaction=[FavoriteAction]&route=[RouteShortName]" >
+                            [FavoriteText] Favorites
+                        </a>
 					</div>
-					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="?action=map&route=[RouteShortName]" >
-						Thumbnail Map
+					<div class="buttonMenuItem" >
+                        <a class="buttonMenuItemListener" href="?action=route&route=[RouteShortName]" >
+                            Route and Schedule
+                        </a>
 					</div>
-					<div class="buttonMenuItem buttonMenuItemListener" data-buttonTarget="models/ajax/realtime.php?route=[RouteShortName]&diagnostics" >
-						Diagnostics
+					<div class="buttonMenuItem" >
+                        <a class="buttonMenuItemListener" href="?action=map&route=[RouteShortName]" >
+                            Thumbnail Map
+                        </a>
+					</div>
+					<div class="buttonMenuItem" >
+                        <a class="buttonMenuItemListener" href="models/ajax/realtime.php?route=[RouteShortName]&diagnostics" >
+                            Diagnostics
+                        </a>
 					</div>
 				</div>
 				<div class="buttonItem" >
