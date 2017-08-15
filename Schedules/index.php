@@ -1,7 +1,7 @@
 <?php
 require_once('models/includes/main.php');
 require_once('models/includes/validate.php');
-require_once('models/favorites.php' );
+require_once('models/favorites.php');
 
 function callback( $buffer ) {
 	global $header_find, $header_replace;
