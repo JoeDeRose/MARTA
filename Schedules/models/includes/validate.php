@@ -123,6 +123,13 @@ function _getServiceDate() {
 }
 
 function _getServiceID() {
+    /*
+        This gets the ServiceID by querying the database based on today's date.
+        The standard MARTA uses (which is hard-coded elsewhere by necessity) is:
+            5 = Weekday
+            3 = Saturday
+            4 = Sunday
+    */
 	global $mysqli;
 	$today = _getServiceDate();
 	$todayWeekday = strtolower( $today["l"] );
@@ -242,7 +249,7 @@ function _parse_timestamp( $orig_timestamp, $content = "all12" ) {
     $timestamp_array = explode( ":", $orig_timestamp );
     $hour_num = intval( $timestamp_array[0] );
     $hour24_num = $hour_num;
-    $minute_num = intval( $timestamp_array[0] );
+    $minute_num = $timestamp_array[1];
     if ( $hour_num < 12 ) {
         $hour12_num = $hour_num;
         $meridian = "AM";

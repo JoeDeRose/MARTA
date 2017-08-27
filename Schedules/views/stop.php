@@ -9,9 +9,6 @@ _load_model( 'shape', $data );
 _load_model( 'stop', $data );
 $stop_info = get_stop_info( $stopid );
 $stop_schedule = get_stop_schedule( $stopid );
-?>
-<hr />
-<?php
 $shape = get_shapes_serving_a_stop( $data );		// Uses same data content as that which was passed in.
 
 // Fix the title to show (for example) "MARTA Route 1" or "MARTA Blue Line".
@@ -52,6 +49,9 @@ foreach ( $stop_schedule as $key_shape => $value_shape ):
     else:
         $ArrivingSoonClass = "RunsTodayNo";
     endif;
+// ----------------------------------------------------------------------
+// Arriving Soon
+// ----------------------------------------------------------------------
 ?>
     <div
         class="buttonMenuItem <?=$ArrivingSoonClass?>"
@@ -60,7 +60,6 @@ foreach ( $stop_schedule as $key_shape => $value_shape ):
     >
         Arriving Soon
     </div>
-    <div id="ArrivingSoonTimes<?=$key_shape?>" class="DivTable" >
 <?php
         foreach ( $value_shape[ "Sched" ][ _getServiceID() ] as $key_time => $value_time ):
             if ( $value_time[ "ArrivingSoon" ] == 0 ):
@@ -69,47 +68,77 @@ foreach ( $stop_schedule as $key_shape => $value_shape ):
                 $ThisClassVisibility = "";
             endif;
 ?>
-        <div
-            id="ArrivingSoon<?=$key_time?>"
-            class="DivTableRow buttonMenuItem TimeSelectListener <?=$ThisClassVisibility?>"
-            data-tripID="<?=$key_time?>"
-        >
-            <div class="DivTableCell buttonArrivalSpacer" ></div>
-            <div class="DivTableCell alignRight buttonArrivalCell" >
-                <span><?=_parse_timestamp( $value_time[ "Time" ], "time12" )?></span><span class="smaller" > <?=_parse_timestamp( $value_time[ "Time" ], "meridian" )?></span>
-            </div>
-            <div class="DivTableCell buttonArrivalCell buttonArrivalAlert" >
-                XX Min Early:
-            </div>
-            <div class="DivTableCell alignRight buttonArrivalCell" >
-                <span><?=_parse_timestamp( $value_time[ "Time" ], "time12" )?></span><span class="smaller" > <?=_parse_timestamp( $value_time[ "Time" ], "meridian" )?></span>
-            </div>
-        </div>
-<?php
-        endforeach;
-?>
+    <div
+        id="ArrivingSoon<?=$key_time?>"
+        class="ArrivingSoonTimes<?=$key_shape?> buttonMenuItem buttonArrivalCell TimeSelectListener <?=$ThisClassVisibility?>"
+        data-tripID="<?=$key_time?>"
+    >
+        <span><?=_parse_timestamp( $value_time[ "Time" ], "time12" )?></span><span class="smaller" > <?=_parse_timestamp( $value_time[ "Time" ], "meridian" )?></span>
     </div>
 <?php
+        endforeach;
     if ( count( $value_shape[ "Sched" ][ 5 ] ) > 0 ):
+// ----------------------------------------------------------------------
+// Weekday
+// ----------------------------------------------------------------------
 ?>
     <div class="buttonMenuItem HeadsignListListener" data-shapeID="<?=$key_shape?>" data-schedule="Weekday<?=$key_shape?>" >
         Weekday Schedule
     </div>
 <?php
+        foreach ( $value_shape[ "Sched" ][ 5 ] as $key_time => $value_time ):
+?>
+    <div
+        id="Weekday<?=$key_time?>"
+        class="WeekdayTimes<?=$key_shape?> buttonMenuItem buttonArrivalCell TimeSelectListener"
+        data-tripID="<?=$key_time?>"
+    >
+        <span><?=_parse_timestamp( $value_time[ "Time" ], "time12" )?></span><span class="smaller" > <?=_parse_timestamp( $value_time[ "Time" ], "meridian" )?></span>
+    </div>
+<?php
+        endforeach;
     endif;
     if ( count( $value_shape[ "Sched" ][ 3 ] ) > 0 ):
+// ----------------------------------------------------------------------
+// Saturday
+// ----------------------------------------------------------------------
 ?>
     <div class="buttonMenuItem HeadsignListListener" data-shapeID="<?=$key_shape?>" data-schedule="Saturday<?=$key_shape?>" >
         Saturday Schedule
     </div>
 <?php
+        foreach ( $value_shape[ "Sched" ][ 3 ] as $key_time => $value_time ):
+?>
+    <div
+        id="Saturday<?=$key_time?>"
+        class="SaturdayTimes<?=$key_shape?> buttonMenuItem buttonArrivalCell TimeSelectListener"
+        data-tripID="<?=$key_time?>"
+    >
+        <span><?=_parse_timestamp( $value_time[ "Time" ], "time12" )?></span><span class="smaller" > <?=_parse_timestamp( $value_time[ "Time" ], "meridian" )?></span>
+    </div>
+<?php
+        endforeach;
     endif;
     if ( count( $value_shape[ "Sched" ][ 4 ] ) > 0 ):
+// ----------------------------------------------------------------------
+// Sunday
+// ----------------------------------------------------------------------
 ?>
     <div class="buttonMenuItem HeadsignListListener" data-shapeID="<?=$key_shape?>" data-schedule="Sunday<?=$key_shape?>" >
         Sunday Schedule
     </div>
 <?php
+        foreach ( $value_shape[ "Sched" ][ 4 ] as $key_time => $value_time ):
+?>
+    <div
+        id="Sunday<?=$key_time?>"
+        class="SundayTimes<?=$key_shape?> buttonMenuItem buttonArrivalCell TimeSelectListener"
+        data-tripID="<?=$key_time?>"
+    >
+        <span><?=_parse_timestamp( $value_time[ "Time" ], "time12" )?></span><span class="smaller" > <?=_parse_timestamp( $value_time[ "Time" ], "meridian" )?></span>
+    </div>
+<?php
+        endforeach;
     endif;
 endforeach;
 ?>

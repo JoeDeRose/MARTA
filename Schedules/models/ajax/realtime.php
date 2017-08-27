@@ -73,7 +73,9 @@ Q_CLOSEST_STOP;
         $AdherenceValue = intval( $arrayvalue -> ADHERENCE );
         $MessageTime = DateTime::createFromFormat( 'n/j/Y g:i:s a', $arrayvalue -> MSGTIME );
         $arrayvalue -> NEAREST_STOP_SCHEDULED_TIME = $row["arrival_time"];
+        $TimeZoneOffset = "2 hours";        // 2-hour offset from Mountain Time (location of server) to Easter Time (Atlanta)
         $NowDateTime = new DateTime();
+        $NowDateTime -> modify( $TimeZoneOffset );
         $NowDateTimeValue = $NowDateTime -> format( "G:i:s" );
         $arrayvalue -> NOW = $NowDateTimeValue;
 
