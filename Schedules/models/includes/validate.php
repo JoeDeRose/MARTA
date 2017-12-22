@@ -167,6 +167,94 @@ QUERY_CALENDAR;
 	return $row["service_id"];
 }
 
+function _getServiceIDArray() {
+    /*
+        This gets the ServiceID by querying the database based on today's date.
+        The standard MARTA uses (which is hard-coded elsewhere by necessity) is:
+            5 = Weekday
+            3 = Saturday
+            4 = Sunday
+    */
+	global $mysqli;
+
+// HEREDOC ------------------------------------------------------------------------
+	$query_service_ids = <<<QUERY_SERVICE_IDS
+
+SELECT
+  service_id,
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday,
+  sunday,
+  CASE
+    WHEN monday = 1 AND tuesday = 1 AND wednesday = 1 AND thursday = 1 AND friday = 1 AND saturday = 1 AND sunday = 1 THEN 'Every Day'
+    WHEN monday = 1 AND tuesday = 1 AND wednesday = 1 AND thursday = 1 AND friday = 1 AND saturday = 1 THEN 'Weekday and Saturday'
+    WHEN monday = 1 AND tuesday = 1 AND wednesday = 1 AND thursday = 1 AND friday = 1 THEN 'Weekday'
+    WHEN saturday = 1 AND sunday = 1 THEN 'Weekend'
+    ELSE
+      CONCAT
+        (
+          CASE
+            WHEN monday = 1 THEN 'Monday'
+            ELSE ''
+          END,
+          CASE
+            WHEN tuesday = 1 THEN 'Tuesday'
+            ELSE ''
+          END,
+          CASE
+            WHEN wednesday = 1 THEN 'Wednesday'
+            ELSE ''
+          END,
+          CASE
+            WHEN thursday = 1 THEN 'Thursday'
+            ELSE ''
+          END,
+          CASE
+            WHEN friday = 1 THEN 'Friday'
+            ELSE ''
+          END,
+          CASE
+            WHEN saturday = 1 THEN 'Saturday'
+            ELSE ''
+          END,
+          CASE
+            WHEN sunday = 1 THEN 'Sunday'
+            ELSE ''
+          END
+        )
+  END AS description
+FROM calendar
+ORDER BY
+  monday DESC,
+  tuesday DESC,
+  wednesday DESC,
+  thursday DESC,
+  friday DESC,
+  saturday DESC,
+  sunday DESC
+
+QUERY_SERVICE_IDS;
+// --------------------------------------------------------------------------------
+
+    // Write the query to a results variable:
+    $results_service_ids = $mysqli -> query( $query_service_ids );
+    // Create an array to hold the results as they are extracted from the query:
+    $service_id_array = array();
+    // Cycle through the rows of the query results:
+    while ( $row = $results_service_ids -> fetch_assoc() ) {
+        // Write the query columns to local variables for readability:
+        $ThisSerivceID = $row[ "service_id" ];
+        $ThisDescription = $row[ "description" ];
+        // Write the $ThisValue and $ThisComment results into the child array:
+        $service_id_array[ $ThisSerivceID ] = $ThisDescription;
+    }
+    return $service_id_array;
+}
+
 function _capitalize_street_name( $street_name ) {
 	
 	$result = $street_name;

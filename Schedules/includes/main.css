@@ -324,7 +324,7 @@
 				text-align: left;
                 background-color: dimgray;
                 color: #F7CD30;
-                font-size: 0.7rem;
+                font-size: 1rem;
                 cursor: default;
 			}
 	
@@ -470,6 +470,38 @@
 			{
 				white-space: nowrap;
 			}
+
+	/* .realtime */
+        
+        .realtimeGap
+            {
+                padding-left: 1em;
+            }
+        
+        .realtimeStrikethrough
+            {
+                text-decoration: line-through;
+            }
+
+        .realtimeDescription
+            {
+                font-size: 0.8em;
+            }
+
+        .realtimeLate
+            {
+                color: MediumOrchid;
+            }
+
+        .realtimeEarly
+            {
+                color: Red;
+            }
+
+        .realtimeOnTime
+            {
+                color: Green;
+            }
 
 	/* .offset */
 

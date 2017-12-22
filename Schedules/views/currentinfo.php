@@ -471,6 +471,7 @@ endforeach;
 			dataType: "json",
 			url: "models/ajax/realtime.php?route=<?=$validated_route?>",
 			success: function( data ) {
+                // console.log( data );
 				showData = JSON.stringify( data );	// Use only for diagnostics.
 				RemoveMarkers();
 				Count = 0;

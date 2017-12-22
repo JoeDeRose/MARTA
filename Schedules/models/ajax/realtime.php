@@ -230,6 +230,45 @@ foreach( $RealTimeResult as $key => $value ):
 ?>
             "<?=$ThisVehicleID?>" :
                 {
+                    "TRIPID" : "<?=$value -> TRIPID?>",
+                    "ADHERENCE" : "<?=$value -> ADHERENCE?>",
+                    "DIRECTION" : "<?=$value -> DIRECTION?>",
+                    "LATITUDE" : "<?=$value -> LATITUDE?>",
+                    "LONGITUDE" : "<?=$value -> LONGITUDE?>",
+                    "MSGTIME" : "<?=$value -> MSGTIME?>",
+                    "HEADSIGN" : "<?=$value -> HEADSIGN?>",
+                    "BUS_BEARING_END_OF_LINE" : "<?=$ThisBusBearingEndOfLine?>",
+                    "BUS_BEARING_ANGLE" : "<?=$ThisBusBearingAngle?>"
+                }<?=$Comma?> 
+<?php
+    endif;
+endforeach;
+?>
+        },
+    "TRIPIDs" :
+        {
+<?php
+$NumberOfVehicles = count( $RealTimeResult ) - $VehiclesWithMissingTripID;
+$ThisTrip = 0;
+foreach( $RealTimeResult as $key => $value ):
+    if ( $value -> TRIPID != "" && $value -> TRIPID != "0" ) :
+        $ThisTrip++;
+        $Comma = ( $ThisTrip == $NumberOfVehicles ) ? "" : ",";
+        $ThisVehicleID = $value -> TRIPID;
+        if ( property_exists( $value, "BUS_BEARING_END_OF_LINE" ) )  {
+            $ThisBusBearingEndOfLine = $value -> BUS_BEARING_END_OF_LINE;
+        } else {
+            $ThisBusBearingEndOfLine = "<span style=\"color: red; font-weight: bold;\" >TRIPID Not Found</span>";
+        }
+        if ( property_exists( $value, "BUS_BEARING_ANGLE" ) )  {
+            $ThisBusBearingAngle = $value -> BUS_BEARING_ANGLE;
+        } else {
+            $ThisBusBearingAngle = "<span style=\"color: red; font-weight: bold;\" >TRIPID Not Found</span>";
+        }
+?>
+            "<?=$ThisVehicleID?>" :
+                {
+                    "VEHICLE" : "<?=$value -> VEHICLE?>",
                     "ADHERENCE" : "<?=$value -> ADHERENCE?>",
                     "DIRECTION" : "<?=$value -> DIRECTION?>",
                     "LATITUDE" : "<?=$value -> LATITUDE?>",
