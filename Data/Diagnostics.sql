@@ -260,7 +260,7 @@ ORDER BY
 COMMIT;
 
 -- Find stop code for Five Points Station.
--- Most recent value is 908981; if changed:
+-- Most recent value is 797; if changed:
 --   (1) Update the most recent value in the line above;
 --   (2) Use the new value to populate "C:\Users\Joe DeRose\Documents\My Webs\Joe - Bluehost\MARTA\Schedules\models\route.php", line 186.
 -- Execute in Toad with F9
