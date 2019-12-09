@@ -10,7 +10,7 @@ route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_
 7642,12,Howell Mill Road / Cumberland,,3,,819FF7,
 7643,14,14th Street / Blandtown,,3,,819FF7,
 7644,15,Candler Road,,3,,819FF7,
-7646,19,Clairmont Road,,3,,819FF7,
+7646,19,Clairmont Road / West Howard Avenue,,3,,819FF7,
 7647,21,Memorial Drive,,3,,819FF7,
 7648,24,McAfee / Hosea Williams,,3,,819FF7,
 7649,25,Peachtree Industrial Boulevard,,3,,819FF7,

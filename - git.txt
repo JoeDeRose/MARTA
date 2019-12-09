@@ -1,6 +1,7 @@
 STANDARD BACKUP
 ---------------
 cd "C:\Users\\Joe DeRose\Documents\My Webs\Joe - Bluehost\MARTA"
+git status
 git add --all
 git status
 git commit -m "chore: GTFS Update of __________"
