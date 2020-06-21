@@ -13,6 +13,7 @@ route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_
 14568,49,McDonough Boulevard,,3,,808000
 14570,50,Donald Lee Hollowell Parkway,,3,,FF8000
 14572,51,Joseph E Boone Boulevard,,3,,FF00FF
+14673,55,Jonesboro Road,,3,,FF8000
 14574,60,Hightower Road,,3,,FFFF00
 14576,71,Cascade Road,,3,,0000FF
 14578,73,Fulton Industrial               ,,3,,00FFFF
@@ -31,6 +32,7 @@ route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_
 14603,120,East Ponce De Leon Avenue,,3,,FF00FF
 14605,121,Memorial Drive / N Hairston Road,,3,,00FFFF
 14637,124,Pleasantdale Road            ,,3,,008000
+14687,125,Clarkston,,3,,FF8000
 14607,172,Sylvan Road / Virginia Avenue,,3,,008000
 14608,178,Empire Blvd / Southside Ind Park,,3,,FFFF00
 14609,185,Alpharetta,,3,,0000FF
