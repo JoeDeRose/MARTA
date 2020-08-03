@@ -22,12 +22,14 @@ route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_
 14584,83,Campbellton Road,,3,,FFFF00
 14586,84,Washington Rd/Camp Crk Marketplace,,3,,FF00FF
 14588,86,Fairington Road,,3,,008080
+14722,87,Roswell Road / Sandy Springs,,3,,00FFFF
 14590,89,Old National Highway,,3,,00FF00
 14592,95,Metropolitan Parkway,,3,,800000
 14594,102,North Avenue / Little Five Points,,3,,FF00FF
 14595,107,Glenwood,,3,,008000
 14597,110,Peachtree Road / Buckhead,,3,,008080
 14599,111,Snapfinger Woods,,3,,00FF00
+14712,115,Covington Highway,,3,,00FF00
 14601,117,Rockbridge Road / Panola Road,,3,,0000FF
 14603,120,East Ponce De Leon Avenue,,3,,FF00FF
 14605,121,Memorial Drive / N Hairston Road,,3,,00FFFF
@@ -35,6 +37,7 @@ route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_
 14687,125,Clarkston,,3,,FF8000
 14607,172,Sylvan Road / Virginia Avenue,,3,,008000
 14608,178,Empire Blvd / Southside Ind Park,,3,,FFFF00
+14701,181,Washington Road / Fairburn,,3,,008000
 14609,185,Alpharetta,,3,,0000FF
 14611,186,Rainbow Drive / South DeKalb     ,,3,,00FF00
 14613,188,Oakley Industrial,,3,,FF00FF
