@@ -1,53 +1,57 @@
 route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_text_color
-14549,2,Ponce de Leon Avenue / Druid Hills,,3,,00FF00
-14550,4,Moreland Avenue,,3,,FF00FF
-14551,5,Piedmont Road / Sandy Springs,,3,,008000
-14553,6,Clifton Road / Emory,,3,,FF8040
-14554,15,Candler Road,,3,,FFFF00
-14556,19,Clairmont Road / Howard Avenue,,3,,008080
-14558,21,Memorial Drive                  ,,3,,FF00FF
-14560,26,Marietta Street / Perry Boulevard,,3,,00FFFF
-14562,39,Buford Highway                  ,,3,,0000FF
-14564,40,Peachtree Street / Downtown,,3,,FF8040
-14566,42,Pryor Road,,3,,FFFF00
-14568,49,McDonough Boulevard,,3,,808000
-14570,50,Donald Lee Hollowell Parkway,,3,,FF8000
-14572,51,Joseph E Boone Boulevard,,3,,FF00FF
-14673,55,Jonesboro Road,,3,,FF8000
-14574,60,Hightower Road,,3,,FFFF00
-14576,71,Cascade Road,,3,,0000FF
-14578,73,Fulton Industrial               ,,3,,00FFFF
-14580,78,Cleveland Avenue,,3,,FF8000
-14582,82,Camp Creek / South Fulton Parkway,,3,,00FF00
-14584,83,Campbellton Road,,3,,FFFF00
-14586,84,Washington Rd/Camp Crk Marketplace,,3,,FF00FF
-14588,86,Fairington Road,,3,,008080
-14722,87,Roswell Road / Sandy Springs,,3,,00FFFF
-14590,89,Old National Highway,,3,,00FF00
-14592,95,Metropolitan Parkway,,3,,800000
-14594,102,North Avenue / Little Five Points,,3,,FF00FF
-14595,107,Glenwood,,3,,008000
-14597,110,Peachtree Road / Buckhead,,3,,008080
-14599,111,Snapfinger Woods,,3,,00FF00
-14712,115,Covington Highway,,3,,00FF00
-14601,117,Rockbridge Road / Panola Road,,3,,0000FF
-14603,120,East Ponce De Leon Avenue,,3,,FF00FF
-14605,121,Memorial Drive / N Hairston Road,,3,,00FFFF
-14637,124,Pleasantdale Road            ,,3,,008000
-14687,125,Clarkston,,3,,FF8000
-14607,172,Sylvan Road / Virginia Avenue,,3,,008000
-14608,178,Empire Blvd / Southside Ind Park,,3,,FFFF00
-14701,181,Washington Road / Fairburn,,3,,008000
-14609,185,Alpharetta,,3,,0000FF
-14611,186,Rainbow Drive / South DeKalb     ,,3,,00FF00
-14613,188,Oakley Industrial,,3,,FF00FF
-14614,191,Riverdale / ATL Intl Terminal,,3,,FF8000
-14616,192,Old Dixie / Tara Boulevard,,3,,008000
-14638,193,Morrow / Jonesboro,,3,,008000
-14620,196,Upper Riverdale / Southlake,,3,,00FFFF
-14622,816,North Highland Avenue,,3,,800080
-14624,ATLSC,Atlanta Streetcar,,1,,0000FF
-14626,BLUE,BLUE,,1,,0000FF
-14627,GOLD,GOLD,,1,,DDDD00
-14628,GREEN,GREEN,,1,,008000
-14629,RED,RED,,1,,CE0000
+14735,2,Ponce de Leon Avenue / Druid Hills,,3,,00FF00
+14736,4,Moreland Avenue,,3,,FF00FF
+14737,5,Piedmont Road / Sandy Springs,,3,,008000
+14841,6,Clifton Road / Emory,,3,,FF8040
+14864,12,Howell Mill Road / Cumberland,,3,,FF00FF
+14740,15,Candler Road,,3,,FFFF00
+14742,19,Clairmont Road / Howard Avenue,,3,,008080
+14744,21,Memorial Drive                  ,,3,,FF00FF
+14746,26,Marietta Street / Perry Boulevard,,3,,00FFFF
+14748,39,Buford Highway                  ,,3,,0000FF
+14750,40,Peachtree Street / Downtown,,3,,FF8040
+14752,42,Pryor Road,,3,,FFFF00
+14754,49,McDonough Boulevard,,3,,808000
+14756,50,Donald Lee Hollowell Parkway,,3,,FF8000
+14758,51,Joseph E Boone Boulevard,,3,,FF00FF
+14760,55,Jonesboro Road,,3,,FF8000
+14762,60,Hightower Road,,3,,FFFF00
+14764,71,Cascade Road,,3,,0000FF
+14766,73,Fulton Industrial               ,,3,,00FFFF
+14991,74,Flat Shoals Road,,3,,008000
+14768,78,Cleveland Avenue,,3,,FF8000
+14993,81,Venetian Hills / Delowe Drive,,3,,00FF00
+14844,82,Camp Creek / South Fulton Parkway,,3,,00FF00
+14845,83,Campbellton Road,,3,,FF00FF
+14774,84,Washington Rd/Camp Crk Marketplace,,3,,FF00FF
+14776,86,Fairington Road,,3,,008080
+14778,87,Roswell Road / Sandy Springs,,3,,00FFFF
+14847,89,Old National Highway,,3,,00FF00
+14782,95,Metropolitan Parkway,,3,,800000
+14784,102,North Avenue / Little Five Points,,3,,FF00FF
+14785,107,Glenwood,,3,,008000
+14787,110,Peachtree Road / Buckhead,,3,,008080
+14789,111,Snapfinger Woods,,3,,00FF00
+14791,115,Covington Highway,,3,,00FF00
+14857,116,Redan Road,,3,,00FFFF
+14793,117,Rockbridge Road / Panola Road,,3,,0000FF
+14795,120,East Ponce De Leon Avenue,,3,,FF00FF
+14797,121,Memorial Drive / N Hairston Road,,3,,00FFFF
+14799,124,Pleasantdale Road            ,,3,,008000
+14800,125,Clarkston,,3,,FF8000
+14802,172,Sylvan Road / Virginia Avenue,,3,,008000
+14803,178,Empire Blvd / Southside Ind Park,,3,,FFFF00
+14804,181,Washington Road / Fairburn,,3,,008000
+14806,185,Alpharetta,,3,,0000FF
+14852,186,Rainbow Drive / South DeKalb     ,,3,,00FF00
+14809,188,Oakley Industrial,,3,,FF00FF
+14810,191,Riverdale / ATL Intl Terminal,,3,,FF8000
+14812,192,Old Dixie / Tara Boulevard,,3,,008000
+14814,193,Morrow / Jonesboro,,3,,008000
+14816,196,Upper Riverdale / Southlake,,3,,00FFFF
+14827,816,North Highland Avenue,,3,,800080
+14829,ATLSC,Atlanta Streetcar,,1,,0000FF
+14831,BLUE,BLUE,,1,,0000FF
+14832,GOLD,GOLD,,1,,DDDD00
+14833,GREEN,GREEN,,1,,008000
+14834,RED,RED,,1,,CE0000
