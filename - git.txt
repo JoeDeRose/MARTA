@@ -1,6 +1,6 @@
 STANDARD BACKUP
 ---------------
-cd "C:\Users\\Joe DeRose\Documents\My Webs\Joe - Bluehost\MARTA"
+cd "C:\Users\DeRos\Documents\My Webs\Joe - Bluehost\MARTA"
 git status
 git add --all
 git status
