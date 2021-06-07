@@ -70,7 +70,7 @@ SELECT
 FROM trips;
 -- ENDREGION
 
--- Find instances where the same headsign is used for opposite directions.
+-- (Optional) Find instances where the same headsign is used for opposite directions.
 -- Execute in Toad with F9
 -- REGION
 SELECT DISTINCT
@@ -90,7 +90,7 @@ FROM trips T1
 WHERE T1.direction_id = 0;
 --ENDREGION
 
--- Find trips where the headsign is blank.
+-- (Optional) sFind trips where the headsign is blank.
 -- Execute in Toad with F9
 --REGION
 SELECT DISTINCT
@@ -104,7 +104,7 @@ WHERE
   OR TRIM(T.trip_headsign) IS NULL;
 --ENDREGION
 
--- Find instances where a date appears only once in calendar_dates.
+-- (Optional) Find instances where a date appears only once in calendar_dates.
 -- Execute in Toad with F9
 --REGION
 SELECT
@@ -116,7 +116,7 @@ HAVING COUNT(*) < 2;
 
 -- Find instances where calendar dates are outside the expected range.
 -- Execute in Toad with F9
--- DO NO EXECUTE UNLESS THERE IS A PUBLISHED END DATE TO THE SCHEDULE
+-- DO NOT EXECUTE UNLESS THERE IS A PUBLISHED END DATE TO THE SCHEDULE
 --REGION
 SELECT
   start_date,
@@ -157,7 +157,7 @@ FROM calendar;
 
 -- Fix the bad calendar records:
 -- Execute in Toad with F5
--- DO NO EXECUTE UNLESS THERE IS A PUBLISHED END DATE TO THE SCHEDULE
+-- DO NOT EXECUTE UNLESS THERE IS A PUBLISHED END DATE TO THE SCHEDULE
 --REGION
 UPDATE calendar
 SET

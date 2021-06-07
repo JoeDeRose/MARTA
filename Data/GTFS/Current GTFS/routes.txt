@@ -113,3 +113,4 @@ route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_
 8746,GOLD,GOLD-Northeast Doraville Line,,1,,FFBF00,
 8748,GREEN,GREEN-Proctor Creek Line,,1,,04B404,
 8747,RED,RED-North South North Springs Line,,1,,FF0000,
+11843,ATLSC,Atlanta Streetcar,,1,,FF0000,
