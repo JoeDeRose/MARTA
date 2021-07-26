@@ -90,7 +90,7 @@ FROM trips T1
 WHERE T1.direction_id = 0;
 --ENDREGION
 
--- (Optional) sFind trips where the headsign is blank.
+-- (Optional) Find trips where the headsign is blank.
 -- Execute in Toad with F9
 --REGION
 SELECT DISTINCT
