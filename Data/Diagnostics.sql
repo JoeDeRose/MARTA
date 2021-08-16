@@ -263,7 +263,7 @@ COMMIT;
 -- Most recent value is 797; if changed:
 --   (1) Update the most recent value in the line above;
 --   (2) Use the new value to populate line 186 of
---       C:\Users\Joe DeRose\Documents\My Webs\Joe - Bluehost\MARTA\Schedules\models\route.php
+--       C:\Users\DeRos\Documents\My Webs\Joe - Bluehost\MARTA\Schedules\models\route.php
 -- Execute in Toad with F9
 --REGION
 SELECT
