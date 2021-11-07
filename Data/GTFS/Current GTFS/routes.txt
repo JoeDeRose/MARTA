@@ -1,119 +1,119 @@
-route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
-15664,1,Marietta Blvd/Joseph E Lowery Blvd,,3,https://itsmarta.com/1.aspx,FF00FF,
-15665,2,Ponce de Leon Avenue / Druid Hills,,3,https://itsmarta.com/2.aspx,008000,
-15666,3,Martin Luther King Jr Dr/Auburn Ave,,3,https://itsmarta.com/3.aspx,FF8000,
-15667,4,Moreland Avenue,,3,https://itsmarta.com/4.aspx,FF00FF,
-15668,5,Piedmont Road / Sandy Springs,,3,https://itsmarta.com/5.aspx,00FFFF,
-15669,6,Clifton Road / Emory,,3,https://itsmarta.com/6.aspx,008080,
-15670,8,North Druid Hills Road,,3,https://itsmarta.com/8.aspx,008000,
-15671,9,Boulevard / Tilson Road,,3,https://itsmarta.com/9.aspx,00FFFF,
-15672,12,Howell Mill Road / Cumberland,,3,https://itsmarta.com/12.aspx,FF00FF,
-15673,14,14th Street / Blandtown,,3,https://itsmarta.com/14.aspx,00FF00,
-15674,15,Candler Road,,3,https://itsmarta.com/15.aspx,00FF00,
-15675,19,Clairmont Road / Howard Avenue,,3,https://itsmarta.com/19.aspx,FF00FF,
-15676,21,Memorial Drive,,3,https://itsmarta.com/21.aspx,FF00FF,
-15677,24,McAfee / Hosea Williams,,3,https://itsmarta.com/24.aspx,FF00FF,
-15678,25,Peachtree Boulevard,,3,https://itsmarta.com/25.aspx,FF00FF,
-15679,26,Marietta Street / Perry Boulevard,,3,https://itsmarta.com/26.aspx,008080,
-15680,27,Cheshire Bridge Road,,3,https://itsmarta.com/27.aspx,FF0080,
-15681,30,LaVista Road,,3,https://itsmarta.com/30.aspx,00FF00,
-15682,32,Bouldercrest,,3,https://itsmarta.com/32.aspx,00FF00,
-15683,34,Gresham Road,,3,https://itsmarta.com/34.aspx,FF00FF,
-15684,36,N Decatur Road / Virginia Highland,,3,https://itsmarta.com/36.aspx,A6CAF0,
-15685,37,Defoors Ferry Road,,3,https://itsmarta.com/37.aspx,00FF80,
-15686,39,Buford Highway,,3,https://itsmarta.com/39.aspx,008000,
-15687,40,Peachtree Street / Downtown,,3,https://itsmarta.com/40.aspx,FFFF00,
-15688,42,Pryor Road,,3,https://itsmarta.com/42.aspx,FF8000,
-15689,47,I-85 Access Road,,3,https://itsmarta.com/47.aspx,FF8080,
-15690,49,McDonough Boulevard,,3,https://itsmarta.com/49.aspx,FF8040,
-15691,50,Donald Lee Hollowell Parkway,,3,https://itsmarta.com/50.aspx,00FF00,
-15692,51,Joseph E Boone Boulevard,,3,https://itsmarta.com/51.aspx,00FFFF,
-15693,55,Jonesboro Road,,3,https://itsmarta.com/55.aspx,FF8000,
-15694,58,Hollywood Road / Lucile Avenue,,3,https://itsmarta.com/58.aspx,A6CAF0,
-15695,60,Hightower Road,,3,https://itsmarta.com/60.aspx,00FFFF,
-15696,66,Lynhurst Drive / Princeton Lakes,,3,https://itsmarta.com/66.aspx,00FFFF,
-15697,68,Benjamin E Mays Drive,,3,https://itsmarta.com/68.aspx,FF0000,
-15698,71,Cascade Road,,3,https://itsmarta.com/71.aspx,FF8080,
-15699,73,Fulton Industrial,,3,https://itsmarta.com/73.aspx,008000,
-15700,74,Flat Shoals Road,,3,https://itsmarta.com/74.aspx,FF8000,
-15701,75,Lawrenceville Highway,,3,https://itsmarta.com/75.aspx,00FF00,
-15702,78,Cleveland Avenue,,3,https://itsmarta.com/78.aspx,00FF00,
-15703,79,Sylvan Hills,,3,https://itsmarta.com/79.aspx,FF8000,
-15704,81,Venetian Hills / Delowe Drive,,3,https://itsmarta.com/81.aspx,00FF00,
-15705,82,Camp Creek / South Fulton Parkway,,3,https://itsmarta.com/82.aspx,008000,
-15706,83,Campbellton Road,,3,https://itsmarta.com/83.aspx,00FF00,
-15707,84,Washington Rd/Camp Crk Marketplace,,3,https://itsmarta.com/84.aspx,00FFFF,
-15708,85,Roswell,,3,https://itsmarta.com/85.aspx,008000,
-15709,86,Fairington Road,,3,https://itsmarta.com/86.aspx,A6CAF0,
-15710,87,Roswell Road / Sandy Springs,,3,https://itsmarta.com/87.aspx,00FFFF,
-15711,89,Old National Highway,,3,https://itsmarta.com/89.aspx,FF8040,
-15712,93,Headland Drive / Main Street,,3,https://itsmarta.com/93.aspx,00FFFF,
-15713,94,Northside Drive,,3,https://itsmarta.com/94.aspx,008000,
-15714,95,Metropolitan Parkway,,3,https://itsmarta.com/95.aspx,FF0000,
-15715,102,North Avenue / Little Five Points,,3,https://itsmarta.com/102.aspx,00FF00,
-15716,103,Peeler Road,,3,https://itsmarta.com/103.aspx,00FFFF,
-15717,104,Winters Chapel Road,,3,https://itsmarta.com/104.aspx,00FFFF,
-15718,107,Glenwood,,3,https://itsmarta.com/107.aspx,008000,
-15719,110,Peachtree Road / Buckhead,,3,https://itsmarta.com/110.aspx,FF8040,
-15720,111,Snapfinger Woods,,3,https://itsmarta.com/111.aspx,008000,
-15721,114,Columbia Drive,,3,https://itsmarta.com/114.aspx,FF8040,
-15722,115,Covington Highway,,3,https://itsmarta.com/115.aspx,00FF00,
-15723,116,Redan Road,,3,https://itsmarta.com/116.aspx,00FFFF,
-15724,117,Rockbridge Road / Panola Road,,3,https://itsmarta.com/117.aspx,00FF00,
-15725,119,Hairston Road / Stone Mtn Village,,3,https://itsmarta.com/119.aspx,008080,
-15726,120,East Ponce De Leon Avenue,,3,https://itsmarta.com/120.aspx,FF00FF,
-15727,121,Memorial Drive / N Hairston Road,,3,https://itsmarta.com/121.aspx,00FFFF,
-15728,123,Church Street,,3,https://itsmarta.com/123.aspx,00FF00,
-15729,124,Pleasantdale Road,,3,https://itsmarta.com/124.aspx,FF00FF,
-15730,125,Clarkston,,3,https://itsmarta.com/125.aspx,008000,
-15731,126,Embry Hills,,3,https://itsmarta.com/126.aspx,008000,
-15732,132,Tilly Mill Road,,3,https://itsmarta.com/132.aspx,FF00FF,
-15733,133,Shallowford Road,,3,https://itsmarta.com/133.aspx,FFFF00,
-15734,140,North Point Parkway,,3,https://itsmarta.com/140.aspx,FF8000,
-15735,141,Haynes Bridge Road / Milton,,3,https://itsmarta.com/141.aspx,FF00FF,
-15736,142,East Holcomb Bridge Road,,3,https://itsmarta.com/142.aspx,FF00FF,
-15737,143,Windward Park & Ride,,3,https://itsmarta.com/143.aspx,00FFFF,
-15738,148,Mount Vernon Highway,,3,https://itsmarta.com/148.aspx,00FF00,
-15739,150,Dunwoody Village,,3,https://itsmarta.com/150.aspx,00FFFF,
-15740,153,James Jackson Parkway,,3,https://itsmarta.com/153.aspx,FF8000,
-15741,155,Pittsburgh,,3,https://itsmarta.com/155.aspx,00FFFF,
-15742,162,Myrtle Drive / Alison Court,,3,https://itsmarta.com/162.aspx,008080,
-15743,165,Fairburn Road,,3,https://itsmarta.com/165.aspx,00FFFF,
-15744,172,Sylvan Road / Virginia Avenue,,3,https://itsmarta.com/172.aspx,FF8040,
-15745,178,Empire Blvd / Southside Ind Park,,3,https://itsmarta.com/178.aspx,00FFFF,
-15746,180,Roosevelt Highway,,3,https://itsmarta.com/180.aspx,FF00FF,
-15747,181,Washington Road / Fairburn,,3,https://itsmarta.com/181.aspx,FF8040,
-15748,183,Greenbriar,,3,https://itsmarta.com/183.aspx,008000,
-15749,185,Alpharetta,,3,https://itsmarta.com/185.aspx,FF8000,
-15750,186,Rainbow Drive / South DeKalb,,3,https://itsmarta.com/186.aspx,00FF00,
-15751,188,Oakley Industrial,,3,https://itsmarta.com/188.aspx,FF00FF,
-15752,189,Flat Shoals Road / Scofield Road,,3,https://itsmarta.com/189.aspx,FF00FF,
-15753,191,Riverdale / ATL Intl Terminal,,3,https://itsmarta.com/191.aspx,FF00FF,
-15754,192,Old Dixie / Tara Boulevard,,3,https://itsmarta.com/192.aspx,008000,
-15755,193,Morrow / Jonesboro,,3,https://itsmarta.com/193.aspx,008080,
-15756,194,Conley Road / Mt Zion,,3,https://itsmarta.com/194.aspx,008000,
-15757,195,Forest Parkway,,3,https://itsmarta.com/195.aspx,FF00FF,
-15758,196,Upper Riverdale / Southlake,,3,https://itsmarta.com/196.aspx,00FFFF,
-15792,197,Southlake Parkway,,3,https://itsmarta.com/197.aspx,FF00FF,
-15793,198,Battle Creek Road,,3,https://itsmarta.com/198.aspx,00FF00,
-15759,201,Six Flags Over Georgia,,3,https://itsmarta.com/201.aspx,008000,
-15760,221,Memorial Drive Limited,,3,https://itsmarta.com/221.aspx,FF00FF,
-15761,295,Metropolitan Campus Express,,3,https://itsmarta.com/295.aspx,008000,
-15771,800,Lovejoy,,3,https://itsmarta.com/800.aspx,00FF00,
-15772,809,Monroe Drive / Boulevard,,3,https://itsmarta.com/809.aspx,FF0000,
-15773,813,Atlanta University Center,,3,https://itsmarta.com/813.aspx,00FFFF,
-15774,816,North Highland Avenue,,3,https://itsmarta.com/816.aspx,00FFFF,
-15775,823,Belvedere,,3,https://itsmarta.com/823.aspx,00FF00,
-15776,825,Johnson Ferry Road,,3,https://itsmarta.com/825.aspx,FF0000,
-15777,832,Grant Park,,3,https://itsmarta.com/832.aspx,00FF00,
-15778,850,Carroll Heights / Fairburn Heights,,3,https://itsmarta.com/850.aspx,FF00FF,
-15779,853,Center Hill,,3,https://itsmarta.com/853.aspx,A6CAF0,
-15780,856,Baker Hills / Wilson Mill Meadows,,3,https://itsmarta.com/856.aspx,FF8040,
-15781,865,Boulder Park Drive,,3,https://itsmarta.com/865.aspx,00FF00,
-15782,867,Peyton Forest / Dixie Hills,,3,https://itsmarta.com/867.aspx,00FFFF,
-15783,899,Old Fourth Ward,,3,https://itsmarta.com/899.aspx,FF00FF,
-15785,ATLSC,Atlanta Streetcar,,0,https://itsmarta.com/Atlanta-Street-Car-Info.aspx,FF00FF,
-15787,BLUE,BLUE,,1,https://itsmarta.com/Blue-Line.aspx,0075B2,
-15788,GOLD,GOLD,,1,https://itsmarta.com/Green-Line.aspx,D4A723,
-15789,GREEN,GREEN,,1,https://itsmarta.com/Green-Line.aspx,009D4B,
-15790,RED,RED,,1,https://itsmarta.com/Red-Line.aspx,CE242B,
+route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+15664,1,Marietta Blvd/Joseph E Lowery Blvd,,3,FF00FF
+15665,2,Ponce de Leon Avenue / Druid Hills,,3,008000
+15666,3,Martin Luther King Jr Dr/Auburn Ave,,3,FF8000
+15667,4,Moreland Avenue,,3,FF00FF
+15668,5,Piedmont Road / Sandy Springs,,3,00FFFF
+15669,6,Clifton Road / Emory,,3,008080
+15670,8,North Druid Hills Road,,3,008000
+15671,9,Boulevard / Tilson Road,,3,00FFFF
+15672,12,Howell Mill Road / Cumberland,,3,FF00FF
+15673,14,14th Street / Blandtown,,3,00FF00
+15674,15,Candler Road,,3,00FF00
+15675,19,Clairmont Road / Howard Avenue,,3,FF00FF
+15676,21,Memorial Drive,,3,FF00FF
+15677,24,McAfee / Hosea Williams,,3,FF00FF
+15678,25,Peachtree Boulevard,,3,FF00FF
+15679,26,Marietta Street / Perry Boulevard,,3,008080
+15680,27,Cheshire Bridge Road,,3,FF0080
+15681,30,LaVista Road,,3,00FF00
+15682,32,Bouldercrest,,3,00FF00
+15683,34,Gresham Road,,3,FF00FF
+15684,36,N Decatur Road / Virginia Highland,,3,A6CAF0
+15685,37,Defoors Ferry Road,,3,00FF80
+15686,39,Buford Highway,,3,008000
+15687,40,Peachtree Street / Downtown,,3,FFFF00
+15688,42,Pryor Road,,3,FF8000
+15689,47,I-85 Access Road,,3,FF8080
+15690,49,McDonough Boulevard,,3,FF8040
+15691,50,Donald Lee Hollowell Parkway,,3,00FF00
+15692,51,Joseph E Boone Boulevard,,3,00FFFF
+15693,55,Jonesboro Road,,3,FF8000
+15694,58,Hollywood Road / Lucile Avenue,,3,A6CAF0
+15695,60,Hightower Road,,3,00FFFF
+15696,66,Lynhurst Drive / Princeton Lakes,,3,00FFFF
+15697,68,Benjamin E Mays Drive,,3,FF0000
+15698,71,Cascade Road,,3,FF8080
+15699,73,Fulton Industrial,,3,008000
+15700,74,Flat Shoals Road,,3,FF8000
+15701,75,Lawrenceville Highway,,3,00FF00
+15702,78,Cleveland Avenue,,3,00FF00
+15703,79,Sylvan Hills,,3,FF8000
+15704,81,Venetian Hills / Delowe Drive,,3,00FF00
+15705,82,Camp Creek / South Fulton Parkway,,3,008000
+15706,83,Campbellton Road,,3,00FF00
+15707,84,Washington Rd/Camp Crk Marketplace,,3,00FFFF
+15708,85,Roswell,,3,008000
+15709,86,Fairington Road,,3,A6CAF0
+15710,87,Roswell Road / Sandy Springs,,3,00FFFF
+15711,89,Old National Highway,,3,FF8040
+15712,93,Headland Drive / Main Street,,3,00FFFF
+15713,94,Northside Drive,,3,008000
+15714,95,Metropolitan Parkway,,3,FF0000
+15715,102,North Avenue / Little Five Points,,3,00FF00
+15716,103,Peeler Road,,3,00FFFF
+15717,104,Winters Chapel Road,,3,00FFFF
+15718,107,Glenwood,,3,008000
+15719,110,Peachtree Road / Buckhead,,3,FF8040
+15720,111,Snapfinger Woods,,3,008000
+15721,114,Columbia Drive,,3,FF8040
+15722,115,Covington Highway,,3,00FF00
+15723,116,Redan Road,,3,00FFFF
+15724,117,Rockbridge Road / Panola Road,,3,00FF00
+15725,119,Hairston Road / Stone Mtn Village,,3,008080
+15726,120,East Ponce De Leon Avenue,,3,FF00FF
+15727,121,Memorial Drive / N Hairston Road,,3,00FFFF
+15728,123,Church Street,,3,00FF00
+15729,124,Pleasantdale Road,,3,FF00FF
+15730,125,Clarkston,,3,008000
+15731,126,Embry Hills,,3,008000
+15732,132,Tilly Mill Road,,3,FF00FF
+15733,133,Shallowford Road,,3,FFFF00
+15734,140,North Point Parkway,,3,FF8000
+15735,141,Haynes Bridge Road / Milton,,3,FF00FF
+15736,142,East Holcomb Bridge Road,,3,FF00FF
+15737,143,Windward Park & Ride,,3,00FFFF
+15738,148,Mount Vernon Highway,,3,00FF00
+15739,150,Dunwoody Village,,3,00FFFF
+15740,153,James Jackson Parkway,,3,FF8000
+15741,155,Pittsburgh,,3,00FFFF
+15742,162,Myrtle Drive / Alison Court,,3,008080
+15743,165,Fairburn Road,,3,00FFFF
+15744,172,Sylvan Road / Virginia Avenue,,3,FF8040
+15745,178,Empire Blvd / Southside Ind Park,,3,00FFFF
+15746,180,Roosevelt Highway,,3,FF00FF
+15747,181,Washington Road / Fairburn,,3,FF8040
+15748,183,Greenbriar,,3,008000
+15749,185,Alpharetta,,3,FF8000
+15750,186,Rainbow Drive / South DeKalb,,3,00FF00
+15751,188,Oakley Industrial,,3,FF00FF
+15752,189,Flat Shoals Road / Scofield Road,,3,FF00FF
+15753,191,Riverdale / ATL Intl Terminal,,3,FF00FF
+15754,192,Old Dixie / Tara Boulevard,,3,008000
+15755,193,Morrow / Jonesboro,,3,008080
+15756,194,Conley Road / Mt Zion,,3,008000
+15757,195,Forest Parkway,,3,FF00FF
+15758,196,Upper Riverdale / Southlake,,3,00FFFF
+15792,197,Southlake Parkway,,3,FF00FF
+15793,198,Battle Creek Road,,3,00FF00
+15759,201,Six Flags Over Georgia,,3,008000
+15760,221,Memorial Drive Limited,,3,FF00FF
+15761,295,Metropolitan Campus Express,,3,008000
+15771,800,Lovejoy,,3,00FF00
+15772,809,Monroe Drive / Boulevard,,3,FF0000
+15773,813,Atlanta University Center,,3,00FFFF
+15774,816,North Highland Avenue,,3,00FFFF
+15775,823,Belvedere,,3,00FF00
+15776,825,Johnson Ferry Road,,3,FF0000
+15777,832,Grant Park,,3,00FF00
+15778,850,Carroll Heights / Fairburn Heights,,3,FF00FF
+15779,853,Center Hill,,3,A6CAF0
+15780,856,Baker Hills / Wilson Mill Meadows,,3,FF8040
+15781,865,Boulder Park Drive,,3,00FF00
+15782,867,Peyton Forest / Dixie Hills,,3,00FFFF
+15783,899,Old Fourth Ward,,3,FF00FF
+15785,ATLSC,Atlanta Streetcar,,0,FF00FF
+15787,BLUE,BLUE,,1,0075B2
+15788,GOLD,GOLD,,1,D4A723
+15789,GREEN,GREEN,,1,009D4B
+15790,RED,RED,,1,CE242B
